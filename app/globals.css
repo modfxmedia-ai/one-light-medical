@@ -1,26 +1,1733 @@
 @import "tailwindcss";
 
+/*
+ * Type sizing note (Josefin Sans)
+ * -------------------------------
+ * Measured against the Montserrat the layout was originally calibrated in,
+ * Josefin Sans has the same cap height (72.3 vs 71.7 at 100px) but a much
+ * shallower x-height (41.4 vs 52.3). Headings therefore keep their sizes --
+ * their optical size and hand-tuned line breaks both come from the capitals --
+ * while body, nav and caption sizes are lifted by ~12% so the lowercase reads
+ * at the intended size. Josefin also sets 2.6% wider, which is inside the
+ * tolerance of every hand-broken line here.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy-950: #031225;
+  --navy-900: #061a30;
+  --navy-800: #0c243d;
+  --navy-700: #164461;
+  --cyan-400: #249de5;
+  --cyan-300: #7ee4ff;
+  --ink: #ffffff;
+  --muted: #c5d4e4;
+  --nav: #b7c7dc;
+  --line: rgba(140, 190, 230, 0.28);
+  --cta: #ff6a3d;
+  --cta-ink: #1a0a04;
+  --grad: linear-gradient(90deg, #2926a8 0%, #3654d2 100%);
+  --navbar-grad: linear-gradient(90deg, #39769e 0%, #354c61 100%);
+  --phone-bg: #164461;
+  --ink-dark: #0a1424;
+  --ink-soft: #1f2c3d;
+  --aqua: #b3f2fe;
+  --aqua-ink: #0f4a69;
+  --pale: #e3fbff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--navy-950);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-josefin);
+  --font-display: var(--font-josefin);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--navy-950);
+  color: var(--ink);
+  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.wrap {
+  width: min(1360px, calc(100% - 4.5rem));
+  margin-inline: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.55rem 1.55rem;
+  border-radius: 999px;
+  font-size: clamp(0.78rem, 1.01vw, 0.92rem);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+.btn-gradient {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(41, 38, 168, 0.35);
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.12);
+}
+
+.btn-ghost {
+  border: 1px solid rgba(190, 214, 240, 0.38);
+  color: #fff;
+  background: rgba(3, 18, 37, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  border-color: #fff;
+}
+
+.btn-aqua {
+  background: linear-gradient(180deg, var(--aqua) 0%, #c0ebf1 100%);
+  color: var(--aqua-ink);
+}
+
+.btn-aqua:hover {
+  filter: brightness(1.04);
+}
+
+/* Header — single row over the hero, matching the Figma frame */
+.site-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  background: transparent;
+}
+
+body:not(:has(.home)) .site-header {
+  position: sticky;
+  top: 0;
+  background: var(--navy-950);
+  border-bottom: 1px solid var(--line);
+}
+
+body:not(:has(.home)) .site-header-inner {
+  padding: 0.85rem 2.75rem;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1.8rem clamp(1rem, 3.8vw, 3.5rem) 0 clamp(1.25rem, 5vw, 4.6rem);
+}
+
+.site-logo {
+  display: block;
+  flex: none;
+  width: clamp(92px, 9.1vw, 140px);
+}
+
+.site-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The pill sits hard against the phone/CTA cluster rather than centred in
+   the viewport, so all three right-hand elements read as one group. */
+.site-nav {
+  margin-left: auto;
+  margin-right: clamp(0.75rem, 1.75vw, 1.6rem);
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 1.95vw, 1.85rem);
+  margin: 0;
+  padding: 1rem clamp(1.3rem, 2.85vw, 2.6rem);
+  list-style: none;
+  color: #fff;
+  font-size: clamp(0.87rem, 1.16vw, 1.06rem);
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: nowrap;
+  background: var(--navbar-grad);
+  border: 1px solid rgba(140, 190, 230, 0.22);
+  border-radius: 999px;
+  box-shadow: 0 0 28px rgba(36, 157, 229, 0.14);
+}
+
+.primary-nav a:hover,
+.services-menu > summary:hover {
+  color: #fff;
+}
+
+.site-nav-toggle {
+  display: none;
+}
+
+.site-nav-toggle > summary {
+  list-style: none;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  color: var(--ink);
+}
+
+.site-nav-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.services-menu {
+  position: relative;
+}
+
+.services-menu > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.services-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.services-menu ul {
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 15rem;
+  margin: 0;
+  padding: 0.55rem;
+  list-style: none;
+  background: #0b1730;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+}
+
+.services-menu li a {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0.4rem;
+  color: var(--nav);
+}
+
+.services-menu li a:hover {
+  background: rgba(74, 212, 255, 0.1);
+  color: #fff;
+}
+
+.header-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: clamp(0.9rem, 1.45vw, 1.35rem);
+}
+
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #fff;
+  font-size: clamp(0.95rem, 1.32vw, 1.19rem);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.phone-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: clamp(34px, 2.9vw, 42px);
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 50%;
+  background: var(--phone-bg);
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .site-header-inner {
+    padding: 1rem 1.25rem 0;
+  }
+
+  .site-nav,
+  .header-actions {
+    display: none;
+  }
+
+  .site-nav-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .site-nav-toggle[open] {
+    position: absolute;
+    inset: 100% 1.25rem auto;
+    padding: 1rem;
+    background: #0b1730;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    /* Eight services plus the top level and the two actions outruns a short
+       viewport, and an absolutely positioned panel would just spill off the
+       bottom with no way to reach the end of it. */
+    max-height: calc(100svh - 5.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .site-nav-toggle[open] .site-nav,
+  .site-nav-toggle[open] .primary-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .site-nav-toggle[open] .btn,
+  .site-nav-toggle[open] .header-phone {
+    display: flex;
+    margin-top: 0.85rem;
+  }
+
+  .services-menu ul {
+    position: static;
+    transform: none;
+    min-width: 0;
+    margin-top: 0.45rem;
+  }
+}
+
+/* Homepage */
+.home {
+  overflow: clip;
+}
+
+.home h1,
+.home h2,
+.home h3,
+.home h4,
+.site-footer h2 {
+  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--navy-950);
+}
+
+/* Pre-composited plate: the artwork already sits at its Figma inset inside a
+   matching glow field, so this is a plain full-bleed cover image. */
+.hero-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: absolute;
+  z-index: 1;
+  top: 64%;
+  left: clamp(1.5rem, 7.3vw, 7.5rem);
+  width: min(32rem, 45vw);
+  transform: translateY(-50%);
+}
+
+.hero h1 {
+  font-size: clamp(1.9rem, 3.3vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: #fff;
+  line-height: 1.21;
+}
+
+.hero-lead {
+  display: block;
+  margin-bottom: 0.14em;
+  font-size: 0.65em;
+  font-weight: 300;
+}
+
+.hero-copy > p {
+  max-width: 27rem;
+  margin: 1.35rem 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.92rem, 1.18vw, 1.06rem);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.hero-rule {
+  width: min(30.5rem, 100%);
+  height: 1px;
+  margin: 1.55rem 0 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.95rem;
+}
+
+/* ---------- Light band: commitment statement + service accordion + why-choose
+   Two sections share one continuous white field with the aurora glows sitting
+   on the wrapper, so the colour runs across the seam between them. ---------- */
+.light-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--ink-dark);
+  background:
+    radial-gradient(40% 24% at 103% 38%, rgba(115, 165, 254, 0.95), rgba(115, 165, 254, 0) 70%),
+    radial-gradient(34% 20% at 101% 64%, rgba(117, 164, 252, 0.9), rgba(117, 164, 252, 0) 70%),
+    radial-gradient(42% 24% at -5% 60%, rgba(169, 230, 250, 0.95), rgba(169, 230, 250, 0) 70%),
+    radial-gradient(34% 17% at 24% 69%, rgba(150, 225, 250, 0.9), rgba(150, 225, 250, 0) 72%),
+    radial-gradient(30% 16% at 88% 74%, rgba(127, 168, 253, 0.75), rgba(127, 168, 253, 0) 72%),
+    #ffffff;
+}
+
+.commitment {
+  padding: 6.5rem 0 0;
+}
+
+.commitment-head {
+  text-align: center;
+}
+
+.commitment-head h2 {
+  max-width: 46rem;
+  margin-inline: auto;
+  font-size: clamp(1.7rem, 3.06vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: -0.01em;
+  color: var(--ink-dark);
+}
+
+.commitment-head p {
+  margin: 1.8rem auto 0;
+  max-width: 46rem;
+  color: var(--ink-soft);
+  font-size: clamp(0.95rem, 1.21vw, 1.09rem);
+}
+
+.svc-track {
+  display: flex;
+  gap: 6px;
+  width: min(1336px, calc(100% - 5rem));
+  margin: 3.25rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-card {
+  position: relative;
+  flex: var(--grow, 1) 1 0;
+  min-width: 0;
+  height: clamp(21rem, 33vw, 30rem);
+  overflow: hidden;
+  border-radius: 14px;
+  transition: flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.svc-card > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svc-card > a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.35rem 1.35rem 2.1rem;
+  color: #fff;
+  /* Figma keeps these photos bright and leans on a light wash for legibility,
+     unlike the heavier scrim on the why-choose cards below. */
+  background: linear-gradient(
+    180deg,
+    rgba(4, 10, 20, 0) 42%,
+    rgba(4, 10, 20, 0.24) 68%,
+    rgba(4, 10, 20, 0.55) 100%
+  );
+}
+
+.svc-badge {
+  position: absolute;
+  top: 1.15rem;
+  left: 1.15rem;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(236, 240, 250, 0.72);
+}
+
+.svc-badge::after {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2926a8;
+}
+
+.svc-body {
+  display: block;
+}
+
+.svc-title {
+  display: block;
+  font-size: clamp(0.92rem, 1.31vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.svc-copy {
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 15.5rem;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(0.76rem, 0.92vw, 0.85rem);
+  line-height: 1.55;
+}
+
+.svc-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  width: 9rem;
+  max-height: 0;
+  margin-top: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 236, 250, 0.45);
+  background: rgba(9, 18, 33, 0.42);
+  font-size: clamp(0.78rem, 0.99vw, 0.9rem);
+  padding-block: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    margin-top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    padding-block 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+}
+
+.svc-card[data-featured="true"] .svc-more {
+  max-height: 2.35rem;
+  margin-top: 1.05rem;
+  padding-block: 0.55rem;
+  opacity: 1;
+}
+
+/* Pointer or keyboard focus overrides the default open card. Padding has to be
+   reset alongside max-height, or the closing card keeps a sliver of button. */
+.svc-track:hover .svc-card,
+.svc-track:focus-within .svc-card {
+  flex-grow: 1;
+}
+
+.svc-track:hover .svc-card .svc-more,
+.svc-track:focus-within .svc-card .svc-more {
+  max-height: 0;
+  margin-top: 0;
+  padding-block: 0;
+  opacity: 0;
+}
+
+.svc-track:hover .svc-card:hover,
+.svc-track:focus-within .svc-card:focus-within {
+  flex-grow: 2;
+}
+
+.svc-track:hover .svc-card:hover .svc-more,
+.svc-track:focus-within .svc-card:focus-within .svc-more {
+  max-height: 2.35rem;
+  margin-top: 1.05rem;
+  padding-block: 0.55rem;
+  opacity: 1;
+}
+
+.why {
+  padding: 4.5rem 0 6.5rem;
+  text-align: center;
+}
+
+.why > .wrap {
+  width: min(1264px, calc(100% - 7rem));
+}
+
+.why h2 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.06rem, 1.39vw, 1.29rem);
+  font-weight: 400;
+  color: var(--ink-dark);
+}
+
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  text-align: left;
+}
+
+.reason {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  aspect-ratio: 406 / 266;
+}
+
+.reason img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reason > div {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.1rem 1.85rem 1.6rem;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 10, 20, 0) 28%,
+    rgba(4, 10, 20, 0.5) 60%,
+    rgba(4, 10, 20, 0.85) 100%
+  );
+}
+
+.reason h3 {
+  font-size: clamp(0.93rem, 1.35vw, 1.22rem);
+  font-weight: 400;
+}
+
+.reason p {
+  margin: 0.45rem 0 0;
+  max-width: 21rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.7rem, 0.84vw, 0.81rem);
+  line-height: 1.5;
+}
+
+.why-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 2.4rem 0 0;
+}
+
+/* Figma sizes this pair shorter than the hero buttons, and pads each one to
+   its own label rather than to a shared rhythm. */
+.why-actions .btn {
+  min-height: 38px;
+  padding-block: 0.35rem;
+}
+
+.why-actions .btn-gradient {
+  padding-inline: 1.72rem;
+}
+
+.why-actions .btn-aqua {
+  padding-inline: 1rem;
+}
+
+/* ---------- Restore banner: full-bleed plate, script watermark, left copy ----- */
+.restore {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* The banner artwork defines the section box at desktop widths, exactly as in
+     the Figma frame; the floor only takes over once the crop gets narrow.
+     The explicit width matters: with width left auto, once min-height wins over
+     the ratio-derived height Chrome runs the ratio backwards and sizes the
+     section from its height, which pushed it ~360px past the viewport between
+     900 and 1390px. Pinning the width keeps the ratio driving height only. */
+  width: 100%;
+  aspect-ratio: 2132 / 738;
+  min-height: 30rem;
+  background: #000205;
+}
+
+.restore-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  pointer-events: none;
+}
+
+/* Solved against the design screenshot: the mark is the olm logo blown up so
+   only its ring and script cross the black half of the plate. */
+.restore-mark {
+  position: absolute;
+  top: 12.6%;
+  left: -22.3%;
+  width: 63.9%;
+  opacity: 0.09;
+  pointer-events: none;
+}
+
+.restore-copy {
+  position: relative;
+  z-index: 1;
+  padding-inline: clamp(1.5rem, 6.7vw, 6.5rem);
+}
+
+.restore h2 {
+  font-size: clamp(1.85rem, 3.3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.243;
+  letter-spacing: -0.005em;
+  color: #fff;
+}
+
+.restore-copy > p {
+  max-width: 42rem;
+  margin: 1.55rem 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.9rem, 1.18vw, 1.07rem);
+  line-height: 1.49;
+}
+
+.restore-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 2.35rem 0 0;
+}
+
+.restore-actions .btn {
+  min-height: 38px;
+  padding-block: 0.35rem;
+}
+
+.restore-actions .btn-gradient {
+  padding-inline: 1.72rem;
+}
+
+.restore-actions .btn-ghost {
+  padding-inline: 1.99rem;
+}
+
+/* ---------- Outcome dials ---------- */
+.outcomes {
+  padding: 5.75rem 0 6.2rem;
+  text-align: center;
+  background: #e3fbff;
+  color: var(--ink-dark);
+}
+
+.outcomes-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.outcomes-head h2 {
+  margin-inline: auto;
+  max-width: 56rem;
+  font-size: clamp(1.7rem, 3.46vw, 3.15rem);
+  font-weight: 400;
+  line-height: 1.215;
+  letter-spacing: -0.012em;
+  color: #202c79;
+}
+
+.outcomes-head p {
+  margin: 1.5rem auto 0;
+  max-width: 60rem;
+  color: #0d1c22;
+  font-size: clamp(0.96rem, 1.4vw, 1.28rem);
+  line-height: 1.3;
+}
+
+.dial-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.9rem, 2.1vw, 1.9rem);
+  width: min(1220px, calc(100% - 5rem));
+  margin: 3.95rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Everything inside a dial is sized against the dial itself, so one set of
+   ratios holds at every breakpoint and the caption can never spill out of the
+   ring. The Figma values are 52px numeral / 12.1px caption in a 283px dial. */
+.dial {
+  position: relative;
+  aspect-ratio: 1;
+  container-type: inline-size;
+}
+
+.dial-arc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-width: 4.95;
+}
+
+.dial-track {
+  stroke: #a7effd;
+}
+
+.dial-progress {
+  stroke: url(#dial-stroke);
+}
+
+/* Figma pins the numeral at a fixed height in every dial instead of centring
+   the block, so a three- and a four-line caption still line up across the row.
+   The percentages resolve against the dial's width, i.e. the diameter. */
+.dial-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 33.4%;
+  text-align: center;
+}
+
+.dial-value {
+  font-size: 18.4cqw;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #0c1420;
+}
+
+.dial-note {
+  margin-top: 3.5%;
+  /* Widened along with the size bump so the hand-broken caption lines still fit
+     the ring rather than wrapping a word down. */
+  max-width: 84cqw;
+  color: #2d3f43;
+  font-size: 4.7cqw;
+  line-height: 1.3;
+}
+
+/* ---------- Testimonials: heading pair over a deck of cards ---------- */
+.testimonials {
+  padding: 7.6rem 0 5.4rem;
+  background: #ffffff;
+  color: var(--ink-dark);
+}
+
+/* The lede starts at 48.5% of the wrap in Figma, not at the halfway point, so
+   the columns are split rather than even. */
+.testimonials-head {
+  display: grid;
+  grid-template-columns: 48.5% 51.5%;
+  align-items: start;
+}
+
+.testimonials-head h2 {
+  margin: 0;
+  font-size: clamp(1.85rem, 3.417vw, 3.075rem);
+  font-weight: 400;
+  line-height: 1.23;
+  letter-spacing: -0.012em;
+  color: #26286f;
+}
+
+.testimonials-head p {
+  margin: 1.4rem 0 0;
+  max-width: 44rem;
+  color: #1a1a1a;
+  font-size: clamp(0.96rem, 1.43vw, 1.28rem);
+  line-height: 1.3;
+}
+
+.deck-stage {
+  margin-top: 9.15rem;
+}
+
+/* One grid cell holds the whole stack, so the deck keeps its height from the
+   card instead of needing absolute positioning -- which is what lets the card
+   grow past its aspect ratio on narrow screens.
+   The deck, not the card, is the query container: a card cannot resolve its own
+   padding against itself, and this way every cqw below is a share of the 517px
+   Figma card. */
+.deck {
+  container-type: inline-size;
+  display: grid;
+  width: min(517px, calc(100% - 5.5rem));
+  margin-inline: auto;
+}
+
+.deck > * {
+  grid-area: 1 / 1;
+}
+
+.deck-slab,
+.deck-card {
+  border-radius: 4px;
+  box-shadow: 0 16px 38px rgba(16, 34, 46, 0.13);
+}
+
+.deck-slab {
+  transform-origin: 50% 50%;
+}
+
+.deck-slab[data-depth="1"] {
+  rotate: 6.4deg;
+  background: #6ddad4;
+}
+
+.deck-slab[data-depth="2"] {
+  rotate: 10.3deg;
+  background: #5accee;
+}
+
+/* Card contents are a fixed share of the card, so the front face is identical
+   at every width. max() keeps the type legible once the card gets small. */
+.deck-card {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 517 / 503;
+  padding-inline: 13.9cqw;
+  rotate: 6.4deg;
+  opacity: 0;
+  background: #6ddad4;
+  pointer-events: none;
+  transition:
+    rotate 0.62s cubic-bezier(0.22, 0.68, 0.3, 1),
+    opacity 0.42s ease,
+    background-color 0.62s ease;
+}
+
+.deck-card[data-current="true"] {
+  z-index: 2;
+  rotate: none;
+  opacity: 1;
+  background: #e3fbff;
+  pointer-events: auto;
+}
+
+.deck-bubble {
+  width: max(1.5rem, 5.8cqw);
+  height: auto;
+  color: #ffffff;
+}
+
+.deck-name {
+  margin: max(0.85rem, 4.24cqw) 0 0;
+  color: #04090d;
+  font-size: max(1.25rem, 5.8cqw);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+.deck-quote {
+  margin: max(0.6rem, 2.88cqw) 0 0;
+  color: #2b3d41;
+  font-size: max(1rem, 3.31cqw);
+  line-height: 1.45;
+}
+
+.deck-quote p {
+  margin: 0;
+}
+
+.deck-date {
+  margin: max(0.75rem, 2.82cqw) 0 0;
+  color: #3c4f54;
+  font-size: max(0.84rem, 2.86cqw);
+  line-height: 1.3;
+}
+
+/* Not in the Figma frame: the deck rotates on its own, and this is the pause
+   and jump-to control that makes that acceptable. */
+.deck-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 3.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deck-dots button {
+  width: 0.62rem;
+  height: 0.62rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #b6e5ef;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.deck-dots button:hover {
+  background: #6ddad4;
+}
+
+.deck-dots button[aria-current="true"] {
+  background: #26286f;
+  transform: scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-card {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* ---------- FAQ accordion ---------- */
+.faq {
+  padding: 1.4rem 0 6.4rem;
+  background: #ffffff;
+  color: var(--ink-dark);
+}
+
+.faq h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3.424vw, 3.08rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  text-align: center;
+  color: #252773;
+}
+
+.faq-list {
+  width: min(942px, 100%);
+  margin: 4.05rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.faq-item {
+  border-bottom: 1px solid #b2e8ea;
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.2rem;
+  padding: 2.05rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-q {
+  flex: 1;
+  color: #0b0d10;
+  font-size: clamp(1.08rem, 1.93vw, 1.74rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.faq-item summary:hover .faq-q,
+.faq-item summary:focus-visible .faq-q {
+  color: #252773;
+}
+
+/* Drawn rather than typed: Figma's open state is a short dash, roughly half the
+   width of the plus, which a glyph swap can't give you. */
+.faq-mark {
+  position: relative;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: 0.15rem;
+}
+
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background: #282b80;
+  transition:
+    width 0.28s ease,
+    opacity 0.22s ease,
+    rotate 0.28s ease;
+}
+
+.faq-mark::before {
+  width: 100%;
+  height: 3px;
+}
+
+.faq-mark::after {
+  width: 3px;
+  height: 100%;
+}
+
+.faq-item[open] .faq-mark::before {
+  width: 50%;
+}
+
+.faq-item[open] .faq-mark::after {
+  opacity: 0;
+  rotate: 90deg;
+}
+
+.faq-item > p {
+  margin: -0.675rem 0 2.68rem;
+  max-width: 54rem;
+  color: #333333;
+  font-size: clamp(0.94rem, 1.18vw, 1.06rem);
+  line-height: 1.48;
+}
+
+/* Chrome can animate a disclosure open once keyword sizes interpolate; every
+   other engine keeps the instant toggle. */
+@supports (interpolate-size: allow-keywords) {
+  /* Kept on the accordion rather than :root so no other transition on the page
+     starts interpolating intrinsic sizes. */
+  .faq-item {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height 0.32s ease,
+      content-visibility 0.32s allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    height: auto;
+  }
+}
+
+/* ---------- Closing call to action: full-bleed photograph with the panel
+   hanging off its bottom edge, both sitting on the footer's field ---------- */
+.closer {
+  background: var(--pale);
+}
+
+.closer-art {
+  display: block;
+  width: 100%;
+  height: 30.875rem;
+  /* The design keeps the couple high in the frame, so the crop is taken above
+     centre rather than through the middle. */
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+
+/* Positioned so the panel paints over the photograph it hangs off: a plain
+   in-flow block would slide under the image, which paints as replaced
+   content above block backgrounds. */
+.closer-panel {
+  position: relative;
+  width: min(75.9375rem, calc(100% - 4.5rem));
+  margin: -9.6875rem auto 0;
+  padding: 4.77rem 2rem 5.07rem;
+  text-align: center;
+  /* Two ramps rather than one radial: the panel brightens symmetrically out of
+     both side edges and holds that brighter blue all the way down, with only
+     the top band falling back to the base indigo. */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38, 39, 157, 0.78) 0%,
+      rgba(38, 39, 157, 0.55) 11%,
+      rgba(38, 39, 157, 0.34) 21%,
+      rgba(38, 39, 157, 0.13) 31%,
+      rgba(38, 39, 157, 0) 41%
+    ),
+    linear-gradient(
+      90deg,
+      #26279d 6%,
+      #2a34a5 16%,
+      #2f46ae 21%,
+      #365ab8 27%,
+      #3b6dc2 37%,
+      #3c6ec5 50%,
+      #3b6dc2 63%,
+      #365ab8 73%,
+      #2f46ae 79%,
+      #2a34a5 84%,
+      #26279d 94%
+    ),
+    #26279d;
+}
+
+.closer-panel h2 {
+  font-size: clamp(1.85rem, 3.417vw, 3.075rem);
+  font-weight: 400;
+  line-height: 1.23;
+  letter-spacing: -0.012em;
+}
+
+.closer-panel p {
+  margin: 1.53rem auto 0;
+  max-width: 48rem;
+  font-size: clamp(0.9rem, 1.19vw, 1.07rem);
+  line-height: 1.47;
+}
+
+/* Not .btn-gradient: on this panel the pill sits in the same indigo as the
+   field behind it and is read by the light blooming up from its lower edge. */
+.closer-btn {
+  min-height: 2.3125rem;
+  margin-top: 2.31rem;
+  padding: 0.5rem 1.375rem;
+  color: #ffffff;
+  background:
+    radial-gradient(56% 58% at 50% 102%, #56a2e6 0%, #3a72c2 45%, rgba(38, 39, 157, 0) 100%),
+    #26279d;
+  transition: background-color 0.2s ease;
+}
+
+.closer-btn:hover {
+  background-color: #2e33b4;
+}
+
+/* Inner harvested pages stay readable under the new chrome */
+main > article {
+  width: min(780px, calc(100% - 2.5rem));
+  margin: 2.5rem auto 4rem;
+}
+
+main > article h1,
+main > article h2,
+main > article h3 {
+  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
+  line-height: 1.2;
+}
+
+main > article p,
+main > article li {
+  color: var(--muted);
+}
+
+main > article a {
+  color: var(--cyan-300);
+  text-decoration: underline;
+}
+
+/* ---------- Footer: four columns on the same pale field as the closer ------ */
+.site-footer {
+  padding-bottom: 2.6rem;
+  background: var(--pale);
+  color: #17292e;
+  font-size: 0.83rem;
+}
+
+.footer-wrap {
+  width: min(78.375rem, calc(100% - 4.5rem));
+  margin-inline: auto;
+}
+
+/* Proportional rather than equal: the newsletter card takes a third of the row
+   and Quick Links the narrowest share, as in the design. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 196fr 355fr 284fr 419fr;
+  padding-top: 5.14rem;
+}
+
+/* The design sets these bold, but the brief caps headings at 400. Tracking and
+   a darker ink carry the hierarchy instead of weight. */
+.site-footer h2 {
+  margin-bottom: 2.04rem;
+  color: #04161b;
+  font-size: 0.86rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-footer ul {
+  display: grid;
+  row-gap: 0.865rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.5;
+}
+
+.footer-services {
+  grid-template-columns: 163fr 192fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #1c4fa0;
+}
+
+/* The icons hang above the first line of text, so this column starts higher
+   than the link lists beside it. */
+.footer-contact h2 {
+  margin-bottom: 1.82rem;
+}
+
+.footer-contact ul {
+  row-gap: 0.33rem;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.53rem;
+}
+
+.footer-contact a,
+.footer-contact address {
+  padding-top: 0.29rem;
+  font-style: normal;
+  line-height: 1.55;
+}
+
+/* Narrow enough to break after "Suite", as the design does. */
+.footer-contact address {
+  max-width: 11.9rem;
+}
+
+.contact-glyph {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: #0b1e48;
+  color: #ffffff;
+}
+
+/* No heading of its own, so the card hangs level with the contact icons. */
+.footer-signup {
+  padding-top: 2.69rem;
+}
+
+.signup {
+  padding: 1.35rem 1.35rem 1.45rem 1.45rem;
+  border-radius: 0.5625rem;
+  background: #a9edfa;
+}
+
+/* A card title rather than a column label, so it keeps sentence case. */
+.signup h2 {
+  margin-bottom: 1.39rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.signup-field {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #7fb8c8;
+  line-height: 1.5;
+}
+
+.signup-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: #04161b;
+  font: inherit;
+}
+
+.signup-field input::placeholder {
+  color: #75b4c2;
+}
+
+.signup-field input:focus-visible {
+  outline: none;
+}
+
+/* The rule under the field is the only affordance the design gives the input,
+   so focus has to show up there instead. */
+.signup-field:focus-within {
+  border-bottom-color: #1c4fa0;
+}
+
+.signup-field button {
+  border: 0;
+  background: none;
+  color: #04161b;
+  font: inherit;
+  cursor: pointer;
+}
+
+.signup-field button:hover {
+  color: #1c4fa0;
+}
+
+.signup-note {
+  margin: 0.7rem 0 0;
+  color: #10484f;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.52rem 0 0;
+  font-size: 0.81rem;
+  line-height: 1.6;
+}
+
+/* Flex rather than text-align: an inline-block logo would sit on a line box and
+   collect its descender space under the mark. */
+.footer-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.6rem;
+  padding-top: 1.26rem;
+  border-top: 1px solid #cbe3ec;
+}
+
+.footer-mark img {
+  display: block;
+  width: 11.875rem;
+  height: auto;
+}
+
+.footer-end p {
+  margin: 1.23rem 0 0;
+  color: #041215;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .reason-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked, each card is as wide as the page, and the portrait ratio it has on
+     desktop turns it into a huge photo with a caption lost in one corner. A
+     banner ratio keeps the copy and the image in proportion. */
+  .reason {
+    aspect-ratio: 2.4 / 1;
+  }
+
+  /* Two by two: the four columns are too narrow to hold their labels on one
+     line much below this, and the newsletter card needs its full width. */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5rem;
+    row-gap: 2.75rem;
+    padding-top: 3.25rem;
+  }
+
+  .closer-art {
+    height: 20rem;
+  }
+
+  .closer-panel {
+    width: calc(100% - 2.5rem);
+    margin-top: -5rem;
+    padding: 2.6rem 1.5rem 3.2rem;
+  }
+
+  .closer-panel p {
+    margin-top: 1.4rem;
+  }
+
+  .closer-btn {
+    margin-top: 1.8rem;
+  }
+
+  /* The plate crops to the figure at this width, so the copy needs its own
+     scrim and the faint watermark just adds noise behind it. */
+  .restore {
+    aspect-ratio: auto;
+    padding-block: 3.5rem;
+  }
+
+  .restore-art {
+    object-position: 78% center;
+  }
+
+  /* ::after so the scrim paints over the plate; a ::before would sit under it. */
+  .restore::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 2, 5, 0.94) 0%, rgba(0, 2, 5, 0.72) 100%);
+  }
+
+  .restore-mark {
+    display: none;
+  }
+
+  .dial-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    width: min(34rem, calc(100% - 2.5rem));
+  }
+
+  /* Figma pins the numeral high so captions align across a row of four. With
+     the row broken up, that alignment buys nothing and the space is better
+     spent on the caption, which has to wrap freely now that .br-lg is off. */
+  .dial-face {
+    justify-content: center;
+    padding-top: 0;
+  }
+
+  .dial-note {
+    max-width: 78cqw;
+  }
+
+  .outcomes {
+    padding-block: 4rem;
+  }
+
+  .commitment {
+    padding-top: 4.5rem;
+  }
+
+  /* 4.5rem of gutter is a desktop measure; on a phone it eats a fifth of the
+     screen, so every centred column narrows to a 1.25rem margin. */
+  .wrap,
+  .footer-wrap,
+  .why > .wrap,
+  .svc-track {
+    width: min(100%, calc(100% - 2.5rem));
+  }
+
+  /* A hover accordion has no equivalent on touch, so the cards become a
+     snapping carousel with every card fully expanded. */
+  .svc-track {
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.25rem;
+  }
+
+  .svc-card,
+  .svc-card[data-featured="true"],
+  .svc-track:hover .svc-card,
+  .svc-track:hover .svc-card:hover,
+  .svc-track:focus-within .svc-card,
+  .svc-track:focus-within .svc-card:focus-within {
+    flex: 0 0 min(20rem, 78%);
+    scroll-snap-align: start;
+  }
+
+  .svc-card .svc-more,
+  .svc-track:hover .svc-card .svc-more,
+  .svc-track:focus-within .svc-card .svc-more {
+    max-height: 2.35rem;
+    margin-top: 1.05rem;
+    padding-block: 0.55rem;
+    opacity: 1;
+  }
+
+  .why-actions {
+    flex-wrap: wrap;
+  }
+
+  .hero-art {
+    object-position: 60% center;
+  }
+
+  /* Narrow viewports crop the plate hard, so the copy needs a scrim rather
+     than relying on the artwork's own dark areas falling in the right place. */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(3, 18, 37, 0.5) 0%,
+      rgba(3, 18, 37, 0.82) 45%,
+      rgba(3, 18, 37, 0.94) 100%
+    );
+  }
+
+  .hero-copy {
+    left: 1.5rem;
+    right: 1.5rem;
+    width: auto;
+    top: 50%;
+    transform: translateY(-28%);
+  }
+
+  /* Figma's deliberate line breaks only make sense at desktop widths. */
+  .br-lg {
+    display: none;
+  }
+
+  .testimonials {
+    padding-block: 4.2rem 3.6rem;
+  }
+
+  .testimonials-head {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Figma's generous gap between the heading pair and the deck reads as dead
+     space once the columns stack. */
+  .deck-stage {
+    margin-top: 3.2rem;
+  }
+
+  .faq {
+    padding-bottom: 4.2rem;
+  }
+
+  .faq-item summary {
+    gap: 1.25rem;
+    padding-block: 1.15rem;
+  }
+
+  .faq-item > p {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+/* Two dials side by side on a phone leaves each ring too small for its caption
+   to stay legible, so they go full width instead. */
+@media (max-width: 600px) {
+  /* Back to the desktop ratio: a phone-width banner is too short to hold the
+     title and three lines of copy. */
+  .reason {
+    aspect-ratio: 406 / 266;
+  }
+
+  .dial-row {
+    grid-template-columns: 1fr;
+    width: min(19rem, calc(100% - 2.5rem));
+  }
+
+  /* The tilted slabs need room to swing, and the square card is dropped so a
+     long review can make it taller rather than overflow. */
+  .deck {
+    width: min(20rem, calc(100% - 5rem));
+  }
+
+  .deck-card {
+    aspect-ratio: auto;
+    padding-block: 2.6rem;
+  }
+
+  .footer-grid,
+  .footer-services {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-services {
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+
+  /* The desktop column is narrow enough to break the address after "Suite";
+     stacked full width there is no reason to split it at all. */
+  .footer-contact address {
+    max-width: none;
+  }
+
+  /* The design's footer type is sized for a desktop column; on a phone it is
+     the smallest text on the page and needs a little more. */
+  .site-footer {
+    font-size: 0.89rem;
+  }
+
+  .footer-social {
+    font-size: 0.87rem;
+  }
+}
+
+/* ---------- Preview lock ---------------------------------------------------
+   Nothing on the home page is allowed to navigate while the rest of the site is
+   still unstyled, so every link and button that would leave the page is made
+   non-interactive.
+
+   Done with pointer-events rather than by dropping the href or swapping in a
+   <span>: the markup a crawler parses is unchanged, so the internal linking
+   that Stage A preserved still counts. Search engines read hrefs, they do not
+   hit-test them.
+
+   Deliberately still live:
+   - tel: and mailto: links, which reach the clinic rather than an unbuilt page
+   - <summary> elements, or the mobile menu and the FAQ could not open
+   - the testimonial dots, which are the pause and jump control for a deck that
+     advances on its own
+
+   Delete this one block to hand the page back its navigation. */
+.home a,
+body:has(.home) :is(.site-header, .site-footer) a:not([href^="tel:"], [href^="mailto:"]) {
+  pointer-events: none;
 }

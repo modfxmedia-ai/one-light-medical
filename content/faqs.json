@@ -1,0 +1,29 @@
+{
+  "source": "Questions come from the Figma homepage frame. The first answer is the design's own copy; the rest were written against the live service pages (/knee-pain/, /softwave-trt-treatment/, /red-light-therapy/, /weight-loss/, /spinal-decompression/) so nothing here claims more than the clinic already claims.",
+  "items": [
+    {
+      "q": "What conditions do you treat at One Light Medical?",
+      "a": "We specialize in treating chronic joint pain caused by degenerative changes such as osteoarthritis, degenerative joint disease, knee pain, and spinal compression. We also treat neuropathy, soft tissue injuries, and offer integrated wellness programs including medical weight loss, red light therapy, and IV hydration therapy."
+    },
+    {
+      "q": "How does regenerative medicine work for joint pain?",
+      "a": "Instead of masking pain, regenerative care works with the repair systems your body already has. Plasma and regenerative cell therapy concentrate your own healing factors and place them where the tissue is damaged, while SoftWave TRT triggers the same response using acoustic waves and no injection at all. The aim is to calm the inflammation and rebuild the tissue causing the pain, so relief holds instead of fading with the next dose."
+    },
+    {
+      "q": "Are your therapies a good alternative to joint replacement surgery?",
+      "a": "For a great many patients, yes. Our whole approach is non-surgical and drug-free, and most people reduce or eliminate knee and joint pain within a few short weeks with no operation and no long recovery. We will also be straight with you: if your exam and imaging show damage beyond what regenerative care can reach, we will say so and help you plan the next step rather than sell you a course of treatment."
+    },
+    {
+      "q": "What is SoftWave Therapy and what should I expect during treatment?",
+      "a": "SoftWave Tissue Regeneration Technology is an FDA-cleared device that sends unfocused acoustic waves into the painful area to improve circulation and wake up your body's own repair cells. There are no needles, no numbing and no downtime, and most patients describe a firm tapping sensation rather than pain. Appointments are short, you walk out and carry on with your day, and care is usually planned as a brief series of visits."
+    },
+    {
+      "q": "Can I combine wellness treatments like Weight Loss, Red Light Therapy, and IV Therapy?",
+      "a": "Yes, and they often work better together. Extra weight loads the very joints we are treating, and red light therapy supports circulation, recovery and inflammation, so pairing them with regenerative care tends to improve the result. Every plan is built for one person, so we look at what you are actually dealing with and combine only the therapies that earn a place in it."
+    },
+    {
+      "q": "How do I know if I am a candidate for care at One Light Medical?",
+      "a": "An exam and a conversation will tell us far more than any web page can. Most of our patients arrive with chronic joint pain, arthritis, disc or nerve trouble, or pain that has not responded to medication and injections. Book a consultation and we will review your history, examine you, and tell you plainly whether our therapies are likely to help you."
+    }
+  ]
+}

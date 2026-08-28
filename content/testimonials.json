@@ -1,0 +1,29 @@
+{
+  "source": "Harvested from the testimonial carousel on https://onelightmedical.com/ — these are the clinic's own published patient reviews. Do not add invented entries; take new ones from the practice's Google reviews.",
+  "items": [
+    {
+      "name": "Christina",
+      "date": "July 15, 2024",
+      "iso": "2024-07-15",
+      "quote": "Professional, knowledgeable, and very friendly. I would recommend them for weight loss and chiropractic services, although they offer other services as well that I haven’t tried yet."
+    },
+    {
+      "name": "David Parker",
+      "date": "October 5, 2024",
+      "iso": "2024-10-05",
+      "quote": "I originally was here by the VA for my back in late 2020. I received back injections, an X-ray, and an adjustment. All of my recent treatment has been amazing. Always kind, prompt, and welcoming. I couldn’t recommend Dr. Nelson more."
+    },
+    {
+      "name": "Vivian Alvarez",
+      "date": "May 27, 2021",
+      "iso": "2021-05-27",
+      "quote": "First time going and I really seen results, and they were really wonderful, sweet, and made you feel very comfortable. I will be back."
+    },
+    {
+      "name": "Keri Bednarz",
+      "date": "June 5, 2021",
+      "iso": "2021-06-05",
+      "quote": "The staff is so kind and took time to explain everything to me. I highly recommend One Light Medical!"
+    }
+  ]
+}
