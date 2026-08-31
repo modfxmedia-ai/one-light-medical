@@ -48,6 +48,23 @@ const ROUTE_ADDED_TYPES: Record<string, Set<string>> = {
   "/": new Set(["FAQPage", "Question", "Answer"]),
 };
 
+/**
+ * Text fields a route is allowed to diverge from live on, with the expected new
+ * value. Declaring the value rather than just waiving the field means an
+ * accidental third value still fails, so the check keeps its teeth.
+ *
+ * Every entry here is a deliberate content decision, not a rebuild artefact.
+ */
+const ROUTE_ALLOWED_TEXT: Record<string, Record<string, string>> = {
+  // The Figma homepage frame repositions the practice around stem cell therapy
+  // and rewrites the H1 to match. Signed off knowing this re-targets the page's
+  // ranking term away from "Relief for Joints, Pain, and Wellness"; the <title>
+  // and meta description are deliberately left on the indexed originals.
+  "/": {
+    h1: "Find Lasting Stem Cell Therapy for Joint Pain",
+  },
+};
+
 interface RouteMapEntry {
   path: string;
   type: string;
@@ -198,6 +215,7 @@ interface Field {
   label: string;
   ok: boolean;
   detail?: string;
+  note?: string;
 }
 
 interface Result {
@@ -207,8 +225,19 @@ interface Result {
   failures: string[];
 }
 
-function compareText(label: string, live: string | null, local: string | null): Field {
+function compareText(
+  label: string,
+  live: string | null,
+  local: string | null,
+  path?: string,
+): Field {
   if (live === local) return { label, ok: true };
+
+  const expected = path ? ROUTE_ALLOWED_TEXT[path]?.[label] : undefined;
+  if (expected !== undefined && normalize(expected) === local) {
+    return { label, ok: true, note: `${label} intentionally changed from live` };
+  }
+
   return {
     label,
     ok: false,
@@ -256,17 +285,17 @@ async function checkRoute(path: string): Promise<Result> {
   const schema = compareSchema(path, a.schemaTypes, b.schemaTypes);
 
   const fields: Field[] = [
-    compareText("title", a.title, b.title),
-    compareText("description", a.description, b.description),
-    compareText("canonical", a.canonical, b.canonical),
-    compareText("h1", a.h1, b.h1),
+    compareText("title", a.title, b.title, path),
+    compareText("description", a.description, b.description, path),
+    compareText("canonical", a.canonical, b.canonical, path),
+    compareText("h1", a.h1, b.h1, path),
     schema.field,
   ];
 
   return {
     path,
     fields,
-    notes: schema.note ? [schema.note] : [],
+    notes: [schema.note, ...fields.map((f) => f.note)].filter(Boolean) as string[],
     failures: fields.filter((f) => !f.ok).map((f) => f.detail ?? f.label),
   };
 }

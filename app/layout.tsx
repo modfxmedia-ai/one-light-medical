@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Josefin_Sans } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
@@ -8,11 +8,13 @@ import { MEDICAL_ORGANIZATION } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-/* Variable axis rather than a weight list: the design uses 300 and 400 with a
-   couple of heavier labels, and one variable file covers all of them. */
-const sans = Josefin_Sans({
+/* Stands in for the Figma frame's Avenir Next, which is licensed and so cannot
+   be served from Google Fonts. Chosen on measured metrics rather than
+   reputation -- see the type note in globals.css and scripts/font-match.mjs.
+   The variable axis covers the 400, 500 and 700 the frame uses. */
+const sans = Nunito_Sans({
   subsets: ["latin"],
-  variable: "--font-josefin",
+  variable: "--font-nunito",
 });
 
 export const metadata: Metadata = {

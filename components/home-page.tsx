@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Fragment, type CSSProperties } from "react";
+import { Fragment } from "react";
 
 import { JsonLd } from "@/components/json-ld";
 import { TestimonialDeck } from "@/components/testimonial-deck";
@@ -22,52 +22,56 @@ const faqSchema = {
 const REASONS = [
   {
     title: "Comprehensive Pain Relief",
-    copy: "Our tailored treatments target a range of conditions, from knee pain to neuropathy, ensuring effective and personalized care.",
-    src: "/images/cards/comprehensive-care.webp",
+    copy: "Our tailored treatments target a range of conditions, from knee and hip pain to complex joint degeneration.",
+    src: "/images/home/why-comprehensive-pain-relief.webp",
+    alt: "An older couple sitting close together and smiling",
   },
   {
     title: "Non-Surgical Solutions",
-    copy: "We specialize in non-invasive therapies like Softwave TRT and spinal decompression, helping you avoid surgery and lengthy recovery times.",
-    src: "/images/cards/non-surgical.webp",
+    copy: "We specialize in non-invasive therapies like Stem cell therapy, SoftWave, and spinal decompression",
+    src: "/images/home/why-non-surgical-solutions.webp",
+    alt: "A clinician examining a patient's knee",
   },
   {
     title: "Experienced & Compassionate Team",
     copy: "Our skilled practitioners prioritize your well-being, offering dedicated support and advanced care to help you heal and thrive.",
-    src: "/images/cards/care-team.webp",
+    src: "/images/home/why-experienced-team.webp",
+    alt: "Two One Light Medical practitioners in the clinic",
   },
 ] as const;
 
-// `grow` is the card's share of the track at rest, matching the widths in the
-// Figma frame. Hover and keyboard focus override it (see .svc-track in CSS).
+/* The frame draws these four cards at equal widths, so that is the resting
+   state. The hover and focus expansion in .svc-track is kept from the previous
+   build: it changes nothing at rest and gives the copy room to be read. */
 const SERVICES = [
   {
-    href: "/auto-injury/",
-    title: "Auto Injury Relief",
-    copy: "Recover faster from auto-related injuries with targeted therapies.",
-    src: "/images/cards/auto-injury.webp",
-    grow: 1.37,
-  },
-  {
     href: "/knee-pain/",
-    title: "Knee Pain Care",
-    copy: "Experience relief from knee pain with specialized treatments that reduce discomfort and promote healing without surgery.",
-    src: "/images/cards/knee-pain.webp",
-    grow: 2,
-    featured: true,
+    title: "Stem Cell Therapy for Joint Pain",
+    copy: "Advanced cellular treatments to target the root cause of joint pain and restore long-term mobility.",
+    src: "/images/home/card-stem-cell-therapy.webp",
+    alt: "A clinician preparing an injection at a patient's knee",
   },
   {
-    href: "/neuropathy/",
-    title: "Neuropathy Care",
-    copy: "Alleviate nerve pain and improve sensation.",
-    src: "/images/cards/neuropathy.webp",
-    grow: 1,
+    href: "/red-light-therapy/",
+    // Figma reads "argeted"; the missing capital T is a typo in the design.
+    copy: "Targeted light energy to boost cellular function, lower inflammation, and support joint recovery.",
+    title: "Red Light Therapy",
+    src: "/images/home/card-red-light-therapy.webp",
+    alt: "A red light therapy bed in treatment",
   },
   {
     href: "/spinal-decompression/",
     title: "Spinal Decompression",
-    copy: "Relieve pressure on spinal discs and ease back pain.",
-    src: "/images/cards/spinal-decompression.webp",
-    grow: 1,
+    copy: "Relieve pressure on spinal discs and ease back pain",
+    src: "/images/home/card-spinal-decompression.webp",
+    alt: "A practitioner's hands assessing a patient's spine",
+  },
+  {
+    href: "/softwave-trt-treatment/",
+    title: "SoftWave Therapy",
+    copy: "Non-invasive acoustic wave therapy to stimulate natural tissue healing and reduce joint discomfort.",
+    src: "/images/home/card-softwave-therapy.webp",
+    alt: "Close-up of a practitioner's hands cupped together",
   },
 ] as const;
 
@@ -119,20 +123,21 @@ export function HomePage() {
         <section className="hero">
           <img
             className="hero-art"
-            src="/images/homepage-hero.webp"
+            src="/images/home/hero-stem-cell.webp"
             alt=""
-            width={2880}
-            height={1530}
+            width={1700}
+            height={1187}
           />
           <div className="hero-copy">
             <h1>
               <span className="hero-lead">Find Lasting</span>
-              Relief for Joints,
-              <br className="br-lg" /> Pain, and Wellness
+              Stem Cell Therapy
+              <br className="br-lg" /> for Joint Pain
             </h1>
             <p>
-              At One Light Medical, we provide non-surgical solutions for joint pain, neuropathy, and
-              weight loss to help you regain mobility, reduce pain, and reclaim your best life.
+              At One Light Medical, we provide advanced, non-surgical stem cell therapies to target
+              root-cause joint pain, restore mobility, and help you reclaim an active, pain-free life
+              without surgery.
             </p>
             <hr className="hero-rule" />
             <p className="hero-actions">
@@ -147,6 +152,14 @@ export function HomePage() {
         </section>
 
         <div className="light-band">
+          <img
+            className="light-band-art"
+            src="/images/home/services-backdrop.webp"
+            alt=""
+            width={2907}
+            height={1937}
+          />
+
           <section className="commitment" id="services">
             <div className="wrap commitment-head">
               <h2>
@@ -158,17 +171,12 @@ export function HomePage() {
               <p>Trust us to provide the care, expertise, and encouragement you need to thrive.</p>
             </div>
 
-            {/* Widest card stays open by default; hovering or tabbing hands the
+            {/* Equal at rest, per the frame; hovering or tabbing hands the
                 expansion to whichever card the visitor is on. */}
             <ul className="svc-track">
               {SERVICES.map((service) => (
-                <li
-                  className="svc-card"
-                  key={service.href}
-                  style={{ "--grow": service.grow } as CSSProperties}
-                  data-featured={"featured" in service ? "true" : undefined}
-                >
-                  <img src={service.src} alt="" width={900} height={1240} />
+                <li className="svc-card" key={service.href}>
+                  <img src={service.src} alt={service.alt} width={663} height={930} />
                   <Link href={service.href}>
                     <span className="svc-badge" aria-hidden="true" />
                     <span className="svc-body">
@@ -188,7 +196,7 @@ export function HomePage() {
               <div className="reason-grid">
                 {REASONS.map((reason) => (
                   <article className="reason" key={reason.title}>
-                    <img src={reason.src} alt="" width={1200} height={780} />
+                    <img src={reason.src} alt={reason.alt} width={808} height={515} />
                     <div>
                       <h3>{reason.title}</h3>
                       <p>{reason.copy}</p>
@@ -208,13 +216,43 @@ export function HomePage() {
           </section>
         </div>
 
+        <section className="iv-therapy">
+          <img
+            className="iv-art"
+            src="/images/home/iv-therapy-backdrop.webp"
+            alt=""
+            width={2880}
+            height={1182}
+          />
+          <div className="iv-panel">
+            <h2>
+              IV Therapy to Support
+              <br className="br-lg" /> Cellular Healing
+            </h2>
+            <p>
+              While our primary focus is restoring joint function through advanced regenerative
+              medicine, optimal healing requires a strong internal foundation. Our specialized IV
+              Hydration &amp; Nutrient Therapy delivers essential vitamins, antioxidants, and
+              hydration directly into your bloodstream.
+            </p>
+            <p className="iv-actions">
+              <Link href="/contact/" className="btn btn-gradient">
+                Book An Appointment
+              </Link>
+              <Link href="/about-us/" className="btn btn-ghost">
+                Learn More
+              </Link>
+            </p>
+          </div>
+        </section>
+
         <section className="restore">
           <img
             className="restore-art"
-            src="/images/restore-banner.webp"
+            src="/images/home/restore-right.webp"
             alt=""
-            width={2132}
-            height={738}
+            width={1712}
+            height={985}
           />
           <img className="restore-mark" src="/images/logos/white-logo.png" alt="" aria-hidden="true" />
           <div className="restore-copy">
@@ -259,10 +297,9 @@ export function HomePage() {
               <br className="br-lg" /> Life Through Integrated Care
             </h2>
             <p>
-              By combining non-surgical regenerative therapies with functional wellness, we help
-              adults over
-              <br className="br-lg" /> 50 address the root cause of chronic joint pain and regain
-              active independence.
+              By combining advanced stem cell therapy with targeted regenerative treatments like
+              spinal decompression and red light therapy, we help patients eliminate chronic joint
+              pain, repair damaged tissue, and regain long-term mobility.
             </p>
           </div>
 
@@ -335,7 +372,13 @@ export function HomePage() {
         </section>
 
         <section className="closer">
-          <img className="closer-art" src="/images/closer-couple.webp" alt="" width={1969} height={799} />
+          <img
+            className="closer-art"
+            src="/images/home/closer-backdrop.webp"
+            alt=""
+            width={2880}
+            height={1000}
+          />
           <div className="closer-panel">
             <h2>
               Ready to Take the Next Step Toward

@@ -1,44 +1,103 @@
 @import "tailwindcss";
 
 /*
- * Type sizing note (Josefin Sans)
- * -------------------------------
- * Measured against the Montserrat the layout was originally calibrated in,
- * Josefin Sans has the same cap height (72.3 vs 71.7 at 100px) but a much
- * shallower x-height (41.4 vs 52.3). Headings therefore keep their sizes --
- * their optical size and hand-tuned line breaks both come from the capitals --
- * while body, nav and caption sizes are lifted by ~12% so the lowercase reads
- * at the intended size. Josefin also sets 2.6% wider, which is inside the
- * tolerance of every hand-broken line here.
+ * Design tokens
+ * -------------
+ * Harvested from the Figma "Home" frame (node 140:30) by scripts/figma-tokens.mjs
+ * and scripts/gradients.py. The file publishes no named styles, so the names
+ * below are ours; the values are the file's.
+ *
+ * Two things the raw fill values don't tell you, recovered by sampling the
+ * frame render instead:
+ *  - The translucent surfaces (nav pill, phone circle, Learn More, IV panel)
+ *    are composited over whatever sits behind them, so they are written here as
+ *    rgba + backdrop-filter rather than flattened hexes. The phone circle
+ *    resolves to exactly #39dbff at 20% over the hero, which is how the fill
+ *    was confirmed.
+ *  - The primary button's radial glow is centred *below* its bottom edge, which
+ *    is why the visible peak is a partial step toward cyan rather than cyan.
+ *
+ * Type sizing note (Nunito Sans)
+ * ------------------------------
+ * The frame is set in Avenir Next, a licensed family next/font/google cannot
+ * serve. scripts/font-match.mjs measured the candidates against the real Avenir
+ * Next installed by macOS: Nunito Sans sets within 1.3% of its width, so the
+ * frame's hand-broken lines hold as drawn, and sits 3.9% higher in x-height,
+ * which needs no compensation. The scale below is the frame's own, divided by
+ * 1.2 to carry the 1728px frame onto the site's 1440px reference width.
  */
 :root {
+  /* Palette */
+  --brand: #02269c;
+  --cyan: #39dbff;
+  --navy-panel: #132252;
+  --ice: #e3faff;
+  --sky: #b9f2ff;
+  --signup: #a9edfb;
+  --teal: #73e3de;
+  --near-black: #010101;
+  --rule: #2b4cb8;
+
   --navy-950: #031225;
   --navy-900: #061a30;
   --navy-800: #0c243d;
   --navy-700: #164461;
-  --cyan-400: #249de5;
+  --cyan-400: var(--cyan);
   --cyan-300: #7ee4ff;
   --ink: #ffffff;
   --muted: #c5d4e4;
   --nav: #b7c7dc;
   --line: rgba(140, 190, 230, 0.28);
-  --cta: #ff6a3d;
-  --cta-ink: #1a0a04;
-  --grad: linear-gradient(90deg, #2926a8 0%, #3654d2 100%);
-  --navbar-grad: linear-gradient(90deg, #39769e 0%, #354c61 100%);
-  --phone-bg: #164461;
   --ink-dark: #0a1424;
   --ink-soft: #1f2c3d;
-  --aqua: #b3f2fe;
-  --aqua-ink: #0f4a69;
-  --pale: #e3fbff;
+  /* The frame sets every dark text colour to flat black rather than a softened
+     near-black, so that is what the homepage uses. */
+  --ink-on-light: #000000;
+  --aqua: var(--cyan);
+  --aqua-ink: var(--brand);
+  --pale: var(--ice);
+
+  /* Surfaces. The glow sits under the bottom edge, per the render sampling. */
+  --grad: radial-gradient(ellipse 92% 96% at 50% 130%, var(--cyan) 0%, var(--brand) 100%);
+  --grad-ghost: radial-gradient(
+    ellipse 92% 96% at 50% 130%,
+    rgba(57, 219, 255, 0.3) 0%,
+    rgba(2, 38, 156, 0.32) 100%
+  );
+  --hero-grad: radial-gradient(
+    ellipse 126% 240% at 10% -42%,
+    var(--cyan) 0%,
+    #010d34 46%,
+    #000001 70%
+  );
+  --scrim: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+  --navbar-grad: rgba(255, 255, 255, 0.2);
+  --phone-bg: rgba(57, 219, 255, 0.2);
+  --glass-edge: rgba(255, 255, 255, 0.26);
+
+  /* Type scale: clamp(floor, 1440-relative, frame value) */
+  --t-display: clamp(1.95rem, 3.704vw, 3.333rem);
+  --t-display-lh: 1.14;
+  --t-commit: clamp(1.75rem, 3.241vw, 2.917rem);
+  --t-name: clamp(1.35rem, 2.315vw, 2.083rem);
+  --t-question: clamp(1.1rem, 1.968vw, 1.771rem);
+  --t-title: clamp(1rem, 1.389vw, 1.25rem);
+  --t-body: clamp(0.92rem, 1.157vw, 1.042rem);
+  --t-nav: clamp(0.86rem, 1.042vw, 0.938rem);
+  --t-small: clamp(0.78rem, 0.926vw, 0.833rem);
+  --t-note: clamp(0.62rem, 0.694vw, 0.625rem);
+
+  /* Radii, from the frame's four values */
+  --r-pill: 999px;
+  --r-card: 10px;
+  --r-panel: 20px;
 }
 
 @theme inline {
   --color-background: var(--navy-950);
   --color-foreground: var(--ink);
-  --font-sans: var(--font-josefin);
-  --font-display: var(--font-josefin);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-nunito);
 }
 
 * {
@@ -53,7 +112,7 @@ body {
   margin: 0;
   background: var(--navy-950);
   color: var(--ink);
-  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
+  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -81,7 +140,7 @@ img {
   min-height: 44px;
   padding: 0.55rem 1.55rem;
   border-radius: 999px;
-  font-size: clamp(0.78rem, 1.01vw, 0.92rem);
+  font-size: var(--t-small);
   font-weight: 400;
   letter-spacing: 0.005em;
   white-space: nowrap;
@@ -90,18 +149,20 @@ img {
 .btn-gradient {
   background: var(--grad);
   color: #fff;
-  box-shadow: 0 6px 20px rgba(41, 38, 168, 0.35);
+  box-shadow: 0 6px 20px rgba(2, 38, 156, 0.35);
 }
 
 .btn-gradient:hover {
   filter: brightness(1.12);
 }
 
+/* The frame's other button: the same radial, dropped to roughly a third opacity
+   over a blurred backdrop, with the glass edge picked out. */
 .btn-ghost {
-  border: 1px solid rgba(190, 214, 240, 0.38);
+  background: var(--grad-ghost);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-edge);
   color: #fff;
-  background: rgba(3, 18, 37, 0.5);
-  backdrop-filter: blur(8px);
 }
 
 .btn-ghost:hover {
@@ -109,7 +170,7 @@ img {
 }
 
 .btn-aqua {
-  background: linear-gradient(180deg, var(--aqua) 0%, #c0ebf1 100%);
+  background: var(--aqua);
   color: var(--aqua-ink);
 }
 
@@ -170,14 +231,17 @@ body:not(:has(.home)) .site-header-inner {
   padding: 1rem clamp(1.3rem, 2.85vw, 2.6rem);
   list-style: none;
   color: #fff;
-  font-size: clamp(0.87rem, 1.16vw, 1.06rem);
+  font-size: var(--t-nav);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.167;
   white-space: nowrap;
+  /* Glass, not a gradient: the pill is white at 20% and picks up the hero's
+     teal-to-black sweep through it, which is where its apparent gradient
+     comes from. */
   background: var(--navbar-grad);
-  border: 1px solid rgba(140, 190, 230, 0.22);
-  border-radius: 999px;
-  box-shadow: 0 0 28px rgba(36, 157, 229, 0.14);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-pill);
 }
 
 .primary-nav a:hover,
@@ -253,7 +317,7 @@ body:not(:has(.home)) .site-header-inner {
   align-items: center;
   gap: 0.7rem;
   color: #fff;
-  font-size: clamp(0.95rem, 1.32vw, 1.19rem);
+  font-size: var(--t-body);
   font-weight: 400;
   white-space: nowrap;
 }
@@ -267,7 +331,10 @@ body:not(:has(.home)) .site-header-inner {
   aspect-ratio: 1;
   height: auto;
   border-radius: 50%;
+  /* Sampling the frame render resolves this exactly: #39dbff at 20% over the
+     hero gives the rendered #0b3455. */
   background: var(--phone-bg);
+  backdrop-filter: blur(12px);
   color: #fff;
 }
 
@@ -336,8 +403,8 @@ body:not(:has(.home)) .site-header-inner {
 .home h3,
 .home h4,
 .site-footer h2 {
-  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
-  line-height: 1.15;
+  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
+  line-height: 1.375;
   margin: 0;
 }
 
@@ -346,52 +413,55 @@ body:not(:has(.home)) .site-header-inner {
   isolation: isolate;
   min-height: 100svh;
   overflow: hidden;
-  background: var(--navy-950);
+  /* Centre sits above and left of the frame, which is why the visible top-left
+     is a partial step toward cyan rather than cyan itself. */
+  background: var(--hero-grad);
 }
 
-/* Pre-composited plate: the artwork already sits at its Figma inset inside a
-   matching glow field, so this is a plain full-bleed cover image. */
+/* The artwork is a transparent cut-out occupying the right 59% of the frame, so
+   it composites over the gradient instead of replacing it. */
 .hero-art {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  top: 21.4%;
+  right: 0;
+  width: 59%;
+  height: 78.6%;
+  object-fit: contain;
+  object-position: right bottom;
   pointer-events: none;
 }
 
 .hero-copy {
   position: absolute;
   z-index: 1;
-  top: 64%;
+  top: 65%;
   left: clamp(1.5rem, 7.3vw, 7.5rem);
   width: min(32rem, 45vw);
   transform: translateY(-50%);
 }
 
 .hero h1 {
-  font-size: clamp(1.9rem, 3.3vw, 3rem);
+  font-size: var(--t-display);
   font-weight: 400;
   letter-spacing: -0.005em;
   color: #fff;
-  line-height: 1.21;
+  line-height: 1.14;
 }
 
 .hero-lead {
   display: block;
   margin-bottom: 0.14em;
-  font-size: 0.65em;
+  font-size: 0.625em;
   font-weight: 300;
 }
 
 .hero-copy > p {
   max-width: 27rem;
   margin: 1.35rem 0 0;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(0.92rem, 1.18vw, 1.06rem);
+  color: #ffffff;
+  font-size: var(--t-body);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
 .hero-rule {
@@ -416,14 +486,22 @@ body:not(:has(.home)) .site-header-inner {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  color: var(--ink-dark);
-  background:
-    radial-gradient(40% 24% at 103% 38%, rgba(115, 165, 254, 0.95), rgba(115, 165, 254, 0) 70%),
-    radial-gradient(34% 20% at 101% 64%, rgba(117, 164, 252, 0.9), rgba(117, 164, 252, 0) 70%),
-    radial-gradient(42% 24% at -5% 60%, rgba(169, 230, 250, 0.95), rgba(169, 230, 250, 0) 70%),
-    radial-gradient(34% 17% at 24% 69%, rgba(150, 225, 250, 0.9), rgba(150, 225, 250, 0) 72%),
-    radial-gradient(30% 16% at 88% 74%, rgba(127, 168, 253, 0.75), rgba(127, 168, 253, 0) 72%),
-    #ffffff;
+  color: var(--ink-on-light);
+  background: #ffffff;
+}
+
+/* The frame paints this field's colour with an image rather than gradients, so
+   it is exported and placed at its frame position; hand-matched radials were
+   putting glow where the frame has plain white. */
+.light-band-art {
+  position: absolute;
+  z-index: -1;
+  top: 25.5%;
+  left: -0.8%;
+  width: 100.9%;
+  height: 64.3%;
+  object-fit: fill;
+  pointer-events: none;
 }
 
 .commitment {
@@ -437,18 +515,18 @@ body:not(:has(.home)) .site-header-inner {
 .commitment-head h2 {
   max-width: 46rem;
   margin-inline: auto;
-  font-size: clamp(1.7rem, 3.06vw, 2.75rem);
+  font-size: var(--t-commit);
   font-weight: 400;
-  line-height: 1.19;
+  line-height: 1.143;
   letter-spacing: -0.01em;
-  color: var(--ink-dark);
+  color: var(--ink-on-light);
 }
 
 .commitment-head p {
   margin: 1.8rem auto 0;
   max-width: 46rem;
-  color: var(--ink-soft);
-  font-size: clamp(0.95rem, 1.21vw, 1.09rem);
+  color: var(--ink-on-light);
+  font-size: var(--t-title);
 }
 
 .svc-track {
@@ -462,11 +540,12 @@ body:not(:has(.home)) .site-header-inner {
 
 .svc-card {
   position: relative;
-  flex: var(--grow, 1) 1 0;
+  flex: 1 1 0;
   min-width: 0;
-  height: clamp(21rem, 33vw, 30rem);
+  /* 398x558 in the frame */
+  height: clamp(21rem, 32.3vw, 29.05rem);
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--r-card);
   transition: flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -522,18 +601,18 @@ body:not(:has(.home)) .site-header-inner {
 
 .svc-title {
   display: block;
-  font-size: clamp(0.92rem, 1.31vw, 1.2rem);
+  font-size: var(--t-title);
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.125;
 }
 
 .svc-copy {
   display: block;
   margin-top: 0.5rem;
   max-width: 15.5rem;
-  color: rgba(255, 255, 255, 0.84);
-  font-size: clamp(0.76rem, 0.92vw, 0.85rem);
-  line-height: 1.55;
+  color: #ffffff;
+  font-size: var(--t-small);
+  line-height: 1.125;
 }
 
 .svc-more {
@@ -547,7 +626,7 @@ body:not(:has(.home)) .site-header-inner {
   border-radius: 999px;
   border: 1px solid rgba(226, 236, 250, 0.45);
   background: rgba(9, 18, 33, 0.42);
-  font-size: clamp(0.78rem, 0.99vw, 0.9rem);
+  font-size: var(--t-small);
   padding-block: 0;
   opacity: 0;
   overflow: hidden;
@@ -558,28 +637,8 @@ body:not(:has(.home)) .site-header-inner {
     opacity 0.3s ease;
 }
 
-.svc-card[data-featured="true"] .svc-more {
-  max-height: 2.35rem;
-  margin-top: 1.05rem;
-  padding-block: 0.55rem;
-  opacity: 1;
-}
-
-/* Pointer or keyboard focus overrides the default open card. Padding has to be
-   reset alongside max-height, or the closing card keeps a sliver of button. */
-.svc-track:hover .svc-card,
-.svc-track:focus-within .svc-card {
-  flex-grow: 1;
-}
-
-.svc-track:hover .svc-card .svc-more,
-.svc-track:focus-within .svc-card .svc-more {
-  max-height: 0;
-  margin-top: 0;
-  padding-block: 0;
-  opacity: 0;
-}
-
+/* Padding has to be reset alongside max-height, or the closing card keeps a
+   sliver of button. */
 .svc-track:hover .svc-card:hover,
 .svc-track:focus-within .svc-card:focus-within {
   flex-grow: 2;
@@ -604,9 +663,9 @@ body:not(:has(.home)) .site-header-inner {
 
 .why h2 {
   margin-bottom: 1.5rem;
-  font-size: clamp(1.06rem, 1.39vw, 1.29rem);
+  font-size: var(--t-title);
   font-weight: 400;
-  color: var(--ink-dark);
+  color: var(--ink-on-light);
 }
 
 .reason-grid {
@@ -648,16 +707,17 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .reason h3 {
-  font-size: clamp(0.93rem, 1.35vw, 1.22rem);
+  font-size: var(--t-title);
   font-weight: 400;
+  line-height: 1.125;
 }
 
 .reason p {
   margin: 0.45rem 0 0;
   max-width: 21rem;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: clamp(0.7rem, 0.84vw, 0.81rem);
-  line-height: 1.5;
+  color: #ffffff;
+  font-size: var(--t-small);
+  line-height: 1.125;
 }
 
 .why-actions {
@@ -682,6 +742,68 @@ body:not(:has(.home)) .site-header-inner {
   padding-inline: 1rem;
 }
 
+/* ---------- IV therapy: full-bleed photograph, glass panel on the right ------
+   The panel is one of the frame's four glass surfaces, so it is a translucent
+   fill over a blurred backdrop rather than a flat colour: #132252 at 80%. */
+.iv-therapy {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  /* Same reason for the explicit width as .restore below. */
+  width: 100%;
+  aspect-ratio: 1728 / 709;
+  min-height: 28rem;
+  overflow: hidden;
+  background: var(--near-black);
+}
+
+.iv-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.iv-panel {
+  position: relative;
+  z-index: 1;
+  justify-self: end;
+  width: min(44.6%, 41rem);
+  margin-right: 5.4%;
+  padding: clamp(1.4rem, 3.2vw, 2.9rem);
+  border-radius: var(--r-panel);
+  background: rgba(19, 34, 82, 0.8);
+  backdrop-filter: blur(18px);
+  color: #fff;
+}
+
+.iv-panel h2 {
+  font-size: var(--t-display);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.005em;
+}
+
+.iv-panel > p {
+  /* 612 of the panel's 770 in the frame */
+  max-width: 79.5%;
+  margin: 1.35rem 0 0;
+  color: #ffffff;
+  font-size: var(--t-body);
+  line-height: 1.35;
+}
+
+.iv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 1.6rem 0 0;
+}
+
 /* ---------- Restore banner: full-bleed plate, script watermark, left copy ----- */
 .restore {
   position: relative;
@@ -696,18 +818,21 @@ body:not(:has(.home)) .site-header-inner {
      section from its height, which pushed it ~360px past the viewport between
      900 and 1390px. Pinning the width keeps the ratio driving height only. */
   width: 100%;
-  aspect-ratio: 2132 / 738;
+  aspect-ratio: 1728 / 594;
   min-height: 30rem;
-  background: #000205;
+  background: var(--near-black);
 }
 
+/* The artwork covers the right 59% of the band in the frame, not the full
+   width; running it full-bleed put the anatomy behind the copy. */
 .restore-art {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  width: 59.4%;
   height: 100%;
   object-fit: cover;
-  object-position: right center;
+  object-position: center;
   pointer-events: none;
 }
 
@@ -729,9 +854,9 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .restore h2 {
-  font-size: clamp(1.85rem, 3.3vw, 3rem);
+  font-size: var(--t-display);
   font-weight: 400;
-  line-height: 1.243;
+  line-height: 1.14;
   letter-spacing: -0.005em;
   color: #fff;
 }
@@ -739,9 +864,9 @@ body:not(:has(.home)) .site-header-inner {
 .restore-copy > p {
   max-width: 42rem;
   margin: 1.55rem 0 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(0.9rem, 1.18vw, 1.07rem);
-  line-height: 1.49;
+  color: #ffffff;
+  font-size: var(--t-body);
+  line-height: 1.35;
 }
 
 .restore-actions {
@@ -781,19 +906,20 @@ body:not(:has(.home)) .site-header-inner {
 .outcomes-head h2 {
   margin-inline: auto;
   max-width: 56rem;
-  font-size: clamp(1.7rem, 3.46vw, 3.15rem);
+  font-size: var(--t-display);
   font-weight: 400;
-  line-height: 1.215;
+  line-height: 1.14;
   letter-spacing: -0.012em;
-  color: #202c79;
+  color: var(--brand);
 }
 
 .outcomes-head p {
   margin: 1.5rem auto 0;
-  max-width: 60rem;
-  color: #0d1c22;
-  font-size: clamp(0.96rem, 1.4vw, 1.28rem);
-  line-height: 1.3;
+  /* 1038 of the frame's 1728 */
+  max-width: 54rem;
+  color: var(--ink-on-light);
+  font-size: var(--t-title);
+  line-height: 1.125;
 }
 
 .dial-row {
@@ -849,7 +975,7 @@ body:not(:has(.home)) .site-header-inner {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: #0c1420;
+  color: var(--ink-on-light);
 }
 
 .dial-note {
@@ -857,9 +983,9 @@ body:not(:has(.home)) .site-header-inner {
   /* Widened along with the size bump so the hand-broken caption lines still fit
      the ring rather than wrapping a word down. */
   max-width: 84cqw;
-  color: #2d3f43;
+  color: var(--ink-on-light);
   font-size: 4.7cqw;
-  line-height: 1.3;
+  line-height: 1.125;
 }
 
 /* ---------- Testimonials: heading pair over a deck of cards ---------- */
@@ -879,19 +1005,19 @@ body:not(:has(.home)) .site-header-inner {
 
 .testimonials-head h2 {
   margin: 0;
-  font-size: clamp(1.85rem, 3.417vw, 3.075rem);
+  font-size: var(--t-display);
   font-weight: 400;
-  line-height: 1.23;
+  line-height: 1.14;
   letter-spacing: -0.012em;
-  color: #26286f;
+  color: var(--brand);
 }
 
 .testimonials-head p {
   margin: 1.4rem 0 0;
   max-width: 44rem;
-  color: #1a1a1a;
-  font-size: clamp(0.96rem, 1.43vw, 1.28rem);
-  line-height: 1.3;
+  color: var(--ink-on-light);
+  font-size: var(--t-title);
+  line-height: 1.125;
 }
 
 .deck-stage {
@@ -970,18 +1096,18 @@ body:not(:has(.home)) .site-header-inner {
 
 .deck-name {
   margin: max(0.85rem, 4.24cqw) 0 0;
-  color: #04090d;
+  color: var(--ink-on-light);
   font-size: max(1.25rem, 5.8cqw);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.375;
   letter-spacing: -0.005em;
 }
 
 .deck-quote {
   margin: max(0.6rem, 2.88cqw) 0 0;
-  color: #2b3d41;
+  color: var(--ink-on-light);
   font-size: max(1rem, 3.31cqw);
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
 .deck-quote p {
@@ -990,9 +1116,9 @@ body:not(:has(.home)) .site-header-inner {
 
 .deck-date {
   margin: max(0.75rem, 2.82cqw) 0 0;
-  color: #3c4f54;
+  color: var(--ink-on-light);
   font-size: max(0.84rem, 2.86cqw);
-  line-height: 1.3;
+  line-height: 1.375;
 }
 
 /* Not in the Figma frame: the deck rotates on its own, and this is the pause
@@ -1043,12 +1169,12 @@ body:not(:has(.home)) .site-header-inner {
 
 .faq h2 {
   margin: 0;
-  font-size: clamp(1.7rem, 3.424vw, 3.08rem);
+  font-size: var(--t-display);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.14;
   letter-spacing: -0.012em;
   text-align: center;
-  color: #252773;
+  color: var(--brand);
 }
 
 .faq-list {
@@ -1077,10 +1203,10 @@ body:not(:has(.home)) .site-header-inner {
 
 .faq-q {
   flex: 1;
-  color: #0b0d10;
-  font-size: clamp(1.08rem, 1.93vw, 1.74rem);
+  color: var(--ink-on-light);
+  font-size: var(--t-question);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.147;
 }
 
 .faq-item summary:hover .faq-q,
@@ -1134,9 +1260,9 @@ body:not(:has(.home)) .site-header-inner {
 .faq-item > p {
   margin: -0.675rem 0 2.68rem;
   max-width: 54rem;
-  color: #333333;
-  font-size: clamp(0.94rem, 1.18vw, 1.06rem);
-  line-height: 1.48;
+  color: var(--ink-on-light);
+  font-size: var(--t-body);
+  line-height: 1.35;
 }
 
 /* Chrome can animate a disclosure open once keyword sizes interpolate; every
@@ -1186,47 +1312,27 @@ body:not(:has(.home)) .site-header-inner {
   margin: -9.6875rem auto 0;
   padding: 4.77rem 2rem 5.07rem;
   text-align: center;
-  /* Two ramps rather than one radial: the panel brightens symmetrically out of
-     both side edges and holds that brighter blue all the way down, with only
-     the top band falling back to the base indigo. */
+  border-radius: var(--r-card);
+  /* Flat brand blue with the same bottom-centre glow the buttons carry, which
+     is what sampling the frame's panel resolves to: #02269c at every edge,
+     peaking around 50% 82%. */
   background:
-    linear-gradient(
-      180deg,
-      rgba(38, 39, 157, 0.78) 0%,
-      rgba(38, 39, 157, 0.55) 11%,
-      rgba(38, 39, 157, 0.34) 21%,
-      rgba(38, 39, 157, 0.13) 31%,
-      rgba(38, 39, 157, 0) 41%
-    ),
-    linear-gradient(
-      90deg,
-      #26279d 6%,
-      #2a34a5 16%,
-      #2f46ae 21%,
-      #365ab8 27%,
-      #3b6dc2 37%,
-      #3c6ec5 50%,
-      #3b6dc2 63%,
-      #365ab8 73%,
-      #2f46ae 79%,
-      #2a34a5 84%,
-      #26279d 94%
-    ),
-    #26279d;
+    radial-gradient(ellipse 34% 95% at 50% 82%, #2b9adf 0%, rgba(2, 38, 156, 0) 100%),
+    var(--brand);
 }
 
 .closer-panel h2 {
-  font-size: clamp(1.85rem, 3.417vw, 3.075rem);
+  font-size: var(--t-display);
   font-weight: 400;
-  line-height: 1.23;
+  line-height: 1.14;
   letter-spacing: -0.012em;
 }
 
 .closer-panel p {
   margin: 1.53rem auto 0;
   max-width: 48rem;
-  font-size: clamp(0.9rem, 1.19vw, 1.07rem);
-  line-height: 1.47;
+  font-size: var(--t-body);
+  line-height: 1.35;
 }
 
 /* Not .btn-gradient: on this panel the pill sits in the same indigo as the
@@ -1255,7 +1361,7 @@ main > article {
 main > article h1,
 main > article h2,
 main > article h3 {
-  font-family: var(--font-josefin), "Josefin Sans", sans-serif;
+  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
   line-height: 1.2;
 }
 
@@ -1274,7 +1380,7 @@ main > article a {
   padding-bottom: 2.6rem;
   background: var(--pale);
   color: #17292e;
-  font-size: 0.83rem;
+  font-size: var(--t-small);
 }
 
 .footer-wrap {
@@ -1290,15 +1396,11 @@ main > article a {
   padding-top: 5.14rem;
 }
 
-/* The design sets these bold, but the brief caps headings at 400. Tracking and
-   a darker ink carry the hierarchy instead of weight. */
 .site-footer h2 {
   margin-bottom: 2.04rem;
   color: #04161b;
-  font-size: 0.86rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: var(--t-small);
+  font-weight: 700;
 }
 
 .site-footer ul {
@@ -1307,7 +1409,7 @@ main > article a {
   margin: 0;
   padding: 0;
   list-style: none;
-  line-height: 1.5;
+  line-height: 2.375;
 }
 
 .footer-services {
@@ -1341,7 +1443,7 @@ main > article a {
 .footer-contact address {
   padding-top: 0.29rem;
   font-style: normal;
-  line-height: 1.55;
+  line-height: 1.375;
 }
 
 /* Narrow enough to break after "Suite", as the design does. */
@@ -1371,12 +1473,9 @@ main > article a {
   background: #a9edfa;
 }
 
-/* A card title rather than a column label, so it keeps sentence case. */
 .signup h2 {
   margin-bottom: 1.39rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.01em;
-  text-transform: none;
+  font-size: var(--t-small);
 }
 
 .signup-field {
@@ -1427,8 +1526,8 @@ main > article a {
 .signup-note {
   margin: 0.7rem 0 0;
   color: #10484f;
-  font-size: 0.68rem;
-  line-height: 1.4;
+  font-size: var(--t-note);
+  line-height: 1.333;
 }
 
 .footer-social {
@@ -1436,8 +1535,8 @@ main > article a {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin: 0.52rem 0 0;
-  font-size: 0.81rem;
-  line-height: 1.6;
+  font-size: var(--t-small);
+  line-height: 1.375;
 }
 
 /* Flex rather than text-align: an inline-block logo would sit on a line box and
@@ -1460,8 +1559,8 @@ main > article a {
 .footer-end p {
   margin: 1.23rem 0 0;
   color: #041215;
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: var(--t-small);
+  line-height: 1.375;
 }
 
 @media (max-width: 900px) {
@@ -1571,7 +1670,6 @@ main > article a {
   }
 
   .svc-card,
-  .svc-card[data-featured="true"],
   .svc-track:hover .svc-card,
   .svc-track:hover .svc-card:hover,
   .svc-track:focus-within .svc-card,
@@ -1593,21 +1691,31 @@ main > article a {
     flex-wrap: wrap;
   }
 
+  /* The frame has no narrow layout. Below 900px the side-by-side split squeezes
+     the cut-out into a couple of hundred pixels and it stops reading at all, so
+     the artwork becomes a band across the top with the copy beneath it. */
   .hero-art {
-    object-position: 60% center;
+    top: 8%;
+    right: auto;
+    left: 50%;
+    width: min(100%, 30rem);
+    height: 46%;
+    object-position: center;
+    transform: translateX(-50%);
   }
 
-  /* Narrow viewports crop the plate hard, so the copy needs a scrim rather
-     than relying on the artwork's own dark areas falling in the right place. */
+  /* Transparent over the artwork, opaque under it, so the art stays legible and
+     the copy still gets the contrast it needs. */
   .hero::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgba(3, 18, 37, 0.5) 0%,
-      rgba(3, 18, 37, 0.82) 45%,
-      rgba(3, 18, 37, 0.94) 100%
+      rgba(3, 18, 37, 0) 0%,
+      rgba(3, 18, 37, 0.3) 40%,
+      rgba(3, 18, 37, 0.82) 60%,
+      rgba(3, 18, 37, 0.95) 100%
     );
   }
 
@@ -1615,8 +1723,9 @@ main > article a {
     left: 1.5rem;
     right: 1.5rem;
     width: auto;
-    top: 50%;
-    transform: translateY(-28%);
+    top: auto;
+    bottom: 7%;
+    transform: none;
   }
 
   /* Figma's deliberate line breaks only make sense at desktop widths. */

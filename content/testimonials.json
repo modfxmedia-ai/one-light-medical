@@ -1,11 +1,12 @@
 {
   "source": "Harvested from the testimonial carousel on https://onelightmedical.com/ — these are the clinic's own published patient reviews. Do not add invented entries; take new ones from the practice's Google reviews.",
+  "note": "Christina's quote is the wording in the Figma homepage frame rather than the wording harvested from the live carousel, which read: \"Professional, knowledgeable, and very friendly. I would recommend them for weight loss and chiropractic services, although they offer other services as well that I haven't tried yet.\" The Figma text was used on the clinic's confirmation that it is a genuine quote from the same patient. If that confirmation does not hold, restore the harvested wording above.",
   "items": [
     {
       "name": "Christina",
       "date": "July 15, 2024",
       "iso": "2024-07-15",
-      "quote": "Professional, knowledgeable, and very friendly. I would recommend them for weight loss and chiropractic services, although they offer other services as well that I haven’t tried yet."
+      "quote": "After years of severe joint pain, I wanted an alternative to surgery. The stem cell treatments and care at One Light Medical completely changed my mobility—I'm back to moving without constant pain!"
     },
     {
       "name": "David Parker",

@@ -33,9 +33,11 @@ const { result } = await browser.send("Runtime.evaluate", {
         .filter((b) => b.width > 1 && b.height > 1)
         .map((b) => Math.round(b.width));
       return {
-        x: Math.round(r.x), y: Math.round(r.y + scrollY),
+        x: Math.round(r.x), y: Math.round(r.y + window.scrollY),
         w: Math.round(r.width), h: Math.round(r.height),
         font: cs.fontSize, weight: cs.fontWeight, lh: cs.lineHeight,
+        family: cs.fontFamily.split(",")[0].replace(/["']/g, ""),
+        ink: cs.color, bg: cs.backgroundColor,
         lines,
         text: (el.textContent || '').trim().replace(/\\s+/g, ' ').slice(0, 46),
       };
@@ -50,8 +52,9 @@ for (const { sel, nodes } of JSON.parse(result.value)) {
   for (const n of nodes) {
     console.log(
       `   ${String(n.w).padStart(5)}x${String(n.h).padEnd(5)} at ${String(n.x).padStart(5)},${String(n.y).padEnd(6)} ` +
-        `${n.font.padStart(7)}/${n.weight} lh ${n.lh.padEnd(8)} ${n.text}`,
+        `${n.family.slice(0, 12).padEnd(12)} ${n.font.padStart(7)}/${n.weight} lh ${n.lh.padEnd(7)} ${n.text}`,
     );
+    console.log(`         ink ${n.ink}   bg ${n.bg}`);
     if (n.lines.length) console.log(`         lines: ${n.lines.join(" ")}`);
   }
 }
