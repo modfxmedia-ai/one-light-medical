@@ -58,7 +58,11 @@
   /* The frame sets every dark text colour to flat black rather than a softened
      near-black, so that is what the homepage uses. */
   --ink-on-light: #000000;
-  --aqua: var(--cyan);
+  /* Sampled off the frame's "View All Services" pill, which is not full-strength
+     cyan: it resolves to a much paler blue, exactly --cyan at 60% over the white
+     band behind it. Written flat rather than as an alpha because the pill only
+     ever sits on that white, and a flat fill does not shift if the band does. */
+  --aqua: #b0f0ff;
   --aqua-ink: var(--brand);
   --pale: var(--ice);
 
@@ -101,13 +105,38 @@
   --r-pill: 999px;
   --r-card: 0.625rem;
   --r-panel: 1.25rem;
+
+  /* Typeface
+   * --------
+   * Avenir Next is the frame's face and what the client wants. It is a Linotype/
+   * Monotype family, licensed and not on Google Fonts, so it cannot simply be
+   * self-hosted -- see the type note at the top of this file.
+   *
+   * Naming it first costs nothing and needs no licence: asking for a font that is
+   * already installed is not distributing it. macOS and iOS both ship Avenir
+   * Next, so Mac and iPhone visitors -- and the client reviewing this -- get the
+   * real face immediately. Avenir Next World is the extended-language cut, and
+   * plain Avenir the older release; both are near-identical stand-ins where
+   * present.
+   *
+   * Everyone else falls back to Nunito Sans, which was chosen on measured metrics
+   * against the real Avenir Next rather than by reputation: within 1.3% on width,
+   * so the frame's hand-broken lines hold either way and the two stacks lay out
+   * near-identically.
+   *
+   * To serve the real face to every visitor, add an Adobe Fonts web project --
+   * Avenir Next is in the Adobe Fonts library and a Creative Cloud subscription
+   * licenses it for web use -- and set NEXT_PUBLIC_ADOBE_FONTS_KIT. See layout.tsx.
+   */
+  --stack: "Avenir Next", "Avenir Next World", "Avenir Next LT Pro", Avenir,
+    var(--font-nunito), "Nunito Sans", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--navy-950);
   --color-foreground: var(--ink);
-  --font-sans: var(--font-nunito);
-  --font-display: var(--font-nunito);
+  --font-sans: var(--stack);
+  --font-display: var(--stack);
 }
 
 * {
@@ -141,7 +170,7 @@ body {
   margin: 0;
   background: var(--navy-950);
   color: var(--ink);
-  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
+  font-family: var(--stack);
   font-weight: 400;
   line-height: 1.6;
 }
@@ -516,7 +545,7 @@ body:not(:has(.home)) .site-header-inner {
 .home h3,
 .home h4,
 .site-footer h2 {
-  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
+  font-family: var(--stack);
   line-height: 1.375;
   margin: 0;
 }
@@ -565,11 +594,18 @@ body:not(:has(.home)) .site-header-inner {
   display: block;
   margin-bottom: 0.14em;
   font-size: 0.625em;
-  font-weight: 300;
+  /* Not 300. Avenir Next has no 300, so a browser resolving the stack to the real
+     family drops to Ultra Light and the line renders as a hairline; matching the
+     frame's ink means 400. The frame uses only 400, 500 and 700 throughout. */
+  font-weight: 400;
 }
 
 .hero-copy > p {
-  max-width: 27rem;
+  /* The frame sets this paragraph three lines. Its longest line inks 569px of the
+     1728 frame but needs 573px of advance width to set, so 27rem -- and even a
+     literal 569px -- broke it onto a fourth line. 30rem is 576px at frame scale,
+     the frame's measure with a little room. */
+  max-width: 30rem;
   margin: 1.35rem 0 0;
   color: #ffffff;
   font-size: var(--t-body);
@@ -1085,7 +1121,9 @@ body:not(:has(.home)) .site-header-inner {
 
 .dial-value {
   font-size: 18.4cqw;
-  font-weight: 300;
+  /* See .hero-lead: 300 falls to Avenir Next Ultra Light and the numeral loses
+     nearly half its ink against the frame. */
+  font-weight: 400;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink-on-light);
@@ -1511,7 +1549,7 @@ main > article {
 main > article h1,
 main > article h2,
 main > article h3 {
-  font-family: var(--font-nunito), "Nunito Sans", sans-serif;
+  font-family: var(--stack);
   line-height: 1.2;
 }
 
@@ -2008,6 +2046,447 @@ main > article a {
   }
 }
 
+/* ---------- Contact page --------------------------------------------------
+   The Figma file has no contact frame, so this is built from the homepage's own
+   vocabulary rather than invented: the hero's radial gradient and watermarked
+   logo, the IV panel's translucent card, the footer's contact glyphs, and the
+   same type scale and radii tokens throughout. Nothing here is shared with the
+   homepage sections, so it is all scoped under .contact.
+
+   Everything is scoped to this page on purpose -- the other legacy routes are
+   still the unstyled Stage A markup, and styling `article` or `h1` globally
+   would half-dress all 61 of them. */
+.contact {
+  /* The width the embed lays its own fields out to. Everything on this page is
+     measured back from it -- see .contact-form-col. */
+  --form-w: 800px;
+  background: #fff;
+}
+
+/* A narrower measure than the homepage's 85rem, and deliberately so. 65rem is
+   the form's 800px ceiling plus the details column and the gap between them, so
+   at frame width the two columns fill the row exactly and the form meets its own
+   cap. Left at homepage width the panel is half again as wide as the form the
+   embed will draw inside it.
+
+   Only applied above the phone breakpoint, where .wrap drops to a 1.25rem
+   gutter that this would otherwise outrank. */
+@media (min-width: 901px) {
+  .contact .wrap {
+    width: min(65rem, calc(100% - 4.5rem));
+  }
+}
+
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 6vw, 6.4rem) 0 clamp(4.5rem, 8vw, 8.5rem);
+  /* The hero gradient's light source is top-left over a much shorter band than
+     the homepage hero, so the ellipse is pulled in to keep the cyan a rim rather
+     than a wash. */
+  background: radial-gradient(ellipse 120% 200% at 4% -60%, var(--cyan) 0%, #010d34 44%, #000001 72%);
+  color: var(--ink);
+}
+
+/* The same mark the restore banner watermarks with, held to the right edge so
+   the copy stays over the darkest part of the field. */
+.contact-hero-mark {
+  position: absolute;
+  top: -18%;
+  right: -6%;
+  width: min(34rem, 46%);
+  height: auto;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.contact-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-eyebrow {
+  margin: 0;
+  color: var(--cyan-300);
+  font-size: var(--t-small);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact h1 {
+  margin: 0.6rem 0 0;
+  font-size: var(--t-display);
+  font-weight: 500;
+  line-height: var(--t-display-lh);
+  letter-spacing: -0.01em;
+}
+
+.contact-lead {
+  max-width: 34rem;
+  margin: 1.1rem 0 0;
+  color: var(--muted);
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+
+/* Three cards on one row, each a whole tap target: the reason the anchor is the
+   flex row and not just the label. */
+.contact-quick {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 62rem;
+  margin: clamp(1.8rem, 3.4vw, 2.8rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-quick a {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  height: 100%;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-card);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s ease;
+}
+
+.contact-quick a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(57, 219, 255, 0.55);
+  background: rgba(57, 219, 255, 0.12);
+}
+
+.contact-quick span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: var(--t-small);
+  line-height: 1.35;
+  /* Long addresses and emails would otherwise push the card past its column. */
+  overflow-wrap: anywhere;
+}
+
+.contact-quick strong {
+  color: var(--nav);
+  font-size: var(--t-note);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.contact-quick .contact-glyph {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--r-pill);
+  background: var(--phone-bg);
+  color: var(--cyan);
+}
+
+/* ----- Form and details ----- */
+
+.contact-body {
+  /* Lifts the form card over the seam so the page reads as one composition
+     rather than a dark band stacked on a light one. */
+  margin-top: clamp(-6.5rem, -6vw, -3.5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 6rem);
+  /* Ice rather than white: the form card is white, and on a white field its
+     lower half has no edge at all. This is also the footer's colour, so the two
+     bands meet without a seam. */
+  background: var(--ice);
+}
+
+.contact-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 21.5rem;
+  gap: clamp(1.25rem, 2.4vw, 2rem);
+  align-items: start;
+}
+
+/* The embed lays its fields out to a fixed ceiling of roughly 800px and centres
+   them inside whatever width it is given, so a wider panel does not produce a
+   wider form -- it produces white margins inside the form's own container, which
+   is exactly the second frame this layout is trying to avoid. Capping the panel
+   keeps the form flush to its edges at every width.
+
+   --form-w is in px rather than rem on purpose: the vendor's ceiling is an
+   absolute pixel value and does not scale with our root em, so neither can this. */
+.contact-form-col {
+  max-width: var(--form-w);
+}
+
+.contact-form-panel {
+  /* Clips the iframe's square corners to the panel's radius, which is what lets
+     the form sit flush without a frame of its own. */
+  overflow: hidden;
+  border-radius: var(--r-panel);
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(3, 18, 37, 0.14);
+}
+
+/* Same navy as the detail cards opposite, with a hint of the hero's cyan in the
+   top corner, so the panel and the aside read as one system. */
+.contact-form-head {
+  padding: clamp(1.3rem, 2.4vw, 2rem) clamp(1.4rem, 2.6vw, 2.3rem);
+  background:
+    radial-gradient(
+      ellipse 90% 170% at 6% -30%,
+      rgba(57, 219, 255, 0.32) 0%,
+      rgba(57, 219, 255, 0) 62%
+    ),
+    linear-gradient(135deg, #182a72 0%, var(--navy-panel) 58%, #0d1a44 100%);
+  color: var(--ink);
+}
+
+.contact-form-head h2 {
+  margin: 0;
+  font-size: var(--t-question);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.contact-form-head p {
+  max-width: 34rem;
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: var(--t-small);
+  line-height: 1.5;
+}
+
+/* Holds the reserved height while the iframe loads: an empty white box is a less
+   alarming placeholder than a collapsed one. */
+.contact-form-frame {
+  background: #fff;
+}
+
+.contact-form-frame iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/* Outside the panel rather than in it, so the panel stays edge to edge. */
+.contact-fallback {
+  margin: 1rem 0 0;
+  padding-inline: 0.2rem;
+  color: var(--ink-soft);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.contact-fallback a {
+  color: var(--brand);
+  font-weight: 500;
+}
+
+.contact-aside {
+  display: grid;
+  gap: clamp(1rem, 1.6vw, 1.25rem);
+}
+
+/* The form card is roughly twice the height of the details column, so left
+   alone the right half of the page is empty for most of the scroll. Sticky keeps
+   the phone number and address in view the whole way down the form.
+
+   Only above the breakpoint where the two are side by side -- stacked, there is
+   nothing for it to stick beside. The offset clears the sticky header. */
+@media (min-width: 1101px) {
+  .contact-aside {
+    position: sticky;
+    top: 6.5rem;
+  }
+}
+
+/* Navy against the white form card: the details are reference material, and the
+   contrast keeps them from competing with the form for the eye. */
+.contact-card {
+  padding: clamp(1.15rem, 2vw, 1.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-panel);
+  background: var(--navy-panel);
+  color: var(--ink);
+  box-shadow: 0 18px 44px rgba(3, 18, 37, 0.18);
+}
+
+.contact-card h2 {
+  margin: 0 0 0.9rem;
+  font-size: var(--t-title);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.contact-details {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-small);
+  line-height: 1.5;
+}
+
+.contact-details li {
+  display: flex;
+  align-items: start;
+  gap: 0.7rem;
+}
+
+.contact-details .contact-glyph {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--r-pill);
+  background: var(--phone-bg);
+  color: var(--cyan);
+}
+
+.contact-details a {
+  color: var(--ink);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.contact-details a:hover {
+  color: var(--cyan);
+}
+
+.contact-details address {
+  font-style: normal;
+}
+
+.contact-hours {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.contact-hours dt {
+  color: var(--cyan-300);
+  font-weight: 500;
+}
+
+.contact-hours dd {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+}
+
+.contact-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: var(--t-small);
+}
+
+.contact-social a,
+.contact-social span {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.contact-social a:hover {
+  border-color: var(--cyan);
+  background: var(--phone-bg);
+  color: var(--cyan);
+}
+
+/* The two networks with no profile URL yet render as plain labels, and are
+   dimmed so they do not read as links that failed. */
+.contact-social span {
+  border-style: dashed;
+  color: var(--nav);
+}
+
+.contact-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin: clamp(1.6rem, 2.8vw, 2.4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(2, 38, 156, 0.12);
+  color: var(--ink-soft);
+  font-size: var(--t-small);
+}
+
+.contact-legal a {
+  color: var(--ink-soft);
+  text-decoration-color: rgba(31, 44, 61, 0.4);
+}
+
+.contact-legal a:hover {
+  color: var(--brand);
+}
+
+@media (max-width: 1100px) {
+  /* Below this the aside column can no longer hold "wecare@onelightmedical.com"
+     without hyphenating it, so the details move under the form. */
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-aside {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+
+  /* Stacked, the form is still capped at the embed's width, so the details and
+     the policy links are held to the same measure and centred with it rather
+     than running wider than the panel they sit under. */
+  .contact-form-col,
+  .contact-aside {
+    width: 100%;
+    max-width: var(--form-w);
+    margin-inline: auto;
+  }
+
+  /* This one carries .wrap, which already sets its width and phone gutter, so it
+     needs the cap only -- a width here would outrank the gutter. */
+  .contact-legal {
+    max-width: var(--form-w);
+  }
+}
+
+@media (max-width: 760px) {
+  .contact-quick {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-aside {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The overlap is a desktop flourish; on a phone the form card is nearly the
+     full width and hanging it over the gradient just crops the hero copy. */
+  .contact-body {
+    margin-top: 0;
+    padding-top: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .contact-hero {
+    padding-bottom: clamp(2.5rem, 7vw, 3.5rem);
+  }
+}
+
 /* ---------- Preview lock ---------------------------------------------------
    Nothing on the home page is allowed to navigate while the rest of the site is
    still unstyled, so every link and button that would leave the page is made
@@ -2020,12 +2499,22 @@ main > article a {
 
    Deliberately still live:
    - tel: and mailto: links, which reach the clinic rather than an unbuilt page
+   - /contact/, now that the contact page is built and carries the enquiry form.
+     This covers the nav and footer entries and also every "Book An Appointment"
+     button, which all point there -- a dead primary CTA next to a working Contact
+     link would be the odd result.
    - <summary> elements, or the mobile menu and the FAQ could not open
    - the testimonial dots, which are the pause and jump control for a deck that
      advances on its own
 
    Delete this one block to hand the page back its navigation. */
 .home a,
-body:has(.home) :is(.site-header, .site-footer) a:not([href^="tel:"], [href^="mailto:"]) {
+body:has(.home)
+  :is(.site-header, .site-footer)
+  a:not([href^="tel:"], [href^="mailto:"], [href="/contact/"]) {
   pointer-events: none;
+}
+
+.home a[href="/contact/"] {
+  pointer-events: auto;
 }

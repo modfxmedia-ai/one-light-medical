@@ -9,7 +9,10 @@
     "lint": "eslint",
     "verify:seo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-seo-parity.ts",
     "verify:motion": "node scripts/check-motion.mjs",
-    "verify:responsive": "node scripts/check-responsive.mjs"
+    "verify:responsive": "node scripts/check-responsive.mjs",
+    "verify:lock": "node scripts/check-lock.mjs",
+    "verify:form": "node scripts/check-contact-form.mjs",
+    "verify:widget": "node scripts/check-chat-widget.mjs"
   },
   "dependencies": {
     "next": "16.3.3",

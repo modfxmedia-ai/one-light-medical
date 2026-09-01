@@ -6,7 +6,7 @@
  */
 
 import { spawn } from "node:child_process";
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -15,18 +15,39 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export async function launch() {
   const port = 9000 + Math.floor(Math.random() * 900);
+  /* Each launch needs its own profile so parallel runs don't fight over one, but
+     Chrome leaves ~10MB behind per profile and these scripts get run in loops --
+     enough to fill a disk over a few sessions. Cleaned up on close, and again on
+     exit in case a script throws before it gets there. */
+  const profile = mkdtempSync(join(tmpdir(), "cdp-"));
+  let sweep = () => rmSync(profile, { recursive: true, force: true });
+  /* Runs even when a script throws or calls process.exit without close(), which
+     is how both the profile directories and the renderer processes were piling
+     up: killing the parent from the shell leaves the helpers behind. */
+  process.once("exit", () => sweep());
+
   const chrome = spawn(CHROME, [
     "--headless=new",
     "--disable-gpu",
     "--hide-scrollbars",
     `--remote-debugging-port=${port}`,
-    `--user-data-dir=${mkdtempSync(join(tmpdir(), "cdp-"))}`,
+    `--user-data-dir=${profile}`,
     "about:blank",
   ]);
   chrome.on("error", (err) => {
     console.error(err);
     process.exit(1);
   });
+
+  const previous = sweep;
+  sweep = () => {
+    try {
+      chrome.kill("SIGKILL");
+    } catch {
+      /* already gone */
+    }
+    previous();
+  };
 
   let wsUrl;
   for (let i = 0; i < 60 && !wsUrl; i += 1) {
@@ -92,9 +113,14 @@ export async function launch() {
       await sleep(settle);
     },
     async close() {
+      // Browser.close is the clean shutdown and takes the helper processes with
+      // it; the kill in sweep is the backstop for when it does not answer.
       await send("Browser.close").catch(() => {});
       ws.close();
-      chrome.kill();
+      // Chrome flushes the profile as it shuts down, so give it a beat before
+      // pulling the directory out from under it.
+      await sleep(300);
+      sweep();
     },
   };
 }

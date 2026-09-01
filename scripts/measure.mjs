@@ -12,15 +12,22 @@ import { launch } from "./cdp.mjs";
 
 const args = process.argv.slice(2);
 const widthArg = args.find((a) => a.startsWith("--w="));
+/* Viewport height matters as much as width for any y reported here: the hero is
+   sized in svh, so a different height shifts everything below it. Pass --h to
+   match whatever a screenshot being compared against was taken at. */
+const heightArg = args.find((a) => a.startsWith("--h="));
 const width = widthArg ? Number(widthArg.slice(4)) : 1440;
-const [url, ...selectors] = args.filter((a) => a !== widthArg);
+const height = heightArg ? Number(heightArg.slice(4)) : 765;
+const [url, ...selectors] = args.filter((a) => a !== widthArg && a !== heightArg);
 if (!url || !selectors.length) {
-  console.error("usage: node scripts/measure.mjs <url> [--w=1728] <selector> [selector...]");
+  console.error(
+    "usage: node scripts/measure.mjs <url> [--w=1728] [--h=900] <selector> [selector...]",
+  );
   process.exit(1);
 }
 
 const browser = await launch();
-await browser.open(url, { width });
+await browser.open(url, { width, height });
 
 const { result } = await browser.send("Runtime.evaluate", {
   expression: `JSON.stringify(${JSON.stringify(selectors)}.map((sel) => ({
