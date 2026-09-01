@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Fragment } from "react";
 
 import { JsonLd } from "@/components/json-ld";
+import { OutcomeDials } from "@/components/outcome-dials";
 import { TestimonialDeck } from "@/components/testimonial-deck";
 import faqs from "@/content/faqs.json";
 import testimonials from "@/content/testimonials.json";
@@ -303,51 +303,24 @@ export function HomePage() {
             </p>
           </div>
 
-          <ul className="dial-row">
-            {OUTCOMES.map((outcome) => (
-              <li className="dial" key={outcome.value}>
-                {/* Two semicircular arcs rather than a <circle>, so the sweep
-                    provably starts at 12 o'clock and runs clockwise. pathLength
-                    normalises the circumference to 100, letting the dash array be
-                    the percentage itself. Rotating a <circle> instead would drag
-                    the stroke gradient round with it. */}
-                <svg className="dial-arc" viewBox="0 0 100 100" aria-hidden="true">
-                  <circle className="dial-track" cx="50" cy="50" r="47.5" />
-                  <path
-                    className="dial-progress"
-                    d="M50 2.5A47.5 47.5 0 0 1 50 97.5A47.5 47.5 0 0 1 50 2.5"
-                    pathLength={100}
-                    strokeDasharray={`${outcome.value} 100`}
-                  />
-                </svg>
-                <div className="dial-face">
-                  <span className="dial-value">{outcome.value}%</span>
-                  <span className="dial-note">
-                    {outcome.note.map((line, index) => (
-                      <Fragment key={line}>
-                        {index > 0 && <br className="br-lg" />}
-                        {index > 0 ? ` ${line}` : line}
-                      </Fragment>
-                    ))}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <OutcomeDials items={OUTCOMES} />
         </section>
 
         <section className="testimonials" id="Testimonials">
-          <div className="wrap testimonials-head">
-            <h2>
-              What They’re Talking
-              <br className="br-lg" /> About Our Center?
-            </h2>
-            <p>
-              Dozens of stories, in their own words, wheelchairs left behind, migraines gone,
-              medications reduced, lives reclaimed.
-            </p>
-          </div>
-          <TestimonialDeck items={testimonials.items} />
+          {/* The heading is passed in rather than placed above the deck so it sits
+              inside the pinned panel and holds with the card as it turns over. */}
+          <TestimonialDeck items={testimonials.items}>
+            <div className="wrap testimonials-head">
+              <h2>
+                What They’re Talking
+                <br className="br-lg" /> About Our Center?
+              </h2>
+              <p>
+                Dozens of stories, in their own words, wheelchairs left behind, migraines gone,
+                medications reduced, lives reclaimed.
+              </p>
+            </div>
+          </TestimonialDeck>
         </section>
 
         <section className="faq">

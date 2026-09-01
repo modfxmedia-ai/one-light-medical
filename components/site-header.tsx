@@ -20,7 +20,12 @@ export function SiteHeader() {
         </Link>
 
         <details className="site-nav-toggle">
-          <summary>Menu</summary>
+          {/* Both labels are present and CSS shows one, so the control names its
+              own action in either state without needing script to swap the text. */}
+          <summary>
+            <span data-label="closed">Menu</span>
+            <span data-label="open">Close</span>
+          </summary>
           <Nav />
           <a className="header-phone" href={BUSINESS.phoneHref}>
             <PhoneIcon />

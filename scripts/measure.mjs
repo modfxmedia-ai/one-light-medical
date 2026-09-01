@@ -5,19 +5,22 @@
  * aurora backgrounds on this page defeat edge detection, and computed font
  * sizes are what actually need to match the Figma frame.
  *
- * Usage: node scripts/measure.mjs <url> <selector> [selector...]
+ * Usage: node scripts/measure.mjs <url> [--w=1728] <selector> [selector...]
  */
 
 import { launch } from "./cdp.mjs";
 
-const [url, ...selectors] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const widthArg = args.find((a) => a.startsWith("--w="));
+const width = widthArg ? Number(widthArg.slice(4)) : 1440;
+const [url, ...selectors] = args.filter((a) => a !== widthArg);
 if (!url || !selectors.length) {
-  console.error("usage: node scripts/measure.mjs <url> <selector> [selector...]");
+  console.error("usage: node scripts/measure.mjs <url> [--w=1728] <selector> [selector...]");
   process.exit(1);
 }
 
 const browser = await launch();
-await browser.open(url);
+await browser.open(url, { width });
 
 const { result } = await browser.send("Runtime.evaluate", {
   expression: `JSON.stringify(${JSON.stringify(selectors)}.map((sel) => ({

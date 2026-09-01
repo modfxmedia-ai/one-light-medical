@@ -12,7 +12,10 @@
 import { launch } from "./cdp.mjs";
 
 const [url = "http://localhost:3000/", list] = process.argv.slice(2);
-const WIDTHS = (list ?? "1440,1280,1180,1024,900,834,768,600,430,390,360,320")
+/* 2560 and 1920 are external displays, 1728 is the frame width and the 16-inch
+   MacBook Pro, 1512 the 14-inch. The design scales up through this range, so it
+   has to be checked there and not only below the old 1440 reference. */
+const WIDTHS = (list ?? "2560,1920,1728,1512,1440,1280,1180,1024,900,834,768,600,430,390,360,320")
   .split(",")
   .map(Number);
 

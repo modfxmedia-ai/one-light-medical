@@ -23,8 +23,13 @@
  * serve. scripts/font-match.mjs measured the candidates against the real Avenir
  * Next installed by macOS: Nunito Sans sets within 1.3% of its width, so the
  * frame's hand-broken lines hold as drawn, and sits 3.9% higher in x-height,
- * which needs no compensation. The scale below is the frame's own, divided by
- * 1.2 to carry the 1728px frame onto the site's 1440px reference width.
+ * which needs no compensation.
+ *
+ * The rem caps below are the frame's own sizes -- 64, 56, 40, 34, 24, 20, 18, 16
+ * and 12px -- expressed against the 19.2px root em that `html` reaches at 1728px
+ * wide. See the design-scale note on `html` for why the root em carries the
+ * scale. The floors are chosen for phone legibility, not derived from the frame,
+ * which has no narrow layout.
  */
 :root {
   /* Palette */
@@ -75,22 +80,27 @@
   --phone-bg: rgba(57, 219, 255, 0.2);
   --glass-edge: rgba(255, 255, 255, 0.26);
 
-  /* Type scale: clamp(floor, 1440-relative, frame value) */
-  --t-display: clamp(1.95rem, 3.704vw, 3.333rem);
+  /* Type scale: clamp(phone floor, fluid, the frame's own size)
+     The vw middles are each size as a share of the 1728px frame, so every one
+     reaches its drawn value exactly at frame width and holds there above it.
+     These are deliberately absolute rather than rem: the root em scales with the
+     viewport (see `html`), and a rem floor would scale with it and invert the
+     clamp instead of acting as a floor. */
+  --t-display: clamp(31px, 3.7037vw, 64px);
   --t-display-lh: 1.14;
-  --t-commit: clamp(1.75rem, 3.241vw, 2.917rem);
-  --t-name: clamp(1.35rem, 2.315vw, 2.083rem);
-  --t-question: clamp(1.1rem, 1.968vw, 1.771rem);
-  --t-title: clamp(1rem, 1.389vw, 1.25rem);
-  --t-body: clamp(0.92rem, 1.157vw, 1.042rem);
-  --t-nav: clamp(0.86rem, 1.042vw, 0.938rem);
-  --t-small: clamp(0.78rem, 0.926vw, 0.833rem);
-  --t-note: clamp(0.62rem, 0.694vw, 0.625rem);
+  --t-commit: clamp(28px, 3.2407vw, 56px);
+  --t-name: clamp(21px, 2.3148vw, 40px);
+  --t-question: clamp(17px, 1.9676vw, 34px);
+  --t-title: clamp(16px, 1.3889vw, 24px);
+  --t-body: clamp(16px, 1.1574vw, 20px);
+  --t-nav: clamp(15px, 1.0417vw, 18px);
+  --t-small: clamp(13.5px, 0.9259vw, 16px);
+  --t-note: clamp(11px, 0.6944vw, 12px);
 
   /* Radii, from the frame's four values */
   --r-pill: 999px;
-  --r-card: 10px;
-  --r-panel: 20px;
+  --r-card: 0.625rem;
+  --r-panel: 1.25rem;
 }
 
 @theme inline {
@@ -106,6 +116,25 @@
 
 html {
   scroll-behavior: smooth;
+  /* Design scale
+   * ------------
+   * The frame is 1728px wide, which is the 16-inch MacBook Pro's default logical
+   * resolution: the design is drawn 1:1 for that screen, not for a 1440 reference.
+   * Treating 1440 as the reference is what made the whole page render at 1/1.2 of
+   * its drawn size, so it only looked right at 120% browser zoom.
+   *
+   * Rather than rewrite every value, the root em carries the scale: 1.1111vw is
+   * 19.2px at 1728 and 16px at 1440, so every rem in this sheet lands at its
+   * drawn size on a 16-inch laptop and steps down proportionally on smaller
+   * screens. The cap holds the design at frame scale on wider displays instead of
+   * letting it grow without limit; the floor keeps text readable on phones.
+   *
+   * This is why the sizes below are written in rem and the fluid middles in vw:
+   * within the range the two agree, because the root em is itself a share of the
+   * viewport. Anything that must not scale (hairlines, tap-target minimums, blur
+   * radii) stays in px on purpose.
+   */
+  font-size: clamp(1rem, 1.1111vw, 1.2rem);
 }
 
 body {
@@ -128,7 +157,7 @@ img {
 }
 
 .wrap {
-  width: min(1360px, calc(100% - 4.5rem));
+  width: min(85rem, calc(100% - 4.5rem));
   margin-inline: auto;
 }
 
@@ -266,6 +295,11 @@ body:not(:has(.home)) .site-header-inner {
   display: none;
 }
 
+.site-nav-toggle:not([open]) > summary [data-label="open"],
+.site-nav-toggle[open] > summary [data-label="closed"] {
+  display: none;
+}
+
 .services-menu {
   position: relative;
 }
@@ -353,36 +387,107 @@ body:not(:has(.home)) .site-header-inner {
     margin-left: auto;
   }
 
+  /* Full-screen overlay menu
+     ------------------------
+     A sheet over the page rather than a panel hanging off the header, so the
+     links can sit centred at a size that is comfortable to read and tap. Eight
+     services plus the top level and the two actions is more than a dropdown can
+     show on a short viewport without spilling off the bottom.
+
+     The sheet still scrolls internally, because the full list plus the actions
+     outruns a landscape phone even at this size. */
   .site-nav-toggle[open] {
-    position: absolute;
-    inset: 100% 1.25rem auto;
-    padding: 1rem;
-    background: #0b1730;
-    border: 1px solid var(--line);
-    border-radius: 0.8rem;
-    /* Eight services plus the top level and the two actions outruns a short
-       viewport, and an absolutely positioned panel would just spill off the
-       bottom with no way to reach the end of it. */
-    max-height: calc(100svh - 5.5rem);
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5.75rem 1.5rem 2.5rem;
+    background: linear-gradient(180deg, #04142c 0%, #010a1c 100%);
     overflow-y: auto;
     overscroll-behavior: contain;
   }
 
-  .site-nav-toggle[open] .site-nav,
+  /* Held where the closed button was, so the target does not move when it turns
+     into the close control. Fixed rather than absolute: the sheet scrolls. */
+  .site-nav-toggle[open] > summary {
+    position: fixed;
+    top: 1rem;
+    right: 1.25rem;
+    z-index: 1;
+  }
+
+  /* The logo precedes the sheet in the markup, so it has to be reached from the
+     parent rather than as a following sibling. Lifting it above the overlay keeps
+     the header reading as the header while the menu is open. */
+  .site-header-inner:has(.site-nav-toggle[open]) .site-logo {
+    position: relative;
+    z-index: 61;
+  }
+
+  /* .site-nav is a row flex container, so without this the list is content-sized
+     and pinned to the left edge instead of centred in the sheet. */
+  .site-nav-toggle[open] .site-nav {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+
   .site-nav-toggle[open] .primary-nav {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    background: transparent;
-    border: 0;
+    align-items: center;
+    gap: 1.5rem;
     padding: 0;
+    /* The glass pill is a desktop treatment; over the sheet it would just be a
+       lighter rectangle behind the links. */
+    background: transparent;
+    backdrop-filter: none;
+    border: 0;
     border-radius: 0;
+    font-size: clamp(1.4rem, 6.2vw, 1.9rem);
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .site-nav-toggle[open] .primary-nav > li {
+    width: 100%;
   }
 
   .site-nav-toggle[open] .btn,
   .site-nav-toggle[open] .header-phone {
     display: flex;
-    margin-top: 0.85rem;
+  }
+
+  .site-nav-toggle[open] .header-phone {
+    justify-content: center;
+    margin-top: 2.25rem;
+    font-size: 1.15rem;
+  }
+
+  .site-nav-toggle[open] .btn {
+    align-self: center;
+    margin-top: 1.1rem;
+    font-size: 1.05rem;
+  }
+
+  /* Submenu opens inline and centred rather than as a floating panel, which has
+     nothing to anchor to once the parent is centred in a full-screen sheet. */
+  .site-nav-toggle[open] .services-menu ul {
+    position: static;
+    transform: none;
+    min-width: 0;
+    margin-top: 0.9rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+
+  .site-nav-toggle[open] .services-menu ul li + li {
+    margin-top: 0.65rem;
   }
 
   .services-menu ul {
@@ -390,6 +495,14 @@ body:not(:has(.home)) .site-header-inner {
     transform: none;
     min-width: 0;
     margin-top: 0.45rem;
+  }
+}
+
+/* No script is involved in opening the menu, so the scroll lock cannot be either.
+   Matching the open sheet from the root keeps the page behind it still. */
+@media (max-width: 1100px) {
+  html:has(.site-nav-toggle[open]) {
+    overflow: hidden;
   }
 }
 
@@ -531,8 +644,8 @@ body:not(:has(.home)) .site-header-inner {
 
 .svc-track {
   display: flex;
-  gap: 6px;
-  width: min(1336px, calc(100% - 5rem));
+  gap: 0.375rem;
+  width: min(83.5rem, calc(100% - 5rem));
   margin: 3.25rem auto 0;
   padding: 0;
   list-style: none;
@@ -581,8 +694,8 @@ body:not(:has(.home)) .site-header-inner {
   left: 1.15rem;
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
   background: rgba(236, 240, 250, 0.72);
 }
@@ -658,7 +771,7 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .why > .wrap {
-  width: min(1264px, calc(100% - 7rem));
+  width: min(79rem, calc(100% - 7rem));
 }
 
 .why h2 {
@@ -730,7 +843,7 @@ body:not(:has(.home)) .site-header-inner {
 /* Figma sizes this pair shorter than the hero buttons, and pads each one to
    its own label rather than to a shared rhythm. */
 .why-actions .btn {
-  min-height: 38px;
+  min-height: 2.375rem;
   padding-block: 0.35rem;
 }
 
@@ -877,7 +990,7 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .restore-actions .btn {
-  min-height: 38px;
+  min-height: 2.375rem;
   padding-block: 0.35rem;
 }
 
@@ -926,7 +1039,7 @@ body:not(:has(.home)) .site-header-inner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(0.9rem, 2.1vw, 1.9rem);
-  width: min(1220px, calc(100% - 5rem));
+  width: min(76.25rem, calc(100% - 5rem));
   margin: 3.95rem auto 0;
   padding: 0;
   list-style: none;
@@ -976,6 +1089,9 @@ body:not(:has(.home)) .site-header-inner {
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink-on-light);
+  /* The numeral counts up on scroll, so the glyphs have to occupy the same width
+     at every step or the figure jitters sideways as it climbs. */
+  font-variant-numeric: tabular-nums;
 }
 
 .dial-note {
@@ -1020,8 +1136,42 @@ body:not(:has(.home)) .site-header-inner {
   line-height: 1.125;
 }
 
-.deck-stage {
+/* Scroll-pinned deck
+   ------------------
+   Unpinned -- no script, or reduced motion -- the track is an ordinary block and
+   the panel is static, so the section is just a heading and a card at its natural
+   height. Pinning is opt-in via the attribute the component sets on mount.
+
+   The track's extra height is the scroll distance the flip is spread over. The
+   panel occupies one viewport of that, so travel is height - 100svh, which is
+   what the component divides by to get progress. svh rather than vh: on mobile
+   the dynamic viewport would otherwise resize the track mid-scroll as the URL bar
+   retracts, and the card would jump a step. */
+.deck-track[data-pinned="true"] {
+  height: calc(100svh + var(--cards) * 58svh);
+}
+
+.deck-track[data-pinned="true"] .deck-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  /* The section's own top padding is what the panel would otherwise be pushed
+     down by while pinned, leaving it off-centre. */
+  margin-top: -7.6rem;
+}
+
+/* Unpinned the deck sits where the frame draws it, below the heading. Pinned, the
+   panel is centred in the viewport instead, so the frame's gap is more air than
+   the layout needs and the pair is drawn closer together. */
+.deck-track .deck {
   margin-top: 9.15rem;
+}
+
+.deck-track[data-pinned="true"] .deck {
+  margin-top: 4.6rem;
 }
 
 /* One grid cell holds the whole stack, so the deck keeps its height from the
@@ -1033,7 +1183,7 @@ body:not(:has(.home)) .site-header-inner {
 .deck {
   container-type: inline-size;
   display: grid;
-  width: min(517px, calc(100% - 5.5rem));
+  width: min(32.3125rem, calc(100% - 5.5rem));
   margin-inline: auto;
 }
 
@@ -1354,7 +1504,7 @@ body:not(:has(.home)) .site-header-inner {
 
 /* Inner harvested pages stay readable under the new chrome */
 main > article {
-  width: min(780px, calc(100% - 2.5rem));
+  width: min(48.75rem, calc(100% - 2.5rem));
   margin: 2.5rem auto 4rem;
 }
 
@@ -1625,6 +1775,40 @@ main > article a {
     display: none;
   }
 
+  /* The frame's side-by-side split leaves the glass panel about 170px wide on a
+     phone, which breaks the copy into a column two or three words per line. So
+     the photograph becomes a full-bleed backdrop and the panel spans the width
+     over it, the same treatment the restore banner gets above.
+     Absolute positioning keeps the scrim out of the grid flow. */
+  .iv-therapy {
+    aspect-ratio: auto;
+    padding-block: 3.25rem;
+  }
+
+  .iv-art {
+    object-position: 62% center;
+  }
+
+  .iv-therapy::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(1, 8, 22, 0.66) 0%, rgba(1, 8, 22, 0.88) 100%);
+  }
+
+  .iv-panel {
+    justify-self: stretch;
+    width: min(100%, calc(100% - 2.5rem));
+    margin-inline: auto;
+    /* Lighter than the desktop fill: it now sits over the scrim as well, and at
+       80% the two together bury the photograph completely. */
+    background: rgba(19, 34, 82, 0.58);
+  }
+
+  .iv-panel > p {
+    max-width: none;
+  }
+
   .dial-row {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem;
@@ -1660,13 +1844,14 @@ main > article a {
     width: min(100%, calc(100% - 2.5rem));
   }
 
-  /* A hover accordion has no equivalent on touch, so the cards become a
-     snapping carousel with every card fully expanded. */
+  /* A hover accordion has no equivalent on touch, and a horizontal carousel hides
+     three of the four services behind a gesture there is nothing to advertise it.
+     So the cards stack and every one is expanded: the whole list is on the page,
+     top to bottom, with no sideways scrolling. */
   .svc-track {
-    gap: 0.75rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 1.25rem;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-x: visible;
   }
 
   .svc-card,
@@ -1674,8 +1859,11 @@ main > article a {
   .svc-track:hover .svc-card:hover,
   .svc-track:focus-within .svc-card,
   .svc-track:focus-within .svc-card:focus-within {
-    flex: 0 0 min(20rem, 78%);
-    scroll-snap-align: start;
+    flex: 0 0 auto;
+    width: 100%;
+    /* Shorter than the desktop card: stacked, four full-height cards would be a
+       very long run of scrolling before the next section. */
+    height: clamp(15rem, 54vw, 19rem);
   }
 
   .svc-card .svc-more,
@@ -1744,7 +1932,8 @@ main > article a {
 
   /* Figma's generous gap between the heading pair and the deck reads as dead
      space once the columns stack. */
-  .deck-stage {
+  .deck-track .deck,
+  .deck-track[data-pinned="true"] .deck {
     margin-top: 3.2rem;
   }
 

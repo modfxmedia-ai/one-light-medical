@@ -8,16 +8,26 @@
  * viewport realistic while the capture extends the full page height.
  *
  * Usage: node scripts/shot.mjs <url> <out.png> [width] [height] [scale] [openSelector]
+ *        node scripts/shot.mjs <url> <out.png> [width] ... --reduce-motion
  *
  * openSelector opens matching <details> elements before capturing, for
  * reviewing the mobile menu or an expanded accordion.
+ *
+ * --reduce-motion emulates the reduced-motion preference, which unpins the
+ * testimonial deck. That is the only way to capture the page at the height the
+ * Figma frame draws: pinned, the deck adds its scroll distance to the page and
+ * the two are no longer comparable band for band.
  */
 
 import { writeFileSync } from "node:fs";
 
 import { launch } from "./cdp.mjs";
 
-const [url, out, width = "1440", height = "765", scale = "1", open] = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const reduceMotion = argv.includes("--reduce-motion");
+const [url, out, width = "1440", height = "765", scale = "1", open] = argv.filter(
+  (a) => a !== "--reduce-motion",
+);
 
 if (!url || !out) {
   console.error("usage: node scripts/shot.mjs <url> <out.png> [width] [height] [scale]");
@@ -25,6 +35,11 @@ if (!url || !out) {
 }
 
 const browser = await launch();
+if (reduceMotion) {
+  await browser.send("Emulation.setEmulatedMedia", {
+    features: [{ name: "prefers-reduced-motion", value: "reduce" }],
+  });
+}
 await browser.open(url, {
   width: Number(width),
   height: Number(height),
