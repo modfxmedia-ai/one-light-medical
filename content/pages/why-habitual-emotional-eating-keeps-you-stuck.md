@@ -18,13 +18,13 @@ internalLinks: ["/contact/"]
 
 You tell yourself this will be the week you get back on track. You plan better meals. You promise yourself you’ll stop snacking late at night. You even feel motivated in the morning. But by the time the day winds down, something shifts. Stress builds. Emotions creep in. And suddenly, you’re reaching for food you didn’t even want an hour ago.
 
-If this feels familiar, you’re not weak — and you’re not broken.
+If this feels familiar, you’re not weak, and you’re not broken.
 
 At **One Light Medical**, we work with people every day who desperately want to lose weight but feel trapped in the same frustrating cycle. They eat well when things are calm. But when stress, exhaustion, boredom, or emotions show up, food becomes comfort. And the guilt that follows only makes it worse.
 
 This isn’t a willpower issue. It’s not a discipline problem.
 
-**It’s emotional eating — and until it’s addressed directly, weight loss will always feel like an uphill battle.**
+**It’s emotional eating, and until it’s addressed directly, weight loss will always feel like an uphill battle.**
 
 That’s why our **emotional eating weight loss program** focuses on the *real* reason people struggle, not just what’s on their plate. And it’s why behavioral coaching is often the missing piece for people who have tried everything else.
 
@@ -32,7 +32,7 @@ That’s why our **emotional eating weight loss program** focuses on the *real* 
 
 Most people think emotional eating means eating when you’re sad. In reality, it’s much broader than that.
 
-Emotional eating is when food becomes a coping mechanism — not because your body needs fuel, but because your nervous system is looking for relief.
+Emotional eating is when food becomes a coping mechanism, not because your body needs fuel, but because your nervous system is looking for relief.
 
 Common emotional triggers include:
 
@@ -43,13 +43,13 @@ Common emotional triggers include:
 - Frustration or disappointment
 - Rewarding yourself after a long day
 
-When these emotions hit, your brain looks for something that provides quick comfort. Food — especially sugar, carbs, and processed snacks — delivers that comfort fast. It releases dopamine and temporarily calms the nervous system.
+When these emotions hit, your brain looks for something that provides quick comfort. Food, especially sugar, carbs, and processed snacks, delivers that comfort fast. It releases dopamine and temporarily calms the nervous system.
 
 The problem?
 
 That relief is short-lived.
 
-And once it wears off, the cycle begins again — often paired with guilt, shame, or self-criticism that *drives even more emotional eating*.
+And once it wears off, the cycle begins again, often paired with guilt, shame, or self-criticism that *drives even more emotional eating*.
 
 ## **Why Emotional Eating Sabotages Weight Loss (Even When You “Eat Healthy”)**
 
@@ -79,7 +79,7 @@ Weight loss requires consistency over time. Emotional eating introduces unpredic
 
 Each episode makes people feel like they “failed,” which weakens confidence and motivation.
 
-This is why diet plans alone don’t work for emotional eaters. You can know exactly what to eat — but still feel powerless in the moment.
+This is why diet plans alone don’t work for emotional eaters. You can know exactly what to eat, but still feel powerless in the moment.
 
 ## **Why Willpower, Diets, and “Trying Harder” Always Fail**
 
@@ -106,13 +106,13 @@ That’s why **behavioral coaching for weight loss** is essential. It helps rewi
 
 This is where most programs miss the mark.
 
-Emotional eating is not just psychological — it’s neurological.
+Emotional eating is not just psychological, it’s neurological.
 
 When stress levels stay high, your nervous system shifts into survival mode. Cortisol rises. Blood sugar becomes unstable. Cravings intensify. Decision-making weakens.
 
 In that state, food becomes a form of self-regulation.
 
-Until the nervous system is supported and retrained, emotional eating will continue — no matter how strong your intentions are.
+Until the nervous system is supported and retrained, emotional eating will continue, no matter how strong your intentions are.
 
 ## **How Behavioral Coaching Changes the Game**
 
@@ -122,7 +122,7 @@ Our **medical weight loss for emotional eating** approach includes coaching that
 
 ### **Identify emotional triggers**
 
-We help you recognize patterns — specific times, situations, and emotions that lead to overeating.
+We help you recognize patterns, specific times, situations, and emotions that lead to overeating.
 
 ### **Interrupt automatic behaviors**
 
@@ -140,7 +140,7 @@ We remove all-or-nothing thinking and build routines that fit real life.
 
 Success builds confidence, which reduces emotional eating even further.
 
-This is not therapy — it’s practical, actionable coaching designed for real people.
+This is not therapy, it’s practical, actionable coaching designed for real people.
 
 ## **Why Medical Weight Loss Matters for Emotional Eating**
 
@@ -180,7 +180,7 @@ It’s about regulation.
 
 ## **Why Ongoing Monitoring Makes the Difference**
 
-Emotional eating doesn’t disappear overnight — and that’s okay.
+Emotional eating doesn’t disappear overnight, and that’s okay.
 
 What matters is having **ongoing monitoring and support** so setbacks don’t turn into spirals.
 
@@ -195,7 +195,7 @@ This is why our patients succeed where others struggle.
 
 ## **What Happens When Emotional Eating Is Finally Addressed**
 
-When emotional eating no longer controls decisions, weight loss becomes simpler — not easy, but manageable.
+When emotional eating no longer controls decisions, weight loss becomes simpler, not easy, but manageable.
 
 Patients often notice:
 
@@ -229,7 +229,7 @@ If emotional eating has been holding you back, it’s not because you lack disci
 
 You don’t need another diet.
 
-You need a strategy that works with your brain and body — not against them.
+You need a strategy that works with your brain and body, not against them.
 
 At **One Light Medical**, our **emotional eating weight loss program** is designed to help you finally break the cycle and lose weight in a way that lasts.
 

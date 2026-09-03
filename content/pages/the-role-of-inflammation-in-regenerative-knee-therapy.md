@@ -18,7 +18,7 @@ internalLinks: ["/", "/contact/", "/knee-pain/"]
 
 ## **Understanding the Role of Inflammation in Regenerative Knee Therapy**
 
-Knee pain can make even the simplest tasks feel impossible. If you’ve been struggling with joint stiffness, swelling, or arthritis, you may have considered regenerative therapy. But there’s a crucial factor that can affect how well this treatment works—**inflammation**.
+Knee pain can make even the simplest tasks feel impossible. If you’ve been struggling with joint stiffness, swelling, or arthritis, you may have considered regenerative therapy. But there’s a crucial factor that can affect how well this treatment works, **inflammation**.
 
 Inflammation is the body’s natural response to injury, but too much of it can interfere with healing. When it comes to [regenerative knee therapy](/knee-pain/), managing inflammation can be the difference between success and frustration.
 
@@ -114,7 +114,7 @@ Yes! Cold therapy is a **great way to reduce post-treatment inflammation**. Appl
 - **Improve circulation** to promote healing.
 - **Prevent excessive inflammation** from slowing recovery.
 
-However, avoid using ice directly on the skin—wrap it in a towel to prevent frostbite.
+However, avoid using ice directly on the skin, wrap it in a towel to prevent frostbite.
 
 ## **Should You Avoid NSAIDs Before Regenerative Therapy?**
 

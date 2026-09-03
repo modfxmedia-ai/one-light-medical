@@ -149,7 +149,7 @@ export function HomePage() {
               <br className="br-lg" /> for Joint Pain
             </h1>
             <p>
-              At One Light Medical, we lead with regenerative medicine — non-surgical care that
+              At One Light Medical, we lead with regenerative medicine, non-surgical care that
               targets the source of joint pain, restores mobility, and helps you reclaim an active,
               pain-free life. Stem cell therapy is one option we may discuss when it fits your plan.
             </p>
@@ -319,8 +319,8 @@ export function HomePage() {
             </h2>
             <p>
               By leading with regenerative medicine and pairing it with targeted care such as
-              spinal decompression and red light therapy — and stem cell therapy when it belongs in
-              the plan — we help patients address chronic joint pain, support damaged tissue, and
+              spinal decompression and red light therapy, and stem cell therapy when it belongs in
+              the plan, we help patients address chronic joint pain, support damaged tissue, and
               regain long-term mobility.
             </p>
           </div>

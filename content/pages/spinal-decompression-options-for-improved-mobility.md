@@ -131,7 +131,7 @@ A detailed conversation with your provider about diagnostic findings, treatment 
 
 ### Success Rates Associated With Spinal Decompression
 
-Clinical reports suggest that many patients experience significant improvement—with up to 70% reporting reduced **pain**and improved mobility—when adhering to treatment protocols. Long-term follow-up indicates that sustained benefits are possible, particularly when decompression is combined with other rehabilitative therapies.
+Clinical reports suggest that many patients experience significant improvement, with up to 70% reporting reduced **pain**and improved mobility, when adhering to treatment protocols. Long-term follow-up indicates that sustained benefits are possible, particularly when decompression is combined with other rehabilitative therapies.
 
 ### Recommended Activities and Lifestyle Adjustments
 

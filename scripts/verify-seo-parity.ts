@@ -64,7 +64,7 @@ const ROUTE_ALLOWED_TEXT: Record<string, Record<string, string>> = {
   "/": {
     title: "One Light Medical | Regenerative Medicine in Amarillo, TX",
     description:
-      "Regenerative medicine in Amarillo, TX — non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation.",
+      "Regenerative medicine in Amarillo, TX, non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation.",
     h1: "Find Lasting Regenerative Medicine for Joint Pain",
   },
 };

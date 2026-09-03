@@ -29,11 +29,11 @@ At , we understand the **intricate connection between your weight and digestive 
 - How One Light Medical’s weight loss program differs from other clinics
 - What makes our approach uniquely effective in Amarillo, TX
 
-By the end, you’ll understand why our program isn’t just another diet plan—it’s a **medically supervised solution designed to restore digestive health, improve metabolism, and transform your life**.
+By the end, you’ll understand why our program isn’t just another diet plan, it’s a **medically supervised solution designed to restore digestive health, improve metabolism, and transform your life**.
 
 ## How Excess Weight Disrupts Your Digestive System
 
-Digestive issues aren’t just uncomfortable—they can be dangerous if ignored. **Excess weight** disrupts digestion in several ways, affecting everything from stomach acid regulation to nutrient absorption.
+Digestive issues aren’t just uncomfortable, they can be dangerous if ignored. **Excess weight** disrupts digestion in several ways, affecting everything from stomach acid regulation to nutrient absorption.
 
 ### Increased Abdominal Pressure
 
@@ -66,7 +66,7 @@ Ignoring these symptoms can have cascading consequences, including malnutrition,
 
 ## The Dire Consequences of Ignoring Digestive Issues
 
-Digestive problems caused by weight gain aren’t just inconvenient—they **pose serious health risks**. Chronic GERD can cause **esophageal ulcers or precancerous changes**, while persistent constipation and bloating can lead to complications such as **hemorrhoids or intestinal obstruction**.
+Digestive problems caused by weight gain aren’t just inconvenient, they **pose serious health risks**. Chronic GERD can cause **esophageal ulcers or precancerous changes**, while persistent constipation and bloating can lead to complications such as **hemorrhoids or intestinal obstruction**.
 
 Research also shows a direct link between obesity and **increased risk of colon cancer** (). Chronic inflammation from excess weight damages tissues and can compromise your immune system, making it harder for your body to heal and maintain gut health.
 

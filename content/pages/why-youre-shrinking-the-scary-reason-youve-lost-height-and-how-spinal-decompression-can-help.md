@@ -21,7 +21,7 @@ internalLinks: ["/contact/"]
 
 Have you ever looked in the mirror or stood next to an old photo and thought, *“Am I actually shorter than I used to be?”*
 
-Or maybe someone you haven’t seen in a while casually said, “You look smaller,” and suddenly it hit you—you really **have** lost height.
+Or maybe someone you haven’t seen in a while casually said, “You look smaller,” and suddenly it hit you, you really **have** lost height.
 
 Most people assume shrinking is just a normal part of getting older. But here’s the truth:
 
@@ -29,17 +29,17 @@ Most people assume shrinking is just a normal part of getting older. But here’
 
 **It’s a sign your spine is collapsing.**
 
-That may sound dramatic, but at [**One Light Medical**](?utm_source=chatgpt.com), we see the effects of spinal compression every single day. And height loss is one of the most alarming—but overlooked—symptoms of deeper spine problems.
+That may sound dramatic, but at [**One Light Medical**](?utm_source=chatgpt.com), we see the effects of spinal compression every single day. And height loss is one of the most alarming, but overlooked, symptoms of deeper spine problems.
 
 The problem is that height loss happens slowly. Months pass. Years pass. Before you know it, you’ve lost half an inch… then an inch… then more. And with that loss comes stiffness, pain, reduced mobility, poor posture, nerve pressure, and real long-term damage.
 
-The good news? With the right treatment—especially **spinal decompression therapy Amarillo TX**—you can restore lost disc space, reduce pain, improve posture, and slow or even reverse the shrinking process.
+The good news? With the right treatment, especially **spinal decompression therapy Amarillo TX**, you can restore lost disc space, reduce pain, improve posture, and slow or even reverse the shrinking process.
 
 Let’s dive into why you’re losing height, what it means for your health, and the steps you can take right now to protect your spine before the damage becomes permanent.
 
-## **How Height Loss Really Happens (It’s Not Aging — It’s Compression)**
+## **How Height Loss Really Happens (It’s Not Aging, It’s Compression)**
 
-Most people are shocked to learn that the main reason we lose height is because of our spinal discs—those jelly-like cushions that keep our vertebrae separated, protected, and supported.
+Most people are shocked to learn that the main reason we lose height is because of our spinal discs, those jelly-like cushions that keep our vertebrae separated, protected, and supported.
 
 When the discs begin to **dry out, thin out, or collapse**, your vertebrae start to stack closer and closer together.
 
@@ -59,7 +59,7 @@ Here’s what actually causes it:
 - Lack of movement
 - Weak core or back muscles
 
-Over time, the discs lose height—just like a car tire slowly going flat.
+Over time, the discs lose height, just like a car tire slowly going flat.
 
 Your spine becomes shorter, stiffer, and weaker.
 
@@ -73,7 +73,7 @@ Pain increases. Mobility decreases.
 
 Your posture collapses forward.
 
-It’s not “just losing height”—it’s a sign your spine is in trouble.
+It’s not “just losing height”, it’s a sign your spine is in trouble.
 
 ## **Signs Your Spine Is Compressing (Before You Notice Height Loss)**
 
@@ -145,7 +145,7 @@ Hips, knees, and ankles shift to support your unstable spine.
 
 Once the discs collapse fully, surgery becomes one of the few remaining options.
 
-But the good news is that if you take action **before** this stage, you can prevent invasive procedures—and often reverse a significant amount of disc height loss.
+But the good news is that if you take action **before** this stage, you can prevent invasive procedures, and often reverse a significant amount of disc height loss.
 
 ## **Why Traditional Treatments Don’t Fix Disc Compression**
 
@@ -202,7 +202,7 @@ More oxygen and nutrients accelerate healing.
 
 With restored disc height, the spine stands taller and stronger.
 
-Decompression treats the root cause of height loss—not just the symptoms.
+Decompression treats the root cause of height loss, not just the symptoms.
 
 ## **Why Non Surgical Decompression Amarillo Is Your Best Option**
 
@@ -226,7 +226,7 @@ This makes it ideal for patients with:
 - Spinal stenosis
 - Posture collapse
 
-We don’t guess—
+We don’t guess, 
 
 we evaluate your spine thoroughly and design a plan that fits your needs.
 
@@ -256,7 +256,7 @@ Reduces swelling that worsens nerve irritation.
 
 Helps you avoid re-compressing your spine.
 
-This holistic approach helps patients not just get relief—but regain mobility, height, strength, and confidence.
+This holistic approach helps patients not just get relief, but regain mobility, height, strength, and confidence.
 
 ## **What Happens When You Take Action Now**
 
@@ -271,7 +271,7 @@ When you begin treatment early, you can expect:
 - A stronger, more stable back
 - Less stiffness and more flexibility
 
-With proper care, you can stop or slow the progression of degeneration—and sometimes regain measurable height.
+With proper care, you can stop or slow the progression of degeneration, and sometimes regain measurable height.
 
 ## **Take the First Step Toward a Taller, Healthier Spine**
 
@@ -281,6 +281,6 @@ The shrinking you’re experiencing is the result of **disc compression**, and w
 
 At [**One Light Medical**](?utm_source=chatgpt.com), our **non-surgical decompression in Amarillo** helps restore disc height, relieve pain, and protect your spine for the long term.
 
-Your spine supports your entire life—don’t wait until the damage is permanent.
+Your spine supports your entire life, don’t wait until the damage is permanent.
 
 [**Click here to set up a consultation**](/contact/?utm_source=chatgpt.com) and start your journey toward a taller, healthier, pain-free future.

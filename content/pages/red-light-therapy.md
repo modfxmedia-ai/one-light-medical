@@ -19,7 +19,7 @@ internalLinks: ["/contact/"]
 
 ## Red Light Therapy
 
-At One Light Medical, we offer **Red Light Therapy**, an advanced, non-invasive treatment designed to enhance your body’s natural healing processes and improve overall wellness. Using specific wavelengths of light, this therapy stimulates cellular activity to promote healing, reduce inflammation, and provide pain relief—helping you feel better and recover faster.
+At One Light Medical, we offer **Red Light Therapy**, an advanced, non-invasive treatment designed to enhance your body’s natural healing processes and improve overall wellness. Using specific wavelengths of light, this therapy stimulates cellular activity to promote healing, reduce inflammation, and provide pain relief, helping you feel better and recover faster.
 
 Whether you’re looking to manage chronic pain, improve your skin, support weight loss, or accelerate muscle recovery, Red Light Therapy provides a safe and effective solution. Our team is dedicated to offering personalized care and guiding you through your journey to better health with this innovative treatment.
 
@@ -55,7 +55,7 @@ Red Light Therapy (RLT) is a non-invasive treatment that uses specific wavelengt
 
 ### Ready to Take the Next Step Toward a Healthier You?
 
-At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today—your body will thank you tomorrow.
+At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today, your body will thank you tomorrow.
 
 ![](https://onelightmedical.com/wp-content/uploads/2025/01/rsw_2560h_1440-e1713225897775-1024x629-1.webp)
 

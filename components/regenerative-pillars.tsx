@@ -30,7 +30,7 @@ const PILLARS: readonly Pillar[] = [
     before: "Your ",
     accent: "joints",
     after: " should not have to wait on a surgery date",
-    body: "Stem cell therapy is one option our clinicians may discuss for joint and soft-tissue concerns — after a candidacy exam, not as a first-line promise. The goal is an honest plan for mobility, not a sales pitch.",
+    body: "Stem cell therapy is one option our clinicians may discuss for joint and soft-tissue concerns, after a candidacy exam, not as a first-line promise. The goal is an honest plan for mobility, not a sales pitch.",
     tags: ["Knee", "Hip", "Shoulder", "Back", "Elbow", "Neck", "Ankle", "Wrist"],
     points: [
       "Pain or reduced mobility in joints and soft tissue",
@@ -67,13 +67,13 @@ const PILLARS: readonly Pillar[] = [
     before: "",
     accent: "Signaling",
     after: " support as part of a broader plan",
-    body: "Exosomes are signaling vesicles studied for cell-to-cell communication. We present them as one part of regenerative care at One Light Medical — not as a stand-alone treatment promise.",
+    body: "Exosomes are signaling vesicles studied for cell-to-cell communication. We present them as one part of regenerative care at One Light Medical, not as a stand-alone treatment promise.",
     tags: ["Cellular signaling", "Recovery", "Resilience", "Soft tissue"],
     points: [
       "Considered alongside stem cell and tissue-matrix options",
       "Aimed at supporting the body's own signaling, not replacing a workup",
       "Reviewed against your history and goals in clinic",
-      "Always optional — the consult decides, not the webpage",
+      "Always optional, the consult decides, not the webpage",
     ],
     note: "This is clinician-led regenerative care in Amarillo, not a mail-order protocol or a subscription.",
     src: "/images/home/card-exosomes.webp",
@@ -89,7 +89,7 @@ export function RegenerativePillars({ titleAs = "h2" }: { titleAs?: "h1" | "h2" 
     <section className="regen" id="regen">
       <header className="regen-head wrap">
         <div>
-          <p className="regen-eyebrow">What we do — three pillars</p>
+          <p className="regen-eyebrow">What we do: three pillars</p>
           <Title>Regenerative Medicine</Title>
         </div>
         <span className="regen-bars" aria-hidden="true">

@@ -35,6 +35,6 @@ Erin Nelson, FNP-C, is a board-certified nurse practitioner whose healthcare phi
 
 ## Your Journey to Wellness Starts Here
 
-At One Light Medical, we’re more than just a healthcare provider—we’re your partners in wellness. We’re here to support you at every step, from initial consultation to ongoing care, with a focus on treatments that enhance your quality of life. Whether you’re seeking relief from pain or looking to improve overall mobility, our dedicated team is ready to help you achieve your health goals. Trust us to provide the care, expertise, and encouragement you need to thrive.
+At One Light Medical, we’re more than just a healthcare provider, we’re your partners in wellness. We’re here to support you at every step, from initial consultation to ongoing care, with a focus on treatments that enhance your quality of life. Whether you’re seeking relief from pain or looking to improve overall mobility, our dedicated team is ready to help you achieve your health goals. Trust us to provide the care, expertise, and encouragement you need to thrive.
 
 ![](https://onelightmedical.com/wp-content/uploads/2024/10/Chiropractic-5.webp)

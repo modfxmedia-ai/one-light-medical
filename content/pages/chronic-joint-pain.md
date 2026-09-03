@@ -67,7 +67,7 @@ Small injuries, like micro-tears or sprains, often go untreated. Left unaddresse
 
 ### **5. The Stress Connection**
 
-Stress isn’t just mental—it can take a toll on your physical health, too. Chronic stress increases cortisol levels, which can lead to inflammation and worsen joint pain.
+Stress isn’t just mental, it can take a toll on your physical health, too. Chronic stress increases cortisol levels, which can lead to inflammation and worsen joint pain.
 
 - **Solution**: Stress management techniques, including mindfulness or yoga, can lower inflammation and reduce pain.
 
@@ -77,7 +77,7 @@ You don’t have to jump straight to surgery to find relief. Many non-invasive t
 
 ### **1. SoftWave TRT Treatment**
 
-[SoftWave TRT](/softwave-trt-treatment/) is an advanced therapy that uses acoustic waves to stimulate healing in damaged tissues. It promotes blood flow, reduces inflammation, and encourages cellular repair—all without the need for surgery.
+[SoftWave TRT](/softwave-trt-treatment/) is an advanced therapy that uses acoustic waves to stimulate healing in damaged tissues. It promotes blood flow, reduces inflammation, and encourages cellular repair, all without the need for surgery.
 
 - **How It Works**: SoftWave sends low-energy sound waves into the affected area, triggering your body’s natural healing process.
 - **Ideal For**: Tendon injuries, arthritis, and long-term joint pain.

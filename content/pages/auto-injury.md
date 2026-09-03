@@ -52,7 +52,7 @@ Anyone who has experienced an auto accident can benefit from chiropractic care. 
 
 ### Ready to Take the Next Step Toward a Healthier You?
 
-At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today—your body will thank you tomorrow.
+At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today, your body will thank you tomorrow.
 
 ![](https://onelightmedical.com/wp-content/uploads/2024/10/chiropractic-adjustment.webp)
 

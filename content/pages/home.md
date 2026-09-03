@@ -2,12 +2,12 @@
 path: "/"
 type: "page"
 title: "One Light Medical | Regenerative Medicine in Amarillo, TX"
-metaDescription: "Regenerative medicine in Amarillo, TX — non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation."
+metaDescription: "Regenerative medicine in Amarillo, TX, non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation."
 canonical: "https://onelightmedical.com/"
 schemaTypes: ["Article", "ImageObject", "MedicalOrganization", "Offer", "OfferCatalog", "Organization", "Person", "PostalAddress", "SearchAction", "Service", "WebPage", "WebSite"]
 h1: "Find Lasting Regenerative Medicine for Joint Pain"
 ogTitle: "One Light Medical | Regenerative Medicine in Amarillo, TX"
-ogDescription: "Regenerative medicine in Amarillo, TX — non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation."
+ogDescription: "Regenerative medicine in Amarillo, TX, non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation."
 ogType: "website"
 images:
   - {"src": "https://onelightmedical.com/wp-content/uploads/2024/10/3D-Human-Body-Joint-Pain-1164846332_web-1024x1024-1.png", "alt": "", "role": "meaningful-alt-missing", "decorative": false}
@@ -102,7 +102,7 @@ Medically guided weight loss paired with targeted red light to support metabolis
 
 ### Ready to Take the Next Step Toward a Healthier You?
 
-At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today—your body will thank you tomorrow.
+At One Light Medical, we’re here to make your journey to wellness smooth, supportive, and effective. Whether you’re managing pain or looking to enhance your overall health, our team is ready to guide you every step of the way. Start today, your body will thank you tomorrow.
 
 ![](https://onelightmedical.com/wp-content/uploads/2024/10/chiropractic-adjustment.webp)
 

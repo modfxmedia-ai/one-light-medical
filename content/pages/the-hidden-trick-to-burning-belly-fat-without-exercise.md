@@ -26,7 +26,7 @@ Science says yes. Research suggests that red light therapy can help reduce waist
 
 ## **Does Red Light Therapy Tighten Loose Skin on the Stomach?**
 
-Fat loss is great, but what about sagging skin? Here’s the good news: **Red Light Therapy for Belly Fat** doesn’t just shrink fat—it also boosts collagen production.
+Fat loss is great, but what about sagging skin? Here’s the good news: **Red Light Therapy for Belly Fat** doesn’t just shrink fat, it also boosts collagen production.
 
 Collagen is what keeps skin firm and elastic. As we age, our bodies produce less of it, leading to loose skin. Red light therapy stimulates collagen, helping to tighten and tone the skin as fat is lost.
 

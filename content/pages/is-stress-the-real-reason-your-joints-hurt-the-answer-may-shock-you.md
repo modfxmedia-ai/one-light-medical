@@ -26,13 +26,13 @@ The surprising answer is yes.
 
 ## **Stress Hormones and Inflammation**
 
-When you’re stressed, your body releases hormones like cortisol and adrenaline. These hormones prepare you for a “fight or flight” response — an ancient survival mechanism. While helpful in short bursts, chronic stress keeps these hormones elevated, leading to increased inflammation throughout the body.
+When you’re stressed, your body releases hormones like cortisol and adrenaline. These hormones prepare you for a “fight or flight” response, an ancient survival mechanism. While helpful in short bursts, chronic stress keeps these hormones elevated, leading to increased inflammation throughout the body.
 
 Inflammation is your body’s way of protecting itself, but too much of it can cause or worsen joint pain. Research shows that people with high-stress levels often experience more severe symptoms of arthritis and other joint-related conditions. At One Light Medical, we’ve seen how addressing stress can significantly reduce joint discomfort.
 
 ## **Relaxation Techniques for Pain Relief**
 
-Managing stress doesn’t just ease your mind — it can also soothe your joints. Simple relaxation techniques help lower inflammation and reduce pain signals sent to the brain.
+Managing stress doesn’t just ease your mind, it can also soothe your joints. Simple relaxation techniques help lower inflammation and reduce pain signals sent to the brain.
 
 Here are a few effective methods:
 
@@ -52,7 +52,7 @@ One Light Medical often recommends mindfulness meditation to our patients. It’
 
 ## **Yoga for Joint and Stress Management**
 
-Yoga combines gentle movement, breathwork, and meditation — a triple threat against stress and joint pain.
+Yoga combines gentle movement, breathwork, and meditation, a triple threat against stress and joint pain.
 
 The controlled stretches improve flexibility and strengthen muscles around the joints, reducing strain. Meanwhile, the breathing exercises calm your nervous system, lowering stress hormones.
 
@@ -101,7 +101,7 @@ Done daily, this can be a quick way to ease stress and joint pain.
 
 ## **Sleep and Joint Pain Relationship**
 
-Poor sleep and joint pain often go hand in hand. Stress disrupts sleep, and lack of sleep increases inflammation — a vicious cycle.
+Poor sleep and joint pain often go hand in hand. Stress disrupts sleep, and lack of sleep increases inflammation, a vicious cycle.
 
 To improve sleep quality:
 
@@ -124,7 +124,7 @@ One Light Medical integrates mental health support into our treatment plans, kno
 
 ## **Key Takeaways**
 
-Stress and joint pain are deeply connected. When stress hormones rise, so does inflammation, worsening joint discomfort. But the solution doesn’t lie in treating just the physical symptoms — addressing stress is essential.
+Stress and joint pain are deeply connected. When stress hormones rise, so does inflammation, worsening joint discomfort. But the solution doesn’t lie in treating just the physical symptoms, addressing stress is essential.
 
 Simple strategies like meditation, yoga, deep breathing, and healthy eating can break the stress-pain cycle. Better sleep and mental health care also play a big role.
 
