@@ -40,7 +40,6 @@ export const SERVICE_NAV = [
   { label: "Neuropathy", href: "/neuropathy/" },
   { label: "Spinal Decompression", href: "/spinal-decompression/" },
   { label: "Softwave TRT Treatment", href: "/softwave-trt-treatment/" },
-  { label: "Chiropractic Care", href: "/chiropractic-care/" },
   { label: "Weight Loss", href: "/weight-loss/" },
   { label: "Red Light Therapy", href: "/red-light-therapy/" },
 ] as const;

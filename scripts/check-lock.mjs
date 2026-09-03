@@ -41,9 +41,7 @@ const { result } = await browser.send("Runtime.evaluate", {
       hrefsPresent: links.filter((a) => a.getAttribute("href")).length,
       totalLinks: links.length,
       summaries: document.querySelectorAll("summary").length,
-      summariesLocked: [...document.querySelectorAll("summary")]
-        .filter((el) => !el.closest(".services-menu"))
-        .filter(inert).length,
+      summariesLocked: [...document.querySelectorAll("summary")].filter(inert).length,
       dots: document.querySelectorAll(".deck-dots button").length,
       dotsLocked: [...document.querySelectorAll(".deck-dots button")].filter(inert).length,
       cards: document.querySelectorAll(".svc-card").length,
