@@ -30,9 +30,12 @@ export const FOOTER_SOCIAL = ["LinkedIn", "Facebook", "Instagram", "Youtube"].ma
   href: SOCIAL_LINKS.find((link) => link.label === label)?.href,
 }));
 
-/** The eight service pages, in the order the legacy nav lists them. */
+/** Regenerative offerings lead and point at the dedicated pillars page.
+    Remaining items keep the legacy nav order. */
 export const SERVICE_NAV = [
-  { label: "Auto Injury Relief", href: "/auto-injury/" },
+  { label: "Stem Cell", href: "/#regenerative-stem-cell" },
+  { label: "Wharton's Jelly", href: "/#regenerative-whartons-jelly" },
+  { label: "Why Exosomes", href: "/#why-exosomes" },
   { label: "Knee Pain Care", href: "/knee-pain/" },
   { label: "Neuropathy", href: "/neuropathy/" },
   { label: "Spinal Decompression", href: "/spinal-decompression/" },

@@ -962,8 +962,8 @@
   {
     "path": "/",
     "type": "page",
-    "title": "One Light Medical | Noninvasive Pain Treatment in Amarillo",
-    "metaDescription": "Find relief with One Light Medical in Amarillo, TXl! We offer nonsurgical pain solutions to help you heal and get back to your active life. Book a consultation!",
+    "title": "One Light Medical | Regenerative Medicine in Amarillo, TX",
+    "metaDescription": "Regenerative medicine in Amarillo, TX — non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation.",
     "canonical": "https://onelightmedical.com/",
     "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
     "ogImage": null,
@@ -981,7 +981,7 @@
       "WebPage",
       "WebSite"
     ],
-    "h1": "Find Lasting Relief for Joints, Pain, and Wellness",
+    "h1": "Find Lasting Regenerative Medicine for Joint Pain",
     "publishedTime": "2024-10-22T20:41:19+00:00",
     "modifiedTime": "2026-05-20T05:22:00+00:00"
   },
@@ -1047,6 +1047,17 @@
     "h1": "Contact",
     "publishedTime": "2024-10-22T20:42:50+00:00",
     "modifiedTime": "2026-02-02T22:12:29+00:00"
+  },
+  {
+    "path": "/regenerative/",
+    "type": "page",
+    "title": "Regenerative Medicine in Amarillo, TX | One Light Medical",
+    "metaDescription": "Stem cell, Wharton's Jelly, and exosome options at One Light Medical in Amarillo. Clinic-based regenerative care after an honest candidacy exam.",
+    "canonical": "https://onelightmedical.com/regenerative/",
+    "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+    "ogImage": null,
+    "schemaTypes": ["WebPage"],
+    "h1": "Regenerative Medicine"
   },
   {
     "path": "/about-us/",

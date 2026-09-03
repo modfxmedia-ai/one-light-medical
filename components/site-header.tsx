@@ -5,6 +5,7 @@ import { BUSINESS, SERVICE_NAV } from "@/lib/site";
 const PILL_NAV = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us/" },
+  { label: "Regenerative", href: "/#regen" },
   { label: "Our Services", href: "/#services" },
   { label: "Blog", href: "/blog/" },
   { label: "Testimonials", href: "/#Testimonials" },

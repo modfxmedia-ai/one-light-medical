@@ -3,10 +3,9 @@
  * that is still unstyled is non-interactive, while the hrefs, the disclosure
  * widgets and the carousel control are all left intact.
  *
- * Three kinds of link are deliberately exempt and are asserted live rather than
- * locked -- tel: and mailto:, which reach the clinic, and /contact/, which is
- * built and carries the enquiry form. The last one covers every "Book An
- * Appointment" button as well as the nav entry, since they all point there.
+ * Links that stay live: tel: and mailto:; Home (/); Contact (/contact/),
+ * including every Book An Appointment button; and Testimonials (/#Testimonials).
+ * Other nav entries stay in the markup but are not interactive.
  *
  * Usage: node scripts/check-lock.mjs <url>
  */
@@ -23,7 +22,11 @@ const { result } = await browser.send("Runtime.evaluate", {
   expression: `(() => {
     const inert = (el) => getComputedStyle(el).pointerEvents === "none";
     const href = (a) => a.getAttribute("href") ?? "";
-    const exempt = (a) => /^(tel:|mailto:)/.test(href(a)) || href(a) === "/contact/";
+    const exempt = (a) =>
+      /^(tel:|mailto:)/.test(href(a)) ||
+      href(a) === "/" ||
+      href(a) === "/contact/" ||
+      href(a) === "/#Testimonials";
 
     const links = [...document.querySelectorAll("a")];
     const locked = links.filter((a) => !exempt(a));
@@ -38,7 +41,9 @@ const { result } = await browser.send("Runtime.evaluate", {
       hrefsPresent: links.filter((a) => a.getAttribute("href")).length,
       totalLinks: links.length,
       summaries: document.querySelectorAll("summary").length,
-      summariesLocked: [...document.querySelectorAll("summary")].filter(inert).length,
+      summariesLocked: [...document.querySelectorAll("summary")]
+        .filter((el) => !el.closest(".services-menu"))
+        .filter(inert).length,
       dots: document.querySelectorAll(".deck-dots button").length,
       dotsLocked: [...document.querySelectorAll(".deck-dots button")].filter(inert).length,
       cards: document.querySelectorAll(".svc-card").length,

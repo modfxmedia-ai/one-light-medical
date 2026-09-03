@@ -1,10 +1,10 @@
 {
   "source": "Questions are verbatim from the Figma homepage frame (node 140:30). Only the first answer exists in the design; the rest were written to match the questions the design asks, drawing on the live service pages (/knee-pain/, /softwave-trt-treatment/, /red-light-therapy/, /spinal-decompression/, /weight-loss/).",
-  "caution": "The design repositions the clinic around stem cell therapy, which the live site does not currently advertise. These answers deliberately describe process and candidacy rather than outcomes, and make no efficacy or recovery-rate claims, because marketing claims for stem cell treatment attract FDA and FTC scrutiny. Have a clinician review this file before launch.",
+  "caution": "The homepage now leads with regenerative medicine. Stem cell appears as one option inside that program, not as the headline. These answers deliberately describe process and candidacy rather than outcomes, and make no efficacy or recovery-rate claims, because marketing claims for regenerative biologics attract FDA and FTC scrutiny. Have a clinician review this file before launch.",
   "items": [
     {
       "q": "What conditions and therapies do you specialize in at One Light Medical?",
-      "a": "We specialize in non-surgical regenerative medicine, focusing primarily on stem cell therapy for chronic joint pain, osteoarthritis, and tissue degeneration. We also provide complementary care including spinal decompression, red light therapy, SoftWave therapy, and IV therapy."
+      "a": "We specialize in non-surgical regenerative medicine for chronic joint pain, osteoarthritis, and tissue degeneration. Stem cell therapy may be part of that plan when it is appropriate. We also provide complementary care including spinal decompression, red light therapy, SoftWave therapy, and IV therapy."
     },
     {
       "q": "How does stem cell therapy work for joint pain?",

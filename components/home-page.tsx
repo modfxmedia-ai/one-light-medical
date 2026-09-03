@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { JsonLd } from "@/components/json-ld";
 import { OutcomeDials } from "@/components/outcome-dials";
+import { RegenerativePillars } from "@/components/regenerative-pillars";
 import { TestimonialDeck } from "@/components/testimonial-deck";
 import faqs from "@/content/faqs.json";
 import testimonials from "@/content/testimonials.json";
@@ -28,7 +29,7 @@ const REASONS = [
   },
   {
     title: "Non-Surgical Solutions",
-    copy: "We specialize in non-invasive therapies like Stem cell therapy, SoftWave, and spinal decompression",
+    copy: "We specialize in non-invasive regenerative medicine, alongside complementary care such as SoftWave and spinal decompression.",
     src: "/images/home/why-non-surgical-solutions.webp",
     alt: "A clinician examining a patient's knee",
   },
@@ -40,40 +41,51 @@ const REASONS = [
   },
 ] as const;
 
-/* The frame draws these four cards at equal widths, so that is the resting
-   state. The hover and focus expansion in .svc-track is kept from the previous
-   build: it changes nothing at rest and gives the copy room to be read. */
-const SERVICES = [
+interface ServiceItem {
+  href: string;
+  title: string;
+  copy: string;
+  src: string;
+  alt: string;
+  id?: string;
+}
+
+interface ServiceGroup {
+  heading: string | null;
+  items: readonly ServiceItem[];
+}
+
+/* Remaining homepage services keep the approved card treatment.
+   Regenerative lives in the three-pillar section above this band.
+   Auto Injury Relief and Chiropractic are intentionally omitted here. */
+const SERVICE_GROUPS: readonly ServiceGroup[] = [
   {
-    href: "/knee-pain/",
-    title: "Stem Cell Therapy for Joint Pain",
-    copy: "Advanced cellular treatments to target the root cause of joint pain and restore long-term mobility.",
-    src: "/images/home/card-stem-cell-therapy.webp",
-    alt: "A clinician preparing an injection at a patient's knee",
+    heading: null,
+    items: [
+      {
+        href: "/weight-loss/",
+        title: "Weight Loss & Red Light Therapy",
+        copy: "Medically guided weight loss paired with red light to support metabolism and comfort.",
+        src: "/images/home/card-red-light-therapy.webp",
+        alt: "A red light therapy bed used alongside medically guided weight-loss care",
+      },
+      {
+        href: "/spinal-decompression/",
+        title: "Spinal Decompression",
+        copy: "Relieve pressure on spinal discs and ease back pain",
+        src: "/images/home/card-spinal-decompression.webp",
+        alt: "A practitioner's hands assessing a patient's spine",
+      },
+      {
+        href: "/softwave-trt-treatment/",
+        title: "SoftWave Therapy",
+        copy: "Non-invasive acoustic wave therapy to stimulate natural tissue healing and reduce joint discomfort.",
+        src: "/images/home/card-softwave-therapy.webp",
+        alt: "Close-up of a practitioner's hands cupped together",
+      },
+    ],
   },
-  {
-    href: "/red-light-therapy/",
-    // Figma reads "argeted"; the missing capital T is a typo in the design.
-    copy: "Targeted light energy to boost cellular function, lower inflammation, and support joint recovery.",
-    title: "Red Light Therapy",
-    src: "/images/home/card-red-light-therapy.webp",
-    alt: "A red light therapy bed in treatment",
-  },
-  {
-    href: "/spinal-decompression/",
-    title: "Spinal Decompression",
-    copy: "Relieve pressure on spinal discs and ease back pain",
-    src: "/images/home/card-spinal-decompression.webp",
-    alt: "A practitioner's hands assessing a patient's spine",
-  },
-  {
-    href: "/softwave-trt-treatment/",
-    title: "SoftWave Therapy",
-    copy: "Non-invasive acoustic wave therapy to stimulate natural tissue healing and reduce joint discomfort.",
-    src: "/images/home/card-softwave-therapy.webp",
-    alt: "Close-up of a practitioner's hands cupped together",
-  },
-] as const;
+];
 
 // Figma balances each caption by hand, so the breaks are part of the design
 // rather than a consequence of the box width. They collapse on mobile.
@@ -121,35 +133,39 @@ export function HomePage() {
       <JsonLd graphs={[...getPageSchema("/"), faqSchema]} />
       <div className="home">
         <section className="hero">
+          {/* TODO: final hero art is being reworked. This file is the client-supplied
+              regenerative banner parked at a clearly named placeholder path. */}
           <img
             className="hero-art"
-            src="/images/home/hero-stem-cell.webp"
-            alt=""
-            width={1700}
-            height={1187}
+            src="/images/hero-regenerative-placeholder.png"
+            alt="Cellular illustration representing regenerative medicine"
+            width={1672}
+            height={941}
           />
           <div className="hero-copy">
             <h1>
               <span className="hero-lead">Find Lasting</span>
-              Stem Cell Therapy
+              Regenerative Medicine
               <br className="br-lg" /> for Joint Pain
             </h1>
             <p>
-              At One Light Medical, we provide advanced, non-surgical stem cell therapies to target
-              root-cause joint pain, restore mobility, and help you reclaim an active, pain-free life
-              without surgery.
+              At One Light Medical, we lead with regenerative medicine — non-surgical care that
+              targets the source of joint pain, restores mobility, and helps you reclaim an active,
+              pain-free life. Stem cell therapy is one option we may discuss when it fits your plan.
             </p>
             <hr className="hero-rule" />
             <p className="hero-actions">
               <Link href="/contact/" className="btn btn-gradient">
-                Book An Appointment
+                Book Regenerative Care
               </Link>
               <Link href="/about-us/" className="btn btn-ghost">
-                Learn More
+                Explore Regenerative Care
               </Link>
             </p>
           </div>
         </section>
+
+        <RegenerativePillars />
 
         <div className="light-band">
           <img
@@ -173,21 +189,26 @@ export function HomePage() {
 
             {/* Equal at rest, per the frame; hovering or tabbing hands the
                 expansion to whichever card the visitor is on. */}
-            <ul className="svc-track">
-              {SERVICES.map((service) => (
-                <li className="svc-card" key={service.href}>
-                  <img src={service.src} alt={service.alt} width={663} height={930} />
-                  <Link href={service.href}>
-                    <span className="svc-badge" aria-hidden="true" />
-                    <span className="svc-body">
-                      <span className="svc-title">{service.title}</span>
-                      <span className="svc-copy">{service.copy}</span>
-                      <span className="svc-more">Learn More</span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {SERVICE_GROUPS.map((group) => (
+              <div className="svc-group" key={group.heading ?? group.items[0].href}>
+                {group.heading ? <h3 className="svc-group-label">{group.heading}</h3> : null}
+                <ul className="svc-track">
+                  {group.items.map((service) => (
+                    <li className="svc-card" key={service.href} id={service.id}>
+                      <img src={service.src} alt={service.alt} width={663} height={930} />
+                      <Link href={service.href}>
+                        <span className="svc-badge" aria-hidden="true" />
+                        <span className="svc-body">
+                          <span className="svc-title">{service.title}</span>
+                          <span className="svc-copy">{service.copy}</span>
+                          <span className="svc-more">Learn More</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
 
           <section className="why">
@@ -297,9 +318,10 @@ export function HomePage() {
               <br className="br-lg" /> Life Through Integrated Care
             </h2>
             <p>
-              By combining advanced stem cell therapy with targeted regenerative treatments like
-              spinal decompression and red light therapy, we help patients eliminate chronic joint
-              pain, repair damaged tissue, and regain long-term mobility.
+              By leading with regenerative medicine and pairing it with targeted care such as
+              spinal decompression and red light therapy — and stem cell therapy when it belongs in
+              the plan — we help patients address chronic joint pain, support damaged tissue, and
+              regain long-term mobility.
             </p>
           </div>
 
@@ -307,20 +329,18 @@ export function HomePage() {
         </section>
 
         <section className="testimonials" id="Testimonials">
-          {/* The heading is passed in rather than placed above the deck so it sits
-              inside the pinned panel and holds with the card as it turns over. */}
-          <TestimonialDeck items={testimonials.items}>
-            <div className="wrap testimonials-head">
-              <h2>
-                What They’re Talking
-                <br className="br-lg" /> About Our Center?
-              </h2>
-              <p>
-                Dozens of stories, in their own words, wheelchairs left behind, migraines gone,
-                medications reduced, lives reclaimed.
-              </p>
-            </div>
-          </TestimonialDeck>
+          <div className="wrap testimonials-head">
+            <h2>
+              What They’re Talking
+              <br className="br-lg" /> About Our Center?
+            </h2>
+            <p>
+              Dozens of stories, in their own words, wheelchairs left behind, migraines gone,
+              medications reduced, lives reclaimed.
+            </p>
+          </div>
+
+          <TestimonialDeck items={testimonials.items} />
         </section>
 
         <section className="faq">
@@ -358,8 +378,8 @@ export function HomePage() {
               <br className="br-lg" /> a Healthier You?
             </h2>
             <p>
-              We provide an integrative approach to our chiropractic services to get you back on the
-              path of a pain free life. Get started transforming your health today with One Light
+              We provide an integrative approach to regenerative medicine to get you back on the
+              path of a pain-free life. Get started transforming your health today with One Light
               Medical
             </p>
             <Link href="/contact/" className="btn closer-btn">

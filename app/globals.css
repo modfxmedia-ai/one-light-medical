@@ -347,7 +347,9 @@ body:not(:has(.home)) .site-header-inner {
   top: calc(100% + 0.9rem);
   left: 50%;
   transform: translateX(-50%);
-  min-width: 15rem;
+  min-width: 15.5rem;
+  max-height: min(28rem, calc(100vh - 6.5rem));
+  overflow-y: auto;
   margin: 0;
   padding: 0.55rem;
   list-style: none;
@@ -560,16 +562,18 @@ body:not(:has(.home)) .site-header-inner {
   background: var(--hero-grad);
 }
 
-/* The artwork is a transparent cut-out occupying the right 59% of the frame, so
-   it composites over the gradient instead of replacing it. */
+/* The regenerative banner is a full scene — dark field on the left for the
+   copy, cell and helix on the right — so it fills the hero rather than sitting
+   in the old 59% cut-out slot. The navy gradient behind it is only a fallback
+   while the file loads. object-position holds the cell on the right so the
+   copy stays over the darkest part of the plate. */
 .hero-art {
   position: absolute;
-  top: 21.4%;
-  right: 0;
-  width: 59%;
-  height: 78.6%;
-  object-fit: contain;
-  object-position: right bottom;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
   pointer-events: none;
 }
 
@@ -678,24 +682,52 @@ body:not(:has(.home)) .site-header-inner {
   font-size: var(--t-title);
 }
 
+/* Group wrapper only: the cards themselves keep the approved treatment. */
+.svc-group {
+  margin-top: 3.25rem;
+}
+
+.svc-group + .svc-group {
+  margin-top: 2.25rem;
+}
+
+/* Beat `.home h3 { margin: 0 }`, which would otherwise cancel the auto sides
+   and leave the label flush left of the cards. */
+.home .svc-group-label {
+  display: block;
+  width: min(83.5rem, calc(100% - 5rem));
+  margin: 0 auto 0.85rem;
+  font-size: var(--t-title);
+  font-weight: 500;
+  color: var(--ink-on-light);
+}
+
 .svc-track {
   display: flex;
   gap: 0.375rem;
   width: min(83.5rem, calc(100% - 5rem));
-  margin: 3.25rem auto 0;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
 }
 
 .svc-card {
   position: relative;
+  display: grid;
   flex: 1 1 0;
   min-width: 0;
-  /* 398x558 in the frame */
-  height: clamp(21rem, 32.3vw, 29.05rem);
+  /* Floor matches the 398x558 frame. min-height, not height: the overlay is in
+     normal flow so a wrapped title or the Learn More pill can grow the card
+     instead of clipping through overflow: hidden. */
+  min-height: clamp(21rem, 32.3vw, 29.05rem);
   overflow: hidden;
   border-radius: var(--r-card);
   transition: flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.svc-card > img,
+.svc-card > a {
+  grid-area: 1 / 1;
 }
 
 .svc-card > img {
@@ -707,12 +739,12 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .svc-card > a {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.35rem 1.35rem 2.1rem;
+  padding: 1.35rem 1.25rem 1.5rem;
   color: #fff;
   /* Figma keeps these photos bright and leans on a light wash for legibility,
      unlike the heavier scrim on the why-choose cards below. */
@@ -758,10 +790,10 @@ body:not(:has(.home)) .site-header-inner {
 .svc-copy {
   display: block;
   margin-top: 0.5rem;
-  max-width: 15.5rem;
+  max-width: 22rem;
   color: #ffffff;
   font-size: var(--t-small);
-  line-height: 1.125;
+  line-height: 1.35;
 }
 
 .svc-more {
@@ -799,6 +831,35 @@ body:not(:has(.home)) .site-header-inner {
   margin-top: 1.05rem;
   padding-block: 0.55rem;
   opacity: 1;
+}
+
+/* Three cards in a hover accordion need desktop width. Below that, a 2-column
+   grid keeps each plate wide enough for its title and copy, and Learn More
+   stays visible because hover-to-expand has no equivalent on a trackpad tap. */
+@media (max-width: 1200px) {
+  .svc-track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .svc-card,
+  .svc-track:hover .svc-card,
+  .svc-track:hover .svc-card:hover,
+  .svc-track:focus-within .svc-card,
+  .svc-track:focus-within .svc-card:focus-within {
+    flex: none;
+    min-height: clamp(18rem, 36vw, 24rem);
+  }
+
+  .svc-card .svc-more,
+  .svc-track:hover .svc-card .svc-more,
+  .svc-track:focus-within .svc-card .svc-more {
+    max-height: 2.35rem;
+    margin-top: 1.05rem;
+    padding-block: 0.55rem;
+    opacity: 1;
+  }
 }
 
 .why {
@@ -1147,14 +1208,18 @@ body:not(:has(.home)) .site-header-inner {
   padding: 7.6rem 0 5.4rem;
   background: #ffffff;
   color: var(--ink-dark);
+  overflow: visible;
 }
 
 /* The lede starts at 48.5% of the wrap in Figma, not at the halfway point, so
-   the columns are split rather than even. */
+   the columns are split rather than even. The heading sits above the deck track
+   in normal flow so it never rides inside the sticky pin and gets clipped. */
 .testimonials-head {
   display: grid;
   grid-template-columns: 48.5% 51.5%;
   align-items: start;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  margin-bottom: clamp(2rem, 4.6vw, 4.5rem);
 }
 
 .testimonials-head h2 {
@@ -1184,7 +1249,15 @@ body:not(:has(.home)) .site-header-inner {
    panel occupies one viewport of that, so travel is height - 100svh, which is
    what the component divides by to get progress. svh rather than vh: on mobile
    the dynamic viewport would otherwise resize the track mid-scroll as the URL bar
-   retracts, and the card would jump a step. */
+   retracts, and the card would jump a step.
+
+   Only the deck and dots pin. The heading stays in normal flow above the track,
+   which keeps the sticky panel short enough to fit every viewport height without
+   the negative-margin pull that was clipping the title. */
+.deck-track {
+  overflow: visible;
+}
+
 .deck-track[data-pinned="true"] {
   height: calc(100svh + var(--cards) * 58svh);
 }
@@ -1195,21 +1268,17 @@ body:not(:has(.home)) .site-header-inner {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100svh;
-  /* The section's own top padding is what the panel would otherwise be pushed
-     down by while pinned, leaving it off-centre. */
-  margin-top: -7.6rem;
+  padding-block: clamp(1rem, 3vh, 2.5rem);
 }
 
-/* Unpinned the deck sits where the frame draws it, below the heading. Pinned, the
-   panel is centred in the viewport instead, so the frame's gap is more air than
-   the layout needs and the pair is drawn closer together. */
 .deck-track .deck {
-  margin-top: 9.15rem;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .deck-track[data-pinned="true"] .deck {
-  margin-top: 4.6rem;
+  margin-top: 0;
 }
 
 /* One grid cell holds the whole stack, so the deck keeps its height from the
@@ -1217,12 +1286,17 @@ body:not(:has(.home)) .site-header-inner {
    grow past its aspect ratio on narrow screens.
    The deck, not the card, is the query container: a card cannot resolve its own
    padding against itself, and this way every cqw below is a share of the 517px
-   Figma card. */
+   Figma card.
+
+   Padding gives the tilted slabs room to swing without being cropped by the
+   section edge on narrow screens. */
 .deck {
   container-type: inline-size;
   display: grid;
-  width: min(32.3125rem, calc(100% - 5.5rem));
+  width: min(32.3125rem, calc(100% - 2.5rem));
   margin-inline: auto;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  overflow: visible;
 }
 
 .deck > * {
@@ -1315,7 +1389,7 @@ body:not(:has(.home)) .site-header-inner {
   display: flex;
   justify-content: center;
   gap: 0.6rem;
-  margin: 3.1rem 0 0;
+  margin: clamp(1.5rem, 3vw, 3.1rem) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1340,6 +1414,44 @@ body:not(:has(.home)) .site-header-inner {
 .deck-dots button[aria-current="true"] {
   background: #26286f;
   transform: scale(1.15);
+}
+
+@media (max-width: 1100px) {
+  .testimonials-head {
+    grid-template-columns: 1fr;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .testimonials-head p {
+    margin-top: 0;
+  }
+}
+
+@media (max-height: 820px) {
+  .testimonials {
+    padding-block: clamp(3rem, 6vh, 5rem) clamp(2.5rem, 5vh, 4rem);
+  }
+
+  .testimonials-head {
+    margin-bottom: clamp(1.25rem, 3vh, 2rem);
+  }
+
+  .testimonials-head h2 {
+    font-size: clamp(1.75rem, 4.5vw, var(--t-display));
+  }
+
+  .deck {
+    width: min(26rem, calc(100% - 2.5rem));
+  }
+
+  .deck-track[data-pinned="true"] .deck-pin {
+    padding-block: clamp(0.75rem, 2vh, 1.5rem);
+  }
+
+  .deck-dots {
+    margin-top: clamp(1rem, 2vh, 1.75rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1878,7 +1990,8 @@ main > article a {
   .wrap,
   .footer-wrap,
   .why > .wrap,
-  .svc-track {
+  .svc-track,
+  .svc-group-label {
     width: min(100%, calc(100% - 2.5rem));
   }
 
@@ -1888,6 +2001,7 @@ main > article a {
      top to bottom, with no sideways scrolling. */
   .svc-track {
     flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1rem;
     overflow-x: visible;
   }
@@ -1900,8 +2014,10 @@ main > article a {
     flex: 0 0 auto;
     width: 100%;
     /* Shorter than the desktop card: stacked, four full-height cards would be a
-       very long run of scrolling before the next section. */
-    height: clamp(15rem, 54vw, 19rem);
+       very long run of scrolling before the next section. min-height so a
+       wrapped title plus Learn More can still grow the plate. */
+    height: auto;
+    min-height: clamp(15rem, 54vw, 19rem);
   }
 
   .svc-card .svc-more,
@@ -1917,17 +2033,10 @@ main > article a {
     flex-wrap: wrap;
   }
 
-  /* The frame has no narrow layout. Below 900px the side-by-side split squeezes
-     the cut-out into a couple of hundred pixels and it stops reading at all, so
-     the artwork becomes a band across the top with the copy beneath it. */
+  /* Still a full-bleed background. Bias the crop toward the cell so it remains
+     visible above the copy, which now sits at the bottom of the plate. */
   .hero-art {
-    top: 8%;
-    right: auto;
-    left: 50%;
-    width: min(100%, 30rem);
-    height: 46%;
-    object-position: center;
-    transform: translateX(-50%);
+    object-position: 70% 20%;
   }
 
   /* Transparent over the artwork, opaque under it, so the art stays legible and
@@ -1960,19 +2069,18 @@ main > article a {
   }
 
   .testimonials {
-    padding-block: 4.2rem 3.6rem;
+    padding-block: 4.2rem 4.5rem;
   }
 
   .testimonials-head {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    margin-bottom: 2.5rem;
   }
 
   /* Figma's generous gap between the heading pair and the deck reads as dead
      space once the columns stack. */
   .deck-track .deck,
   .deck-track[data-pinned="true"] .deck {
-    margin-top: 3.2rem;
+    margin-top: 0;
   }
 
   .faq {
@@ -2011,7 +2119,8 @@ main > article a {
   /* The tilted slabs need room to swing, and the square card is dropped so a
      long review can make it taller rather than overflow. */
   .deck {
-    width: min(20rem, calc(100% - 5rem));
+    width: min(20rem, calc(100% - 2.5rem));
+    padding: 0.5rem;
   }
 
   .deck-card {
@@ -2487,6 +2596,288 @@ main > article a {
   }
 }
 
+/* ---------- Regenerative pillars -------------------------------------------
+   Layout follows the client's three-pillar reference: numbered photo plate on
+   the left, kicker / accent headline / points / note / CTA on the right.
+   Colour and type stay on One Light Medical tokens so the page belongs here
+   rather than looking pasted in. Everything is scoped under .regen. */
+.regen {
+  background: var(--navy-950);
+  color: var(--muted);
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+.regen .wrap {
+  width: min(78rem, calc(100% - 4.5rem));
+}
+
+.regen-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.regen-eyebrow {
+  margin: 0 0 0.45rem;
+  color: var(--nav);
+  font-size: var(--t-note);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.regen-head :is(h1, h2) {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.regen-bars {
+  display: flex;
+  gap: 0.4rem;
+  padding-bottom: 0.35rem;
+}
+
+.regen-bars i {
+  display: block;
+  width: 2.1rem;
+  height: 0.28rem;
+  border-radius: 999px;
+}
+
+.regen-bars i:nth-child(1) {
+  background: var(--brand);
+}
+
+.regen-bars i:nth-child(2) {
+  background: var(--cyan);
+}
+
+.regen-bars i:nth-child(3) {
+  background: var(--teal);
+}
+
+.regen-pillar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(1.75rem, 4vw, 4.5rem);
+  scroll-margin-top: 6.5rem;
+}
+
+.regen-pillar + .regen-pillar {
+  margin-top: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.regen-figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  min-height: clamp(20rem, 38vw, 34rem);
+}
+
+.regen-figure img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.regen-index {
+  position: absolute;
+  top: 1.15rem;
+  left: 1.25rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.regen-tags {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.regen-tags li {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(8, 16, 32, 0.28);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: var(--t-note);
+  letter-spacing: 0.01em;
+}
+
+.regen-copy {
+  position: relative;
+}
+
+.regen-watermark {
+  position: absolute;
+  top: -0.35em;
+  right: 0;
+  z-index: 0;
+  color: rgba(255, 255, 255, 0.04);
+  font-size: clamp(8rem, 18vw, 14rem);
+  font-weight: 600;
+  line-height: 0.75;
+  pointer-events: none;
+}
+
+.regen-kicker,
+.regen-copy h2,
+.regen-body,
+.regen-points,
+.regen-note,
+.regen-cta {
+  position: relative;
+  z-index: 1;
+}
+
+.regen-kicker {
+  margin: 0 0 0.7rem;
+  color: var(--cyan);
+  font-size: var(--t-note);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.regen-pillar:nth-of-type(2) .regen-kicker,
+.regen-pillar:nth-of-type(2) .regen-copy :is(h2, h3) em {
+  color: var(--teal);
+}
+
+.regen-pillar:nth-of-type(2) .regen-points li::before {
+  background: var(--teal);
+}
+
+.regen-pillar:nth-of-type(3) .regen-kicker,
+.regen-pillar:nth-of-type(3) .regen-copy :is(h2, h3) em {
+  color: var(--sky);
+}
+
+.regen-pillar:nth-of-type(3) .regen-points li::before {
+  background: var(--sky);
+}
+
+.regen-copy :is(h2, h3) {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.85rem, 3.4vw, 3.15rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.regen-copy :is(h2, h3) em {
+  font-style: normal;
+  color: var(--cyan);
+}
+
+.regen-body {
+  margin: 1.15rem 0 0;
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+
+.regen-points {
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.regen-points li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--muted);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.regen-points li + li {
+  margin-top: 0.65rem;
+}
+
+.regen-points li::before {
+  content: "";
+  position: absolute;
+  top: 0.42em;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.regen-note {
+  margin: 1.4rem 0 0;
+  max-width: 34rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.regen-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .regen .wrap {
+    width: min(100%, calc(100% - 2.5rem));
+  }
+
+  .regen-pillar {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .regen-figure {
+    min-height: clamp(16rem, 72vw, 22rem);
+  }
+
+  .regen-watermark {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .regen-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .regen-copy :is(h2, h3) {
+    font-size: clamp(1.65rem, 8vw, 2.15rem);
+  }
+}
+
 /* ---------- Preview lock ---------------------------------------------------
    Nothing on the home page is allowed to navigate while the rest of the site is
    still unstyled, so every link and button that would leave the page is made
@@ -2499,11 +2890,10 @@ main > article a {
 
    Deliberately still live:
    - tel: and mailto: links, which reach the clinic rather than an unbuilt page
-   - /contact/, now that the contact page is built and carries the enquiry form.
-     This covers the nav and footer entries and also every "Book An Appointment"
-     button, which all point there -- a dead primary CTA next to a working Contact
-     link would be the odd result.
-   - <summary> elements, or the mobile menu and the FAQ could not open
+   - Home (/), Contact (/contact/), and Testimonials (/#Testimonials) in the nav
+   - /contact/ elsewhere too, so every "Book An Appointment" button stays usable
+   - <summary> elements except Our Services, or the mobile menu and the FAQ
+     could not open
    - the testimonial dots, which are the pause and jump control for a deck that
      advances on its own
 
@@ -2511,10 +2901,26 @@ main > article a {
 .home a,
 body:has(.home)
   :is(.site-header, .site-footer)
-  a:not([href^="tel:"], [href^="mailto:"], [href="/contact/"]) {
+  a:not(
+    [href^="tel:"],
+    [href^="mailto:"],
+    [href="/"],
+    [href="/contact/"],
+    [href="/#Testimonials"]
+  ) {
   pointer-events: none;
 }
 
-.home a[href="/contact/"] {
+.home a[href="/"],
+.home a[href="/contact/"],
+.home a[href="/#Testimonials"] {
   pointer-events: auto;
+}
+
+.site-header .primary-nav a:not([href="/"], [href="/contact/"], [href="/#Testimonials"]) {
+  pointer-events: none;
+}
+
+.site-header .services-menu > summary {
+  pointer-events: none;
 }

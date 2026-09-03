@@ -55,13 +55,17 @@ const ROUTE_ADDED_TYPES: Record<string, Set<string>> = {
  *
  * Every entry here is a deliberate content decision, not a rebuild artefact.
  */
+/** New routes that do not exist on the live site yet. Compared locally only. */
+const LOCAL_ONLY_PATHS = new Set(["/regenerative/"]);
+
 const ROUTE_ALLOWED_TEXT: Record<string, Record<string, string>> = {
-  // The Figma homepage frame repositions the practice around stem cell therapy
-  // and rewrites the H1 to match. Signed off knowing this re-targets the page's
-  // ranking term away from "Relief for Joints, Pain, and Wellness"; the <title>
-  // and meta description are deliberately left on the indexed originals.
+  // Homepage now leads with regenerative medicine. Title, description and H1
+  // all diverge from the indexed live page by client direction.
   "/": {
-    h1: "Find Lasting Stem Cell Therapy for Joint Pain",
+    title: "One Light Medical | Regenerative Medicine in Amarillo, TX",
+    description:
+      "Regenerative medicine in Amarillo, TX — non-surgical care for joint pain and mobility. Stem cell therapy is one option within a broader regenerative plan. Book a consultation.",
+    h1: "Find Lasting Regenerative Medicine for Joint Pain",
   },
 };
 
@@ -267,6 +271,24 @@ function compareSchema(path: string, live: string[], local: string[]): { field: 
 }
 
 async function checkRoute(path: string): Promise<Result> {
+  if (LOCAL_ONLY_PATHS.has(path)) {
+    const local = await fetchHtml(`${LOCAL_BASE}${path}`);
+    if (local.error) {
+      return {
+        path,
+        fields: [],
+        notes: ["new route, not on live site"],
+        failures: [`local unreachable (${local.error})`],
+      };
+    }
+    return {
+      path,
+      fields: [{ label: "local", ok: true }],
+      notes: ["new route, not compared to live"],
+      failures: [],
+    };
+  }
+
   const [live, local] = await Promise.all([
     fetchHtml(`${LIVE_BASE}${path}`),
     fetchHtml(`${LOCAL_BASE}${path}`),

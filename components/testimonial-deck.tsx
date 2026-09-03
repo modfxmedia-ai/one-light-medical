@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type ReactNode,
 } from "react";
 
 export type Testimonial = {
@@ -20,8 +19,9 @@ export type Testimonial = {
  * The deck flips as the section is scrolled through, held in place while it does.
  *
  * A tall outer track supplies the scroll distance and a sticky inner panel pins
- * the heading and the card to the viewport, so the reviews turn over in place
- * before the page moves on. Which review is showing comes from how far through
+ * the card deck to the viewport, so the reviews turn over in place before the
+ * page moves on. The section heading stays in normal flow above the track so it
+ * is never pulled into the pin and clipped on shorter screens. Which review is showing comes from how far through
  * the track the viewport has travelled.
  *
  * The index is stepped rather than tied continuously to scroll position: CSS
@@ -34,13 +34,7 @@ export type Testimonial = {
  * script means no vast empty scroll region, just a static card. Every review is
  * in the markup either way, so all of them are crawlable.
  */
-export function TestimonialDeck({
-  items,
-  children,
-}: {
-  items: Testimonial[];
-  children?: ReactNode;
-}) {
+export function TestimonialDeck({ items }: { items: Testimonial[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
   /* Whether pinning is on is a property of the DOM node, not React state: the
@@ -112,8 +106,6 @@ export function TestimonialDeck({
       style={{ "--cards": items.length } as CSSProperties}
     >
       <div className="deck-pin">
-        {children}
-
         <div className="deck">
           <span className="deck-slab" data-depth="2" aria-hidden="true" />
           <span className="deck-slab" data-depth="1" aria-hidden="true" />
