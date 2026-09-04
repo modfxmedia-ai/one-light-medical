@@ -6,6 +6,9 @@ import { useRef } from "react";
 import { ServicesMenu } from "@/components/services-menu";
 import { BUSINESS, SERVICE_NAV } from "@/lib/site";
 
+const REGENERATIVE_NAV = SERVICE_NAV.slice(0, 3);
+const GENERAL_SERVICE_NAV = SERVICE_NAV.slice(3);
+
 const PILL_NAV = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us/" },
@@ -72,11 +75,23 @@ function Nav() {
     <nav className="site-nav" aria-label="Primary">
       <ul className="primary-nav">
         {PILL_NAV.map((item) =>
-          item.label === "Our Services" ? (
+          item.label === "Regenerative" ? (
             <li key={item.href}>
               <ServicesMenu href={item.href} label={item.label}>
                 <ul>
-                  {SERVICE_NAV.map((service) => (
+                  {REGENERATIVE_NAV.map((service) => (
+                    <li key={service.href}>
+                      <Link href={service.href}>{service.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </ServicesMenu>
+            </li>
+          ) : item.label === "Our Services" ? (
+            <li key={item.href}>
+              <ServicesMenu href={item.href} label={item.label}>
+                <ul>
+                  {GENERAL_SERVICE_NAV.map((service) => (
                     <li key={service.href}>
                       <Link href={service.href}>{service.label}</Link>
                     </li>
