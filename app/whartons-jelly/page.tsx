@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
-import { legacyMetadata } from "@/components/legacy-page";
 import { ServicePage } from "@/components/service-page";
 import { SERVICES } from "@/content/services";
+import { buildMetadata } from "@/lib/metadata";
 
 export function generateMetadata(): Metadata {
-  return legacyMetadata("softwave-trt-treatment");
+  return buildMetadata("/whartons-jelly/");
 }
 
 export default function Page() {
-  return <ServicePage service={SERVICES["softwave-trt-treatment"]} />;
+  return <ServicePage service={SERVICES["whartons-jelly"]} />;
 }

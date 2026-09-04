@@ -158,7 +158,7 @@ export function HomePage() {
               <Link href="/contact/" className="btn btn-gradient">
                 Book Regenerative Care
               </Link>
-              <Link href="/about-us/" className="btn btn-ghost">
+              <Link href="/#regen" className="btn btn-ghost">
                 Explore Regenerative Care
               </Link>
             </p>
@@ -229,7 +229,7 @@ export function HomePage() {
                 <Link href="/contact/" className="btn btn-gradient">
                   Book An Appointment
                 </Link>
-                <Link href="/#services" className="btn btn-aqua">
+                <Link href="/services/" className="btn btn-aqua">
                   View All Services
                 </Link>
               </p>

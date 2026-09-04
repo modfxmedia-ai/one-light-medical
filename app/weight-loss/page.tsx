@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
-import { LegacyPage, legacyMetadata } from "@/components/legacy-page";
-
-const SLUG = "weight-loss";
+import { legacyMetadata } from "@/components/legacy-page";
+import { ServicePage } from "@/components/service-page";
+import { SERVICES } from "@/content/services";
 
 export function generateMetadata(): Metadata {
-  return legacyMetadata(SLUG);
+  return legacyMetadata("weight-loss");
 }
 
 export default function Page() {
-  return <LegacyPage slug={SLUG} />;
+  return <ServicePage service={SERVICES["weight-loss"]} />;
 }

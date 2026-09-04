@@ -20,24 +20,11 @@ const FORM = {
   height: 905,
 };
 
-/* Working hours, the two policy links and the section headings all come from
-   content/pages/contact.md, harvested from the live page in Stage A. Keep them
-   in step with that file: the copy and the outbound links are what the route
-   already ranks on. */
+/* Working hours and the section headings come from content/pages/contact.md,
+   harvested from the live page in Stage A. Keep them in step with that file. */
 const HOURS = [
   { days: "Monday – Thursday", time: "9:00AM – 12:00PM, 3:00PM – 6:00PM" },
   { days: "Friday – Sunday", time: "Closed" },
-];
-
-const POLICY_LINKS = [
-  {
-    label: "Privacy Policy",
-    href: "https://email.replies.mycrmsupport.com/c/eJx0k0F3mzoQhX8N7OoDAgNZaOE4wU5SxzjBjp83HCENIFtIqiSg9Ne_k7wu3qJdz5y5c-98QyvOcAfwcN685WIv1TkVhbkeG5_hMKZJEtY-Uz3hEhvQgoNd9DM1vR20VsYtqOp_1ys1STC247pyswZMWpB0roi1vJXAfMBhmgZBkmRZ6ENPuKh6sJa08LkCS3aqfW3uDu_z0y2-nl7qOPrd9TVNSaicqpQEH-TIjZI9SIe1UWygjivpdzhANGpQFrO0YXGcpSzOaF2jlGTpXZCG1OcYBSgJUIBQGMZxuKiTjGVLABQhdtdk1IuDv7oUuHNOWy9aeSj3UE60XnRAhOvqwXIJ1i4I91A-Ig_l2sDIYfJQXtokWhpxCQ-lk_PLfhS09AWt_vPGpQMjicBHlFu2Od3O4V2uj0308da-L3mb69uqfjqFaOmW21THbD28Lp93N7bbtMVm7mxZqPhE7Hlswn7VkKIsTjXZ9aSfp6iPgin6dalR_f1YXGR5kR0Ml-3pZ_qa9afnGIXrXT1_PI778Vx46D75cRvWx7E2c9n9k174kG8v-832fv2gczH9oN39yz4snkX9ZL-b9Ubwg1bl-PzRXomH7lfltBeb7SGHrjiQrPn1mi3bmPAjOQQfpF1FPzMP5ZK-R2zzOCgvevCF-sJPWNGJKSrFHML18eVxfjtu_R5cpxgmmvvaqJEzMFgAYVRJCdQp4xtckxtT9JqmXhy0n3l-HcqqwVDAXwF_43b8NilzA-M7_Kn3RzGHqeqrP76Bw-Cq_9E3YvRvAAAA__9iGxtW",
-  },
-  {
-    label: "Terms & Conditions",
-    href: "https://email.replies.mycrmsupport.com/c/eJx0k812ozgQhZ8Gdu0DAgNZaOE4wc6PY5z4r73hCKkA2UJSSwKafvo5yfRiFpl11alb99ZXtOQMtwAP59V7LrZSnVNRmOuh9hkOY5okYeUz1REusQEtONhZN1HT2V5rZdyMqu5vvVSjBGNbrks3acCkAUmnkljLGwnMBxymaRAkSZaFPnSEi7IDa0kDnyuwZKOat_pu9zE93eLr8aWKo79dX9OUhNKpUknwQQ7cKNmBdFgbxXrquJJ-iyFJsiomjLK0DhGJ6nmdxgECmKcRu6sjn2MUoCRAAUJhGMfhrEoyls0BUITYXZ1RLw7-16XArXPaetHCQ7mHcqL1rAUiXFv1lkuwdka4h_IBeSjXBgYOo4fynyfzekTn2zrfP-2iS7EmKfiClv9649KBkUTgA8otWx1v5_Au14c6Or03H3Pe5Pq2qJ6OIZq7-TrVMVv2b_PnzY1tVk2xmlq7L1R8JPY81GG3qEmxL44V2XSkm8aoi4Ix-nOpUPV6KC5yf5Et9Jf18Xf6lnXH5xiFy001nR6H7XAuPHSf_Lr1y8NQmWnf_kwvvM_Xl-1qfb980LkYf9H2_mUbFs-ierKvZrkSfKfVfng-NVfiofvFftyK1XqXQ1vsSFb_ecvmTUz4geyCE2kW0e_MQ7mkHxFbPfbKix58ob7wE1a0Yoz2Ygrh-vjyOL0f1n4HrlUME819bdTAGRgsgDCqpATqlPENrsiNKXpNUy8Oms88vw5lVW8o4K-Af3A7_BiVuYHxHf7U-1bMYaq68ts3cBhc-R_6Boz-CQAA__-Lqhs8",
-  },
 ];
 
 export function ContactPage() {
@@ -75,7 +62,7 @@ export function ContactPage() {
             </li>
             <li>
               <a
-                href="https://maps.google.com/?q=5701+Time+Square+Blvd+Suite+340+Amarillo+TX+79119"
+                href={BUSINESS.mapsHref}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -154,11 +141,13 @@ export function ContactPage() {
                 </li>
                 <li>
                   <PinGlyph />
-                  <address>
-                    {BUSINESS.streetAddress}
-                    <br />
-                    {BUSINESS.addressLocality}, {BUSINESS.addressRegion} {BUSINESS.postalCode}
-                  </address>
+                  <a href={BUSINESS.mapsHref} rel="noopener noreferrer" target="_blank">
+                    <address>
+                      {BUSINESS.streetAddress}
+                      <br />
+                      {BUSINESS.addressLocality}, {BUSINESS.addressRegion} {BUSINESS.postalCode}
+                    </address>
+                  </a>
                 </li>
               </ul>
             </section>
@@ -177,8 +166,6 @@ export function ContactPage() {
 
             <section className="contact-card contact-card-follow">
               <h2>Follow Us</h2>
-              {/* Same list the footer carries, so LinkedIn and Instagram render as
-                  plain labels until those profile URLs land in lib/site.ts. */}
               <p className="contact-social">
                 {FOOTER_SOCIAL.map((item) =>
                   item.href ? (
@@ -193,14 +180,6 @@ export function ContactPage() {
             </section>
           </aside>
         </div>
-
-        <p className="wrap contact-legal">
-          {POLICY_LINKS.map((link) => (
-            <a key={link.label} href={link.href} rel="noopener noreferrer" target="_blank">
-              {link.label}
-            </a>
-          ))}
-        </p>
       </section>
 
       <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="afterInteractive" />

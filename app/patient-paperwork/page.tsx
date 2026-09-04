@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-import { LegacyPage, legacyMetadata } from "@/components/legacy-page";
+import { PaperworkPage } from "@/components/paperwork-page";
+import { legacyMetadata } from "@/components/legacy-page";
 
 const SLUG = "patient-paperwork";
 
@@ -9,5 +10,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <LegacyPage slug={SLUG} />;
+  return <PaperworkPage />;
 }

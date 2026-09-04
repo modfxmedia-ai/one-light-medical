@@ -1,6 +1,17 @@
 import Link from "next/link";
 
-import { BUSINESS, FOOTER_QUICK_LINKS, FOOTER_SERVICE_NAV, FOOTER_SOCIAL } from "@/lib/site";
+import {
+  BUSINESS,
+  FOOTER_LEGAL,
+  FOOTER_QUICK_LINKS,
+  FOOTER_SERVICE_NAV,
+  FOOTER_SOCIAL,
+} from "@/lib/site";
+
+const FOOTER_SERVICE_COLUMNS = [
+  FOOTER_SERVICE_NAV.slice(0, 5),
+  FOOTER_SERVICE_NAV.slice(5),
+] as const;
 
 export function SiteFooter() {
   return (
@@ -19,15 +30,17 @@ export function SiteFooter() {
 
         <nav aria-label="Our services">
           <h2>Services</h2>
-          {/* One list five rows deep, flowing into a second column: the 5 + 3
-              split the design shows without splitting the list itself. */}
-          <ul className="footer-services">
-            {FOOTER_SERVICE_NAV.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
-              </li>
+          <div className="footer-services">
+            {FOOTER_SERVICE_COLUMNS.map((column, index) => (
+              <ul key={index}>
+                {column.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
             ))}
-          </ul>
+          </div>
         </nav>
 
         <section className="footer-contact">
@@ -43,10 +56,18 @@ export function SiteFooter() {
             </li>
             <li>
               <PinGlyph />
-              <address>
-                {BUSINESS.streetAddress} {BUSINESS.addressLocality}, {BUSINESS.addressRegion}{" "}
-                {BUSINESS.postalCode}
-              </address>
+              <a
+                className="footer-address"
+                href={BUSINESS.mapsHref}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <address>
+                  {BUSINESS.streetAddress}
+                  <br />
+                  {BUSINESS.addressLocality}, {BUSINESS.addressRegion} {BUSINESS.postalCode}
+                </address>
+              </a>
             </li>
           </ul>
         </section>
@@ -94,6 +115,13 @@ export function SiteFooter() {
           <img src={BUSINESS.logo} alt="" width={190} height={116} />
         </Link>
         <p>&copy; {new Date().getFullYear()} ONE LIGHT MEDICAL. All Rights Reserved.</p>
+        <nav className="footer-legal" aria-label="Legal">
+          {FOOTER_LEGAL.map((item) => (
+            <Link key={item.href} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );

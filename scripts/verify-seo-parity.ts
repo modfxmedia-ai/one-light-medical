@@ -56,7 +56,15 @@ const ROUTE_ADDED_TYPES: Record<string, Set<string>> = {
  * Every entry here is a deliberate content decision, not a rebuild artefact.
  */
 /** New routes that do not exist on the live site yet. Compared locally only. */
-const LOCAL_ONLY_PATHS = new Set(["/regenerative/"]);
+const LOCAL_ONLY_PATHS = new Set([
+  "/regenerative/",
+  "/services/",
+  "/stem-cell/",
+  "/whartons-jelly/",
+  "/why-exosomes/",
+  "/privacy-policy/",
+  "/terms-and-conditions/",
+]);
 
 const ROUTE_ALLOWED_TEXT: Record<string, Record<string, string>> = {
   // Homepage now leads with regenerative medicine. Title, description and H1

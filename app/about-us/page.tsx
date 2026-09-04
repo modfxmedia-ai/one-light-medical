@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-import { LegacyPage, legacyMetadata } from "@/components/legacy-page";
+import { AboutPage } from "@/components/about-page";
+import { legacyMetadata } from "@/components/legacy-page";
 
 const SLUG = "about-us";
 
@@ -9,5 +10,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <LegacyPage slug={SLUG} />;
+  return <AboutPage />;
 }

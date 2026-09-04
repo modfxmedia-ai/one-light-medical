@@ -1,18 +1,24 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { useRef } from "react";
+
+import { ServicesMenu } from "@/components/services-menu";
 import { BUSINESS, SERVICE_NAV } from "@/lib/site";
 
 const PILL_NAV = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us/" },
-  { label: "Regenerative", href: "/#regen" },
-  { label: "Our Services", href: "/#services" },
+  { label: "Regenerative", href: "/regenerative/" },
+  { label: "Our Services", href: "/services/" },
   { label: "Blog", href: "/blog/" },
   { label: "Testimonials", href: "/#Testimonials" },
   { label: "Contact", href: "/contact/" },
 ] as const;
 
 export function SiteHeader() {
+  const mobileMenu = useRef<HTMLDetailsElement>(null);
+
   return (
     <header className="site-header">
       <div className="site-header-inner">
@@ -20,7 +26,15 @@ export function SiteHeader() {
           <img src="/images/logos/white-logo.png" alt={BUSINESS.name} width={220} height={132} />
         </Link>
 
-        <details className="site-nav-toggle">
+        <details
+          className="site-nav-toggle"
+          ref={mobileMenu}
+          onClickCapture={(event) => {
+            if ((event.target as HTMLElement).closest("a") && mobileMenu.current) {
+              mobileMenu.current.open = false;
+            }
+          }}
+        >
           {/* Both labels are present and CSS shows one, so the control names its
               own action in either state without needing script to swap the text. */}
           <summary>
@@ -60,8 +74,7 @@ function Nav() {
         {PILL_NAV.map((item) =>
           item.label === "Our Services" ? (
             <li key={item.href}>
-              <details className="services-menu">
-                <summary>{item.label}</summary>
+              <ServicesMenu href={item.href} label={item.label}>
                 <ul>
                   {SERVICE_NAV.map((service) => (
                     <li key={service.href}>
@@ -69,7 +82,7 @@ function Nav() {
                     </li>
                   ))}
                 </ul>
-              </details>
+              </ServicesMenu>
             </li>
           ) : (
             <li key={item.href}>

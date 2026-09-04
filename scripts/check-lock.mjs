@@ -3,9 +3,8 @@
  * that is still unstyled is non-interactive, while the hrefs, the disclosure
  * widgets and the carousel control are all left intact.
  *
- * Links that stay live: tel: and mailto:; Home (/); Contact (/contact/),
- * including every Book An Appointment button; and Testimonials (/#Testimonials).
- * Other nav entries stay in the markup but are not interactive.
+ * Links that stay live: tel: and mailto:; Home (/); About Us; Our Services;
+ * Contact (/contact/), including Book An Appointment; and Testimonials.
  *
  * Usage: node scripts/check-lock.mjs <url>
  */
@@ -24,9 +23,30 @@ const { result } = await browser.send("Runtime.evaluate", {
     const href = (a) => a.getAttribute("href") ?? "";
     const exempt = (a) =>
       /^(tel:|mailto:)/.test(href(a)) ||
+      href(a).startsWith("https://www.facebook.com/") ||
+      href(a).startsWith("https://www.youtube.com/") ||
+      href(a).startsWith("https://www.google.com/maps/") ||
       href(a) === "/" ||
+      href(a) === "/about-us/" ||
       href(a) === "/contact/" ||
-      href(a) === "/#Testimonials";
+      href(a) === "/services/" ||
+      href(a).startsWith("/services/") ||
+      href(a) === "/stem-cell/" ||
+      href(a) === "/whartons-jelly/" ||
+      href(a) === "/why-exosomes/" ||
+      href(a) === "/knee-pain/" ||
+      href(a) === "/neuropathy/" ||
+      href(a) === "/spinal-decompression/" ||
+      href(a) === "/softwave-trt-treatment/" ||
+      href(a) === "/weight-loss/" ||
+      href(a) === "/red-light-therapy/" ||
+      href(a) === "/blog/" ||
+      href(a) === "/regenerative/" ||
+      href(a) === "/privacy-policy/" ||
+      href(a) === "/terms-and-conditions/" ||
+      href(a) === "/patient-paperwork/" ||
+      href(a) === "/#Testimonials" ||
+      href(a) === "/#regen";
 
     const links = [...document.querySelectorAll("a")];
     const locked = links.filter((a) => !exempt(a));
@@ -36,7 +56,9 @@ const { result } = await browser.send("Runtime.evaluate", {
       lockedLinks: locked.length,
       lockedLeaks: locked.filter((a) => !inert(a)).map(href),
       exemptLinks: live.length,
-      exemptLocked: live.filter(inert).map(href),
+      exemptLocked: live
+        .filter((a) => inert(a) && !a.closest("details:not([open])"))
+        .map(href),
       contactLinks: links.filter((a) => href(a) === "/contact/").length,
       hrefsPresent: links.filter((a) => a.getAttribute("href")).length,
       totalLinks: links.length,
