@@ -10,8 +10,9 @@ import {
 
 export type Testimonial = {
   name: string;
-  date: string;
-  iso: string;
+  date?: string;
+  iso?: string;
+  sourceLabel?: string;
   quote: string;
 };
 
@@ -112,7 +113,7 @@ export function TestimonialDeck({ items }: { items: Testimonial[] }) {
           {items.map((item, index) => (
             <article
               className="deck-card"
-              key={item.iso}
+              key={item.name}
               data-current={index === current ? "true" : undefined}
               aria-hidden={index === current ? undefined : "true"}
             >
@@ -132,16 +133,13 @@ export function TestimonialDeck({ items }: { items: Testimonial[] }) {
               <blockquote className="deck-quote">
                 <p>{item.quote}</p>
               </blockquote>
-              <p className="deck-date">
-                <time dateTime={item.iso}>{item.date}</time>
-              </p>
             </article>
           ))}
         </div>
 
         <ol className="deck-dots">
           {items.map((item, index) => (
-            <li key={item.iso}>
+            <li key={item.name}>
               <button
                 type="button"
                 aria-label={`Show the review from ${item.name}`}

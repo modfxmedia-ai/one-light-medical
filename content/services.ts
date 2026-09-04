@@ -1,5 +1,7 @@
 /** Designed service pages. Harvested H1s stay exact on live routes. */
 
+import weightLossPhoto from "@/images/weight-loss.jpg";
+
 export type ServiceStat = {
   value: number;
   suffix: string;
@@ -38,6 +40,8 @@ export type ServiceContent = {
   extra?: readonly string[];
   extraHref?: string;
   extraLabel?: string;
+  extraImage?: string;
+  extraImageAlt?: string;
   seoName: string;
   seoDescription: string;
   legacy: boolean;
@@ -499,76 +503,18 @@ export const SERVICES = {
       "Red Light Therapy is a non-invasive treatment that uses specific wavelengths of red and near-infrared light. At One Light Medical it can sit beside a medically guided weight-loss plan to support comfort, recovery, and cellular activity.",
       "Whether you are managing joint discomfort while you lose weight or looking for a gentle adjunct to recovery, your clinician will tell you if a red light session belongs in the same plan.",
     ],
-    extraHref: "/red-light-therapy/",
-    extraLabel: "Read about Red Light Therapy",
+    extraImage: weightLossPhoto.src,
+    extraImageAlt: "A person showing the fit of jeans after weight loss",
     closerTitle: "Ready to take the next step toward a healthier you?",
     closer: "At One Light Medical, we're here to make your journey to wellness smooth, supportive, and effective. Whether you're managing pain, pursuing weight loss, or exploring red light therapy, our dedicated team is ready to guide you.",
     related: [
-      { href: "/red-light-therapy/", label: "Red Light Therapy" },
       { href: "/knee-pain/", label: "Knee Pain Care" },
       { href: "/stem-cell/", label: "Stem Cell" },
+      { href: "/softwave-trt-treatment/", label: "Softwave TRT Treatment" },
     ],
     seoName: "Doctor-Supervised Weight Loss Clinic in Amarillo, TX",
     seoDescription:
       "Start your journey with our medical weight loss program in Amarillo, TX. We offer a clear plan to help you shed pounds safely. Reach out to get started.",
-    legacy: true,
-  },
-  "red-light-therapy": {
-    path: "/red-light-therapy/",
-    slug: "red-light-therapy",
-    kicker: "Recovery",
-    h1: "Red Light Therapy",
-    lead: "Boost cell repair with low-level light therapy in Amarillo, TX. This gentle method is used to reduce swelling and help targeted tissues.",
-    intro: [
-      "At One Light Medical, we offer Red Light Therapy, an advanced, non-invasive treatment designed to enhance your body's natural healing processes and improve overall wellness. Using specific wavelengths of light, this therapy stimulates cellular activity to promote healing, reduce inflammation, and provide pain relief.",
-      "Whether you're looking to manage chronic pain, improve your skin, support weight loss, or accelerate muscle recovery, Red Light Therapy is discussed as part of a clinic plan, including beside medically guided weight loss.",
-    ],
-    understandingTitle: "Understanding red light therapy",
-    understanding: [
-      "Red Light Therapy (RLT) is a non-invasive treatment that uses specific wavelengths of red and near-infrared light to stimulate the body's natural healing processes. By penetrating the skin and tissues, it enhances cellular energy production, reduces inflammation, and promotes tissue regeneration.",
-      "This therapy is used for pain relief, muscle recovery, skin rejuvenation, and overall wellness. RLT harnesses the body's innate ability to heal, and your clinician will tell you whether a targeted or full-body session belongs in your plan.",
-    ],
-    src: "/images/home/card-red-light-therapy.webp",
-    alt: "A red light therapy bed at One Light Medical",
-    tags: ["Chronic pain", "Recovery", "Circulation", "Wellness"],
-    symptomsTitle: "Common symptoms and conditions",
-    symptoms: [
-      "Chronic pain and inflammation",
-      "Skin issues",
-      "Muscle and joint recovery",
-      "Poor circulation",
-      "Sleep and mood concerns",
-    ],
-    whoTitle: "Who benefits?",
-    who: [
-      "People with chronic pain",
-      "Athletes and active individuals",
-      "Individuals with skin concerns",
-      "Those with poor circulation",
-      "Anyone seeking overall wellness support",
-    ],
-    optionsTitle: "Treatment options",
-    options: [
-      "Targeted therapy for specific pain, skin issues, or muscle recovery",
-      "Full-body sessions for circulation, energy, and skin health",
-      "Combination therapy with medically guided weight loss",
-    ],
-    steps: SHARED_STEPS,
-    stats: [
-      { value: 30, suffix: "+", label: "Years in practice" },
-      { value: 3, suffix: "", label: "Session styles" },
-      { value: 1, suffix: "", label: "Amarillo clinic" },
-    ],
-    closerTitle: "Ready to take the next step toward a healthier you?",
-    closer: "We offer an integrative approach with Red Light Therapy to support healing, comfort, and overall wellness. Start your journey at One Light Medical in Amarillo.",
-    related: [
-      { href: "/weight-loss/", label: "Weight Loss" },
-      { href: "/softwave-trt-treatment/", label: "Softwave TRT Treatment" },
-      { href: "/knee-pain/", label: "Knee Pain Care" },
-    ],
-    seoName: "Red Light Therapy in Amarillo, TX | One Light Medical",
-    seoDescription:
-      "Boost cell repair with low-level light therapy in Amarillo, TX. This gentle method reduces swelling and helps heal targeted tissues. Book your session now.",
     legacy: true,
   },
 } as const satisfies Record<string, ServiceContent>;

@@ -1301,7 +1301,7 @@ body:not(:has(.home)) .site-header-inner {
 
 /* ---------- Testimonials: heading pair over a deck of cards ---------- */
 .testimonials {
-  padding: 7.6rem 0 5.4rem;
+  padding: clamp(4.5rem, 7vw, 6.5rem) 0 5.4rem;
   background: #ffffff;
   color: var(--ink-dark);
   overflow: visible;
@@ -1315,7 +1315,7 @@ body:not(:has(.home)) .site-header-inner {
   grid-template-columns: 48.5% 51.5%;
   align-items: start;
   gap: clamp(1rem, 2.4vw, 2rem);
-  margin-bottom: clamp(2rem, 4.6vw, 4.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
 }
 
 .testimonials-head h2 {
@@ -1355,7 +1355,7 @@ body:not(:has(.home)) .site-header-inner {
 }
 
 .deck-track[data-pinned="true"] {
-  height: calc(100svh + var(--cards) * 58svh);
+  height: calc(100svh + var(--cards) * 22svh);
 }
 
 .deck-track[data-pinned="true"] .deck-pin {
@@ -1470,13 +1470,6 @@ body:not(:has(.home)) .site-header-inner {
 
 .deck-quote p {
   margin: 0;
-}
-
-.deck-date {
-  margin: max(0.75rem, 2.82cqw) 0 0;
-  color: var(--ink-on-light);
-  font-size: max(0.84rem, 2.86cqw);
-  line-height: 1.375;
 }
 
 /* Not in the Figma frame: the deck rotates on its own, and this is the pause
@@ -4769,6 +4762,32 @@ main > article a {
   background: #fff;
 }
 
+.svc-extra-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.82fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.svc-extra-copy {
+  min-width: 0;
+}
+
+.svc-extra-figure {
+  min-height: 24rem;
+  overflow: hidden;
+  border-radius: clamp(1.25rem, 2vw, 2rem);
+  box-shadow: 0 1.5rem 3.5rem rgba(2, 38, 156, 0.14);
+}
+
+.svc-extra-figure img {
+  width: 100%;
+  height: 100%;
+  min-height: 24rem;
+  object-fit: cover;
+  object-position: center;
+}
+
 .svc-extra .btn {
   margin-top: 1.35rem;
 }
@@ -5395,13 +5414,20 @@ main > article a {
 }
 
 .blog-feature-card img,
-.blog-grid img,
-.blog-article-cover img,
-.blog-article .markdown img {
+.blog-grid img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.blog-article-cover img,
+.blog-article .markdown img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .blog-feature-card img {
@@ -5667,10 +5693,14 @@ main > article a {
 
 .blog-article-cover {
   max-width: 40rem;
-  height: 11rem;
   margin: 1.35rem auto 0;
   overflow: hidden;
   border-radius: 1.15rem;
+}
+
+.blog-article-cover img {
+  max-height: 22rem;
+  margin-inline: auto;
 }
 
 .blog-article .markdown {
@@ -5701,12 +5731,9 @@ main > article a {
 }
 
 .blog-article .markdown img {
-  max-width: 100%;
-  max-height: 11rem;
-  height: auto;
-  margin: 1.2rem 0;
+  max-height: 22rem;
+  margin: 1.2rem auto;
   border-radius: 0.9rem;
-  object-fit: cover;
 }
 
 .blog-article .markdown a {
@@ -5742,6 +5769,7 @@ main > article a {
 
   .svc-hero-grid,
   .svc-explain-grid,
+  .svc-extra-grid,
   .svc-qualify-grid,
   .svc-cta-grid,
   .svc-stats,
@@ -5789,14 +5817,15 @@ main > article a {
     min-height: 0;
   }
 
-  .blog-article-cover {
-    height: 9.5rem;
-  }
-
   .svc-hero-figure,
+  .svc-extra-figure,
   .about-hero-figure,
   .hub-hero-figure,
   .rg-hero-figure {
+    min-height: clamp(16rem, 72vw, 22rem);
+  }
+
+  .svc-extra-figure img {
     min-height: clamp(16rem, 72vw, 22rem);
   }
 

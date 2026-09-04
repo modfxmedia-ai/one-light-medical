@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { JsonLd } from "@/components/json-ld";
+import erinPhoto from "@/images/dr-erin.png";
 import { BUSINESS } from "@/lib/site";
 import { getPageSchema } from "@/lib/schema";
 
@@ -22,7 +23,7 @@ const TEAM = [
   {
     name: "Erin Nelson",
     role: "Nurse Practitioner, FNP-C",
-    src: "/images/team/erin-nelson.png",
+    src: erinPhoto.src,
     alt: "Erin Nelson, FNP-C, of One Light Medical",
     photoClass: "about-bio-erin",
     copy: "Erin Nelson, FNP-C, is a board-certified nurse practitioner whose healthcare philosophy fits perfectly with the mission of One Light Medical. Over twenty years of clinical experience influencing her success as a healthcare provider, Erin is passionate about helping her patients optimize their overall function and wellness. Erin earned her Master of Science in Nursing degree from Mississippi University for Women in 2014. In 2018, she completed advanced injection and regenerative medicine training in Denver. Her passion is finding natural solutions to decreasing and eliminating patients' pain while promoting their bodies' own natural ability to heal themselves.",

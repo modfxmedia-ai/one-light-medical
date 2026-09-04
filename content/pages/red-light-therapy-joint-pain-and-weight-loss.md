@@ -13,7 +13,7 @@ ogTitle: "Amarillo Red Light Therapy for Joint Pain Relief"
 ogDescription: "Discover how red light therapy in Amarillo can help ease joint pain, support mobility, and complement medically supervised weight loss programs for adults"
 ogType: "article"
 images: []
-internalLinks: ["/contact/", "/red-light-therapy/"]
+internalLinks: ["/contact/", "/weight-loss/"]
 ---
 
 ## Move with Less Pain This Summer in Amarillo
@@ -127,4 +127,4 @@ At One Light Medical in Amarillo, we focus on helping people move with less pain
 
 ## Start Feeling Better With Targeted Light Therapy
 
-If you are ready to experience the benefits of science-backed healing, explore how our [red light therapy in Amarillo](/red-light-therapy/) can fit into your wellness goals. At One Light Medical, we take time to understand your needs so we can recommend the right treatment plan. Reach out today through our [contact us](/contact/) page to schedule your visit or ask questions about getting started.
+If you are ready to experience the benefits of science-backed healing, explore how [red light therapy can fit within medically guided weight loss](/weight-loss/) and your broader wellness goals. At One Light Medical, we take time to understand your needs so we can recommend the right treatment plan. Reach out today through our [contact us](/contact/) page to schedule your visit or ask questions about getting started.

@@ -110,10 +110,6 @@ const SERVICES: readonly ServiceBlock[] = [
     points: ["Supervised weight-loss plans", "Red light for recovery and comfort", "Fits beside regenerative care"],
     src: "/images/home/card-red-light-therapy.webp",
     alt: "A red light therapy bed used alongside medically guided weight-loss care",
-    extras: [
-      { href: "/weight-loss/", label: "Weight Loss" },
-      { href: "/red-light-therapy/", label: "Red Light Therapy" },
-    ],
   },
 ];
 

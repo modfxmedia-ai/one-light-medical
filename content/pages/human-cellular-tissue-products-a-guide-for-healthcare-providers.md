@@ -12,7 +12,7 @@ ogDescription: "Read our clear guide on human cellular tissue products for medic
 ogType: "article"
 images:
   - {"src": "https://onelightmedical.com/wp-content/uploads/2025/05/a-a-meticulously-arranged-labor-c998b57f-f98b2346-e504-491d-9d72-1d3ad9a222a2.jpg", "alt": "", "role": "meaningful-alt-missing", "decorative": false}
-internalLinks: ["/blog/", "/human-cellular-tissue-products-a-guide-for-healthcare-providers/", "/red-light-therapy/"]
+internalLinks: ["/blog/", "/human-cellular-tissue-products-a-guide-for-healthcare-providers/"]
 ---
 
 ﻿

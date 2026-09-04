@@ -19,7 +19,7 @@ images:
   - {"src": "https://onelightmedical.com/wp-content/uploads/2024/10/softwave-therapy-for-ed-mount-pleasant-sc-22.png", "alt": "", "role": "meaningful-alt-missing", "decorative": false}
   - {"src": "https://onelightmedical.com/wp-content/uploads/2024/10/Spinal-Postural-Screenings.webp", "alt": "", "role": "meaningful-alt-missing", "decorative": false}
   - {"src": "https://onelightmedical.com/wp-content/uploads/2024/10/chiropractic-adjustment.webp", "alt": "", "role": "meaningful-alt-missing", "decorative": false}
-internalLinks: ["/about-us/", "/contact/", "/knee-pain/", "/neuropathy/", "/red-light-therapy/", "/softwave-trt-treatment/", "/spinal-decompression/", "/weight-loss/"]
+internalLinks: ["/about-us/", "/contact/", "/knee-pain/", "/neuropathy/", "/softwave-trt-treatment/", "/spinal-decompression/", "/weight-loss/"]
 ---
 
 ### Your Path to Health Starts Here

@@ -180,16 +180,23 @@ export function ServicePage({ service }: { service: ServiceContent }) {
 
       {service.extraTitle && service.extra ? (
         <section className="svc-extra">
-          <div className="wrap">
-            <p className="svc-kicker svc-kicker-brand">Paired care</p>
-            <h2>{service.extraTitle}</h2>
-            {service.extra.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-            ))}
-            {service.extraHref && service.extraLabel ? (
-              <Link href={service.extraHref} className="btn btn-gradient">
-                {service.extraLabel}
-              </Link>
+          <div className="wrap svc-extra-grid">
+            <div className="svc-extra-copy">
+              <p className="svc-kicker svc-kicker-brand">Paired care</p>
+              <h2>{service.extraTitle}</h2>
+              {service.extra.map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+              {service.extraHref && service.extraLabel ? (
+                <Link href={service.extraHref} className="btn btn-gradient">
+                  {service.extraLabel}
+                </Link>
+              ) : null}
+            </div>
+            {service.extraImage && service.extraImageAlt ? (
+              <figure className="svc-extra-figure">
+                <img src={service.extraImage} alt={service.extraImageAlt} />
+              </figure>
             ) : null}
           </div>
         </section>

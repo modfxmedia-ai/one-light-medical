@@ -13,7 +13,7 @@ const PILL_NAV = [
   { label: "Our Services", href: "/services/" },
   { label: "Blog", href: "/blog/" },
   { label: "Testimonials", href: "/#Testimonials" },
-  { label: "Contact", href: "/contact/" },
+  { label: "Contact Us", href: "/contact/" },
 ] as const;
 
 export function SiteHeader() {
@@ -81,6 +81,16 @@ function Nav() {
                       <Link href={service.href}>{service.label}</Link>
                     </li>
                   ))}
+                </ul>
+              </ServicesMenu>
+            </li>
+          ) : item.label === "Contact Us" ? (
+            <li key={item.href}>
+              <ServicesMenu href={item.href} label={item.label}>
+                <ul>
+                  <li>
+                    <Link href="/patient-paperwork/">Patient Paperwork</Link>
+                  </li>
                 </ul>
               </ServicesMenu>
             </li>
