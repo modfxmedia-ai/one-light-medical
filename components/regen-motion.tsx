@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 const RUN_MS = 1600;
 const ease = (t: number) => 1 - (1 - t) ** 3;
 
-function useDraw(startVisible = false) {
-  const ref = useRef<HTMLDivElement>(null);
+function useDraw<T extends HTMLElement = HTMLDivElement>(startVisible = false) {
+  const ref = useRef<T>(null);
   const [progress, setProgress] = useState(1);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ export function RegenBars({
 }: {
   items: readonly { label: string; weight: number }[];
 }) {
-  const { ref, progress } = useDraw();
+  const { ref, progress } = useDraw<HTMLUListElement>();
 
   return (
     <ul className="rg-bars" ref={ref}>
@@ -133,7 +133,7 @@ export function RegenTimeline({
 }: {
   steps: readonly { title: string; copy: string }[];
 }) {
-  const { ref, progress } = useDraw();
+  const { ref, progress } = useDraw<HTMLOListElement>();
 
   return (
     <ol className="rg-timeline" ref={ref}>

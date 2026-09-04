@@ -7,7 +7,7 @@ const CLOSE_GRACE_MS = 320;
 const FADE_MS = 180;
 
 function isDesktop() {
-  return window.matchMedia("(min-width: 1101px)").matches;
+  return window.matchMedia("(min-width: 1201px)").matches;
 }
 
 export function ServicesMenu({

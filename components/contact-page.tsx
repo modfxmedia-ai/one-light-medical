@@ -167,15 +167,11 @@ export function ContactPage() {
             <section className="contact-card contact-card-follow">
               <h2>Follow Us</h2>
               <p className="contact-social">
-                {FOOTER_SOCIAL.map((item) =>
-                  item.href ? (
-                    <a key={item.label} href={item.href} rel="noopener noreferrer" target="_blank">
-                      {item.label}
-                    </a>
-                  ) : (
-                    <span key={item.label}>{item.label}</span>
-                  ),
-                )}
+                {FOOTER_SOCIAL.map((item) => (
+                  <a key={item.label} href={item.href} rel="noopener noreferrer" target="_blank">
+                    {item.label}
+                  </a>
+                ))}
               </p>
             </section>
           </aside>
